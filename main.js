@@ -23,24 +23,24 @@ const modalLangToggle = document.getElementById('modalLangToggle');
 const app = document.getElementById('app');
 
 let currentLang = localStorage.getItem('lang') || 'en';
-const BASE_PATH = '/andruudev-portfolio';
+const BASE_PATH = window.location.hostname.includes('github.io') ? '/andruudev-portfolio' : '';
 
 // --- Router ---
 const routes = {
-  [BASE_PATH + '/']: HomeView,
-  [BASE_PATH + '/about']: AboutView,
-  [BASE_PATH + '/skills']: SkillsView,
-  [BASE_PATH + '/experience']: ExperienceView,
-  [BASE_PATH + '/education']: EducationView,
-  [BASE_PATH + '/certifications']: CertificationsView,
-  [BASE_PATH + '/leadership']: LeadershipView,
-  [BASE_PATH + '/writing']: WritingView,
-  [BASE_PATH + '/blog']: WritingView,
-  [BASE_PATH + '/bookshelf']: BookshelfView,
-  [BASE_PATH + '/now']: NowView,
-  [BASE_PATH + '/colophon']: ColophonView,
-  [BASE_PATH + '/project/sales-intelligence']: () => ProjectView('sales-intelligence'),
-  [BASE_PATH + '/project/retail-analytics']: () => ProjectView('retail-analytics'),
+  '/': HomeView,
+  '/about': AboutView,
+  '/skills': SkillsView,
+  '/experience': ExperienceView,
+  '/education': EducationView,
+  '/certifications': CertificationsView,
+  '/leadership': LeadershipView,
+  '/writing': WritingView,
+  '/blog': WritingView,
+  '/bookshelf': BookshelfView,
+  '/now': NowView,
+  '/colophon': ColophonView,
+  '/project/sales-intelligence': () => ProjectView('sales-intelligence'),
+  '/project/retail-analytics': () => ProjectView('retail-analytics'),
 };
 
 function navigateTo(path) {
@@ -55,7 +55,7 @@ function navigateTo(path) {
 gsap.registerPlugin(ScrollTrigger);
 
 function handleRoute() {
-  const path = window.location.pathname;
+  const path = window.location.pathname.replace(BASE_PATH, '') || '/';
   const view = routes[path] || routes['/'];
   
   // Start Page Wipe
@@ -78,7 +78,7 @@ function handleRoute() {
     initVisitorAnalytics();
     window.scrollTo(0, 0);
     
-    if (path === BASE_PATH + '/') {
+    if (path === '/') {
       // API calls removed per user request
     }
   })

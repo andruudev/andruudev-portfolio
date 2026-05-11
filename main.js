@@ -23,27 +23,30 @@ const modalLangToggle = document.getElementById('modalLangToggle');
 const app = document.getElementById('app');
 
 let currentLang = localStorage.getItem('lang') || 'en';
+const BASE_PATH = '/andruudev-portfolio';
 
 // --- Router ---
 const routes = {
-  '/': HomeView,
-  '/about': AboutView,
-  '/skills': SkillsView,
-  '/experience': ExperienceView,
-  '/education': EducationView,
-  '/certifications': CertificationsView,
-  '/leadership': LeadershipView,
-  '/writing': WritingView,
-  '/blog': WritingView, // Blog uses the same writing view for now
-  '/bookshelf': BookshelfView,
-  '/now': NowView,
-  '/colophon': ColophonView,
-  '/project/partner-growth': () => ProjectView('partner-growth'),
-  '/project/client-page': () => ProjectView('client-page'),
+  [BASE_PATH + '/']: HomeView,
+  [BASE_PATH + '/about']: AboutView,
+  [BASE_PATH + '/skills']: SkillsView,
+  [BASE_PATH + '/experience']: ExperienceView,
+  [BASE_PATH + '/education']: EducationView,
+  [BASE_PATH + '/certifications']: CertificationsView,
+  [BASE_PATH + '/leadership']: LeadershipView,
+  [BASE_PATH + '/writing']: WritingView,
+  [BASE_PATH + '/blog']: WritingView,
+  [BASE_PATH + '/bookshelf']: BookshelfView,
+  [BASE_PATH + '/now']: NowView,
+  [BASE_PATH + '/colophon']: ColophonView,
+  [BASE_PATH + '/project/sales-intelligence']: () => ProjectView('sales-intelligence'),
+  [BASE_PATH + '/project/retail-analytics']: () => ProjectView('retail-analytics'),
 };
 
 function navigateTo(path) {
-  window.history.pushState({}, path, window.location.origin + path);
+  // Ensure path starts with BASE_PATH
+  const fullPath = path.startsWith(BASE_PATH) ? path : BASE_PATH + path;
+  window.history.pushState({}, fullPath, window.location.origin + fullPath);
   handleRoute();
   closeModal();
   window.scrollTo(0, 0);
@@ -75,7 +78,7 @@ function handleRoute() {
     initVisitorAnalytics();
     window.scrollTo(0, 0);
     
-    if (path === '/') {
+    if (path === BASE_PATH + '/') {
       // API calls removed per user request
     }
   })
@@ -210,7 +213,7 @@ function attachLinkListeners() {
   document.querySelectorAll('.nav-link').forEach(link => {
     link.onclick = (e) => {
       const path = link.getAttribute('href');
-      if (path && path.startsWith('/')) {
+      if (path && (path.startsWith('/') || path.startsWith(BASE_PATH))) {
         e.preventDefault();
         navigateTo(path);
       }
@@ -717,7 +720,10 @@ function initVisitorAnalytics() {
       const s = (secondsActive % 60).toString().padStart(2, '0');
       const scrollPos = window.scrollY || document.documentElement.scrollTop;
       
-      metricsEl.textContent = `T: ${m}:${s} | S: ${Math.round(scrollPos)}px | X: ${globalMouseX} Y: ${globalMouseY}`;
+      const throughput = (Math.random() * 50 + 10).toFixed(1);
+      const latency = Math.floor(Math.random() * 20 + 5);
+      
+      metricsEl.textContent = `T: ${m}:${s} | THRUPT: ${throughput}MB/S | LAT: ${latency}MS`;
     }
     requestAnimationFrame(updateMetrics);
   };

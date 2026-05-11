@@ -40,7 +40,7 @@ export const translations = {
     blog_label: "[12] Blog",
 
     // Content
-    profile_text: "I'm a Product Designer & Creative Developer with 4 years of experience, based in Ecuador. Focused on building high-end interactive experiences and clean technical interfaces.",
+    profile_text: "I'm a Data Analyst & BI Developer focused on transforming complex datasets into actionable insights. Expert in building automated pipelines, interactive dashboards, and scalable data models.",
     system_initializing: "SYSTEM_INITIALIZING...",
     encrypting_session: "ENCRYPTING_SESSION...",
     booting_core: "BOOTING_CORE_SYSTEM...",
@@ -63,9 +63,9 @@ export const translations = {
     about_intro_label: "[01] Profile",
     about_what_label: "[02] What I do",
     about_fav_label: "[03] Favourites",
-    about_text_1: "I’m Jeyson Andrés Mueses, a product designer based in Ecuador. Currently exploring the intersection of design and code.",
-    about_text_2: "I untangle complexity into a single, consistent thread. I believe that good design is invisible and that form should always follow function.",
-    about_text_3: "I work across the entire design process—from initial research and strategy to high-fidelity prototyping and creative development. I thrive in collaborative environments and value clear communication.",
+    about_text_1: "I’m Jeyson Andrés Mueses, a Data Analyst and BI Developer based in Ecuador. Currently leveraging data to solve complex business problems.",
+    about_text_2: "I translate raw data into strategic narratives. I believe that every dataset tells a story and that accuracy and clarity are the foundation of any successful project.",
+    about_text_3: "I work across the entire data lifecycle—from ETL processes and SQL optimization to high-end BI dashboard design and predictive analysis. I thrive in environments where data drives decisions.",
     projects_title: "Projects",
     skills_title: "Technical Skills",
     experience_title: "Work Experience",
@@ -115,7 +115,7 @@ export const translations = {
     blog_label: "[12] Blog",
 
     // Content
-    profile_text: "Soy Diseñador de Producto y Desarrollador Creativo con 4 años de experiencia, basado en Ecuador. Enfocado en construir experiencias interactivas de alto nivel e interfaces técnicas limpias.",
+    profile_text: "Soy Analista de Datos y Desarrollador BI, enfocado en transformar conjuntos de datos complejos en información estratégica. Experto en construir pipelines automatizados y dashboards interactivos.",
     system_initializing: "INICIALIZANDO_SISTEMA...",
     encrypting_session: "ENCRIPTANDO_SESIÓN...",
     booting_core: "ARRANCANDO_NÚCLEO...",
@@ -138,9 +138,9 @@ export const translations = {
     about_intro_label: "[01] Perfil",
     about_what_label: "[02] Qué hago",
     about_fav_label: "[03] Favoritos",
-    about_text_1: "Soy Jeyson Andrés Mueses, un diseñador de producto basado en Ecuador. Actualmente explorando la intersección entre el diseño y el código.",
-    about_text_2: "Desenredo la complejidad en un hilo único y consistente. Creo que el buen diseño es invisible y que la forma siempre debe seguir a la función.",
-    about_text_3: "Trabajo en todo el proceso de diseño, desde la investigación inicial y la estrategia hasta el prototipado de alta fidelidad y el desarrollo creativo. Prospero en entornos colaborativos y valoro la comunicación clara.",
+    about_text_1: "Soy Jeyson Andrés Mueses, Analista de Datos y Desarrollador BI basado en Ecuador. Actualmente potenciando decisiones a través del análisis estratégico de datos.",
+    about_text_2: "Traduzco datos crudos en narrativas estratégicas. Creo que cada conjunto de datos cuenta una historia y que la precisión y la claridad son la base de cualquier proyecto exitoso.",
+    about_text_3: "Trabajo en todo el ciclo de vida de los datos, desde procesos ETL y optimización SQL hasta el diseño de dashboards BI de alto nivel y análisis predictivo.",
     projects_title: "Proyectos",
     skills_title: "Habilidades Técnicas",
     experience_title: "Experiencia Laboral",

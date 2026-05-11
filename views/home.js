@@ -12,13 +12,13 @@ export const HomeView = () => `
   <section class="animate">
     <span class="section-label" data-t="work_label">[02] Work</span>
     <div class="items-list">
-      <a href="/project/partner-growth" class="item nav-link">
-        <span class="item-title"><i data-lucide="layout"></i> Partner Growth</span>
-        <span class="item-meta">Design + Dev</span>
+      <a href="/project/sales-intelligence" class="item nav-link">
+        <span class="item-title"><i data-lucide="bar-chart-3"></i> Sales Intelligence Dashboard</span>
+        <span class="item-meta">Power BI + SQL</span>
       </a>
-      <a href="/project/client-page" class="item nav-link">
-        <span class="item-title"><i data-lucide="mouse-pointer-2"></i> Client Page</span>
-        <span class="item-meta">Interaction</span>
+      <a href="/project/retail-analytics" class="item nav-link">
+        <span class="item-title"><i data-lucide="database"></i> Retail ETL Pipeline</span>
+        <span class="item-meta">Python + Azure</span>
       </a>
     </div>
     <div style="margin-top: 16px;">
@@ -30,12 +30,12 @@ export const HomeView = () => `
     <span class="section-label" data-t="skills_label">[07] Skills</span>
     <div class="items-list">
       <div class="item" style="cursor: default;">
-        <span class="item-title">Design Systems</span>
-        <span class="item-meta">Figma</span>
+        <span class="item-title">Data Visualization & BI</span>
+        <span class="item-meta">Power BI / Tableau / Looker</span>
       </div>
       <div class="item" style="cursor: default;">
-        <span class="item-title">Frontend Development</span>
-        <span class="item-meta">React / Next.js</span>
+        <span class="item-title">Data Engineering</span>
+        <span class="item-meta">SQL / Python / ETL</span>
       </div>
     </div>
     <div style="margin-top: 16px;">
@@ -44,11 +44,23 @@ export const HomeView = () => `
   </section>
 
   <section class="animate">
+    <span class="section-label">[03] Data Stack</span>
+    <div class="data-stack-grid">
+      <div class="stack-item" title="SQL Server"><i data-lucide="database"></i><span>SQL</span></div>
+      <div class="stack-item" title="Python"><i data-lucide="code-2"></i><span>Python</span></div>
+      <div class="stack-item" title="Power BI"><i data-lucide="bar-chart-3"></i><span>Power BI</span></div>
+      <div class="stack-item" title="Azure"><i data-lucide="cloud"></i><span>Azure</span></div>
+      <div class="stack-item" title="Excel"><i data-lucide="table-2"></i><span>Excel</span></div>
+      <div class="stack-item" title="Tableau"><i data-lucide="pie-chart"></i><span>Tableau</span></div>
+    </div>
+  </section>
+
+  <section class="animate">
     <span class="section-label" data-t="experience_label">[08] Experience</span>
     <div class="items-list">
       <div class="item" style="cursor: default;">
-        <span class="item-title">Senior Product Designer</span>
-        <span class="item-meta">TechCorp Global</span>
+        <span class="item-title">BI Developer</span>
+        <span class="item-meta">Data Insights Ltd.</span>
       </div>
     </div>
     <div style="margin-top: 16px;">

@@ -25,7 +25,7 @@ const {
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/andruudev-portfolio/assets/logo-andruudev.png" />
+		<link rel="icon" type="image/png" href="/assets/logo-andruudev.png" />
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
 		<meta name="description" content={description} />
@@ -65,6 +65,42 @@ const {
 		<LangToggle />
 		<CommandPalette />
 
+		<!-- Mobile Unified Nav Bar -->
+		<div id="mobile-nav-bar">
+			<!-- Theme -->
+			<button class="mobile-nav-btn" id="mobileThemeBtn" aria-label="Toggle theme">
+				<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+					<circle cx="12" cy="12" r="4"/>
+					<path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>
+				</svg>
+				<span class="mobile-nav-label" id="mobileThemeLabel">Light</span>
+			</button>
+
+			<div class="mobile-nav-divider"></div>
+
+			<!-- Language -->
+			<button class="mobile-nav-btn" id="mobileLangBtn" aria-label="Toggle language">
+				<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+					<circle cx="12" cy="12" r="10"/>
+					<path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+					<path d="M2 12h20"/>
+				</svg>
+				<span class="mobile-nav-label" id="mobileLangLabel">EN</span>
+			</button>
+
+			<div class="mobile-nav-divider"></div>
+
+			<!-- Menu -->
+			<button class="mobile-nav-btn" id="mobileMenuBtn" aria-label="Open menu">
+				<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" id="mobileMenuIcon">
+					<line x1="4" y1="6" x2="20" y2="6"/>
+					<line x1="4" y1="12" x2="20" y2="12"/>
+					<line x1="4" y1="18" x2="20" y2="18"/>
+				</svg>
+				<span class="mobile-nav-label">Menu</span>
+			</button>
+		</div>
+
 		<div class="container">
 			<Header />
 			<main id="app">
@@ -73,171 +109,666 @@ const {
 			<Footer />
 		</div>
 
-		<script>
-			// Persistent Client-side Logic (GSAP, Lenis, Cursor, etc.)
-			import { translations } from '../translations.js';
+		<script is:inline>
+			// ============================================================
+			// TRANSLATIONS — embedded directly (no ES module import needed)
+			// ============================================================
+			window.__translations = {
+				en: {
+					home: "Home", about: "About", projects: "Projects", skills: "Skills",
+					experience: "Experience", education: "Education", certifications: "Certifications",
+					leadership: "Leadership", blog: "Blog",
+					lights: "Lights off/on", close: "Close ESC", back_home: "Back to Home",
+					see_more: "See More", send: "Send",
+					profile_label: "[01] Profile", work_label: "[02] Work",
+					connect_label: "[05] Connect", network_label: "[06] Data Pipeline Status",
+					skills_label: "[07] Skills", experience_label: "[08] Experience",
+					education_label: "[09] Education", certifications_label: "[10] Certifications",
+					leadership_label: "[11] Leadership", blog_label: "[12] Blog",
+					profile_text: "I'm a Data Analyst & BI Developer focused on transforming complex datasets into actionable insights. Expert in building automated pipelines, interactive dashboards, and scalable data models.",
+					system_initializing: "SYSTEM_INITIALIZING...", encrypting_session: "ENCRYPTING_SESSION...",
+					secure_node: "DATA WAREHOUSE CONNECTED",
+					name_placeholder: "Name", email_placeholder: "Email", message_placeholder: "Message...",
+				},
+				es: {
+					home: "Inicio", about: "Sobre mí", projects: "Proyectos", skills: "Habilidades",
+					experience: "Experiencia", education: "Educación", certifications: "Certificaciones",
+					leadership: "Liderazgo", blog: "Blog",
+					lights: "Luces off/on", close: "Cerrar ESC", back_home: "Volver al Inicio",
+					see_more: "Ver más", send: "Enviar",
+					profile_label: "[01] Perfil", work_label: "[02] Trabajo",
+					connect_label: "[05] Contacto", network_label: "[06] Estado del Pipeline",
+					skills_label: "[07] Habilidades", experience_label: "[08] Experiencia",
+					education_label: "[09] Educación", certifications_label: "[10] Certificaciones",
+					leadership_label: "[11] Liderazgo", blog_label: "[12] Blog",
+					profile_text: "Soy Analista de Datos y Desarrollador BI, enfocado en transformar conjuntos de datos complejos en información estratégica. Experto en construir pipelines automatizados y dashboards interactivos.",
+					system_initializing: "INICIALIZANDO_SISTEMA...", encrypting_session: "ENCRIPTANDO_SESIÓN...",
+					secure_node: "DATA WAREHOUSE CONECTADO",
+					name_placeholder: "Nombre", email_placeholder: "Correo", message_placeholder: "Mensaje...",
+				}
+			};
 
-			function init() {
-				// Initialize Lucide
-				if (window.lucide) {
-					window.lucide.createIcons();
+			// ============================================================
+			// PORTFOLIO CORE SCRIPT
+			// ============================================================
+
+			// ---- Lucide Icons ----
+			function createIcons() {
+				if (window.lucide) window.lucide.createIcons();
+			}
+
+			// ---- Text Scramble ----
+			class TextScramble {
+				constructor(el) {
+					this.el = el;
+					this.chars = '!<>-_\\/[]{}—=+*^?#________';
+					this.update = this.update.bind(this);
+				}
+				setText(newText) {
+					const oldText = this.el.innerText;
+					const length = Math.max(oldText.length, newText.length);
+					const promise = new Promise(resolve => this.resolve = resolve);
+					this.queue = [];
+					for (let i = 0; i < length; i++) {
+						const from = oldText[i] || '';
+						const to = newText[i] || '';
+						const start = Math.floor(Math.random() * 40);
+						const end = start + Math.floor(Math.random() * 40);
+						this.queue.push({ from, to, start, end });
+					}
+					cancelAnimationFrame(this.frameRequest);
+					this.frame = 0;
+					this.update();
+					return promise;
+				}
+				update() {
+					let output = '';
+					let complete = 0;
+					for (let i = 0, n = this.queue.length; i < n; i++) {
+						let { from, to, start, end, char } = this.queue[i];
+						if (this.frame >= end) {
+							complete++;
+							output += to;
+						} else if (this.frame >= start) {
+							if (!char || Math.random() < 0.28) {
+								char = this.chars[Math.floor(Math.random() * this.chars.length)];
+								this.queue[i].char = char;
+							}
+							output += `<span class="dud">${char}</span>`;
+						} else {
+							output += from;
+						}
+					}
+					this.el.innerHTML = output;
+					if (complete === this.queue.length) {
+						this.resolve();
+					} else {
+						this.frameRequest = requestAnimationFrame(this.update);
+						this.frame++;
+					}
+				}
+			}
+
+			// ---- Noise Canvas ----
+			function initNoise() {
+				if (window._noiseRunning) return;
+				const canvas = document.getElementById('noiseCanvas');
+				if (!canvas) return;
+				const ctx = canvas.getContext('2d');
+				if (!ctx) return;
+				window._noiseRunning = true;
+				let w, h;
+				const resize = () => { w = canvas.width = window.innerWidth; h = canvas.height = window.innerHeight; };
+				window.addEventListener('resize', resize);
+				resize();
+				const loop = () => {
+					const idata = ctx.createImageData(w, h);
+					const buf = new Uint32Array(idata.data.buffer);
+					for (let i = 0; i < buf.length; i++) {
+						if (Math.random() < 0.5) buf[i] = 0xff000000;
+					}
+					ctx.putImageData(idata, 0, 0);
+					requestAnimationFrame(loop);
+				};
+				loop();
+			}
+
+			// ---- Custom Cursor ----
+			function initCursor() {
+				if (window._cursorRunning) return;
+				const cursor = document.getElementById('cursor');
+				if (!cursor) return;
+				window._cursorRunning = true;
+				const pos = { x: -100, y: -100 };
+				const mouse = { x: -100, y: -100 };
+				let started = false;
+				window.addEventListener('mousemove', e => {
+					if (!started) {
+						// Snap to first position instantly
+						pos.x = e.clientX;
+						pos.y = e.clientY;
+						started = true;
+						cursor.style.opacity = '1';
+					}
+					mouse.x = e.clientX;
+					mouse.y = e.clientY;
+				});
+				// Hide cursor until mouse moves
+				cursor.style.opacity = '0';
+				gsap.ticker.add(() => {
+					pos.x += (mouse.x - pos.x) * 0.15;
+					pos.y += (mouse.y - pos.y) * 0.15;
+					gsap.set(cursor, { x: pos.x, y: pos.y });
+				});
+				document.addEventListener('mouseover', e => {
+					if (e.target.closest('a, button, .nav-link, .modal-item')) cursor.classList.add('hovering');
+				});
+				document.addEventListener('mouseout', e => {
+					if (e.target.closest('a, button, .nav-link, .modal-item')) cursor.classList.remove('hovering');
+				});
+			}
+
+			// ---- Lenis Smooth Scroll ----
+			let lenis;
+			function initLenis() {
+				if (lenis) { try { lenis.destroy(); } catch(e) {} lenis = null; }
+				lenis = new Lenis({ duration: 1.2, smoothWheel: true });
+				const raf = (time) => { lenis.raf(time); requestAnimationFrame(raf); };
+				requestAnimationFrame(raf);
+			}
+
+			// ---- Scroll Effects (GSAP + ScrollTrigger) ----
+			function initScrollEffects() {
+				gsap.registerPlugin(ScrollTrigger);
+				ScrollTrigger.getAll().forEach(t => t.kill());
+
+				// Reset all .animate elements to invisible before creating triggers
+				document.querySelectorAll('.animate').forEach(el => {
+					gsap.set(el, { opacity: 0, y: 30 });
+					const label = el.querySelector('.section-label');
+					if (label) label.classList.remove('visible');
+				});
+
+				gsap.to('#progress-bar', {
+					scaleX: 1, ease: 'none',
+					scrollTrigger: { scrub: 0.3 }
+				});
+
+				document.querySelectorAll('.animate').forEach(el => {
+					const label = el.querySelector('.section-label');
+					gsap.to(el,
+						{
+							opacity: 1, y: 0, duration: 0.8, ease: 'power2.out',
+							scrollTrigger: {
+								trigger: el,
+								start: 'top 90%',
+								toggleActions: 'play none none none',
+								onEnter: () => { if (label) label.classList.add('visible'); }
+							}
+						}
+					);
+				});
+
+				// Refresh after a tick so the new page layout is computed
+				setTimeout(() => ScrollTrigger.refresh(), 50);
+			}
+
+			// ---- Theme Toggle ----
+			function initTheme() {
+				const saved = localStorage.getItem('theme') || 'light';
+				document.documentElement.setAttribute('data-theme', saved);
+
+				const doToggle = (e) => {
+					const x = e.clientX ?? window.innerWidth / 2;
+					const y = e.clientY ?? window.innerHeight / 2;
+					const radius = Math.hypot(Math.max(x, window.innerWidth - x), Math.max(y, window.innerHeight - y));
+					const current = document.documentElement.getAttribute('data-theme');
+					const next = current === 'light' ? 'dark' : 'light';
+
+					const ov = document.createElement('div');
+					Object.assign(ov.style, {
+						position: 'fixed', inset: '0',
+						width: '100vw', height: '100vh',
+						zIndex: '999999',
+						pointerEvents: 'none',
+						backgroundColor: next === 'dark' ? '#0a0a0a' : '#ffffff',
+						clipPath: `circle(0px at ${x}px ${y}px)`
+					});
+					document.body.appendChild(ov);
+					gsap.to(ov, {
+						clipPath: `circle(${radius}px at ${x}px ${y}px)`,
+						duration: 0.8,
+						ease: 'power3.inOut',
+						onComplete: () => {
+							document.documentElement.setAttribute('data-theme', next);
+							localStorage.setItem('theme', next);
+							ov.remove();
+						}
+					});
+				};
+
+				// Use onclick to avoid duplicate listeners across swaps
+				const themeBtn = document.getElementById('themeToggle');
+				const modalThemeBtn = document.getElementById('modalThemeToggle');
+				if (themeBtn) themeBtn.onclick = doToggle;
+				if (modalThemeBtn) modalThemeBtn.onclick = doToggle;
+			}
+
+			// ---- Command Palette / Menu (SINGLE state machine) ----
+			function initCommandPalette() {
+				const cmdBtn = document.getElementById('cmdBtn');
+				const overlay = document.getElementById('modalOverlay');
+				const modalTime = document.getElementById('modalTime');
+				const closeBtn = document.getElementById('modalCloseBtn');
+				const closeText = document.getElementById('modalCloseText');
+				if (!overlay) return;
+
+				const updateTime = () => {
+					if (!modalTime) return;
+					const t = new Date().toLocaleTimeString('en-GB', {
+						timeZone: 'America/Guayaquil', hour: '2-digit', minute: '2-digit', hour12: true
+					});
+					modalTime.textContent = `Ecuador, ${t}`;
+				};
+
+				const resetMobileIcon = (isOpen) => {
+					const icon = document.getElementById('mobileMenuIcon');
+					if (!icon) return;
+					icon.innerHTML = isOpen
+						? `<line x1="18" y1="6" x2="6" y2="18" stroke-linecap="round"/><line x1="6" y1="6" x2="18" y2="18" stroke-linecap="round"/>`
+						: `<line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="18" x2="20" y2="18"/>`;
+				};
+
+				const openMenu = () => {
+					updateTime();
+					overlay.classList.add('active');
+					document.body.classList.add('modal-open');
+					window._menuOpen = true;
+					resetMobileIcon(true);
+					const icon = document.getElementById('menu-icon');
+					if (icon) { icon.setAttribute('data-lucide', 'x'); createIcons(); }
+				};
+
+				const closeMenu = () => {
+					overlay.classList.remove('active');
+					document.body.classList.remove('modal-open');
+					window._menuOpen = false;
+					resetMobileIcon(false);
+					const icon = document.getElementById('menu-icon');
+					if (icon) { icon.setAttribute('data-lucide', 'chart-no-axes-gantt'); createIcons(); }
+				};
+
+				// Expose globally so mobile nav can use them
+				window._openMenu = openMenu;
+				window._closeMenu = closeMenu;
+
+				// Desktop button
+				if (cmdBtn) cmdBtn.onclick = () => overlay.classList.contains('active') ? closeMenu() : openMenu();
+
+				// Backdrop click
+				overlay.onclick = (e) => { if (e.target === overlay) closeMenu(); };
+
+				// Close buttons INSIDE the modal
+				if (closeBtn) closeBtn.onclick = closeMenu;
+				if (closeText) closeText.onclick = closeMenu;
+
+				// Keyboard shortcuts
+				window.onkeydown = (e) => {
+					if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
+						e.preventDefault();
+						overlay.classList.contains('active') ? closeMenu() : openMenu();
+					}
+					if (e.key === 'Escape') closeMenu();
+				};
+			}
+
+			// ---- Lang Toggle ----
+			function initLangToggle() {
+				const btn = document.getElementById('langToggle');
+				const textEl = document.getElementById('langText');
+				if (!btn) return;
+				let lang = localStorage.getItem('lang') || 'en';
+				if (textEl) textEl.textContent = lang.toUpperCase();
+				applyTranslations(lang);
+				btn.onclick = () => {
+					lang = lang === 'en' ? 'es' : 'en';
+					localStorage.setItem('lang', lang);
+					if (textEl) textEl.textContent = lang.toUpperCase();
+					applyTranslations(lang);
+				};
+				const modalLangBtn = document.getElementById('modalLangToggle');
+				if (modalLangBtn) modalLangBtn.onclick = () => btn.click();
+			}
+
+			function applyTranslations(lang) {
+				const t = (window.__translations || {})[lang];
+				if (!t) return;
+				document.querySelectorAll('[data-t]').forEach(el => {
+					const key = el.getAttribute('data-t');
+					if (key && t[key]) {
+						if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+							el.placeholder = t[key];
+						} else {
+							el.innerHTML = t[key];
+						}
+					}
+				});
+			}
+
+			// ---- Mobile Nav Bar ----
+			function initMobileNav() {
+				const mobileThemeBtn = document.getElementById('mobileThemeBtn');
+				const mobileThemeLabel = document.getElementById('mobileThemeLabel');
+				const mobileLangBtn = document.getElementById('mobileLangBtn');
+				const mobileLangLabel = document.getElementById('mobileLangLabel');
+				const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+
+				if (!mobileMenuBtn) return;
+
+				// --- Helpers ---
+				const syncThemeLabel = () => {
+					const theme = document.documentElement.getAttribute('data-theme') || 'light';
+					if (mobileThemeLabel) mobileThemeLabel.textContent = theme === 'dark' ? 'Dark' : 'Light';
+				};
+				const syncLangLabel = () => {
+					const lang = localStorage.getItem('lang') || 'en';
+					if (mobileLangLabel) mobileLangLabel.textContent = lang.toUpperCase();
+				};
+
+				syncThemeLabel();
+				syncLangLabel();
+
+				// --- Theme ---
+				if (mobileThemeBtn) {
+					mobileThemeBtn.onclick = (e) => {
+						const x = e.clientX, y = e.clientY;
+						const radius = Math.hypot(Math.max(x, window.innerWidth - x), Math.max(y, window.innerHeight - y));
+						const next = document.documentElement.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+						const ov = document.createElement('div');
+						Object.assign(ov.style, {
+							position: 'fixed', inset: '0', width: '100vw', height: '100vh',
+							zIndex: '999999', pointerEvents: 'none',
+							backgroundColor: next === 'dark' ? '#0a0a0a' : '#ffffff',
+							clipPath: `circle(0px at ${x}px ${y}px)`
+						});
+						document.body.appendChild(ov);
+						gsap.to(ov, {
+							clipPath: `circle(${radius}px at ${x}px ${y}px)`,
+							duration: 0.8, ease: 'power3.inOut',
+							onComplete: () => {
+								document.documentElement.setAttribute('data-theme', next);
+								localStorage.setItem('theme', next);
+								syncThemeLabel();
+								ov.remove();
+							}
+						});
+					};
 				}
 
-				// Initialize Preloader logic (only on first load)
-				const preloader = document.getElementById('system-preloader');
-				if (preloader && preloader.style.display !== 'none') {
+				// --- Language ---
+				if (mobileLangBtn) {
+					mobileLangBtn.onclick = () => {
+						const langBtn = document.getElementById('langToggle');
+						if (langBtn) langBtn.click();
+						syncLangLabel();
+					};
+				}
+
+				// --- Menu Toggle (delegates to global) ---
+				mobileMenuBtn.onclick = () => {
+					if (window._menuOpen) {
+						if (window._closeMenu) window._closeMenu();
+					} else {
+						if (window._openMenu) window._openMenu();
+					}
+				};
+			}
+
+			// ---- Magnetic Buttons (floating UI) ----
+			function initMagneticButtons() {
+				[
+					{ wrapId: 'menu-wrap', btnId: 'cmdBtn', inner: '#menu-icon' },
+					{ wrapId: 'theme-wrap', btnId: 'themeToggle', inner: '.theme-toggle-inner' },
+					{ wrapId: 'lang-wrap', btnId: 'langToggle', inner: '#langText' }
+				].forEach(({ wrapId, btnId, inner }) => {
+					const wrap = document.getElementById(wrapId);
+					const btn = document.getElementById(btnId);
+					if (!wrap || !btn) return;
+					wrap.onmousemove = (e) => {
+						const r = wrap.getBoundingClientRect();
+						const x = e.clientX - r.left - r.width / 2;
+						const y = e.clientY - r.top - r.height / 2;
+						gsap.to(btn, { x: x * 0.5, y: y * 0.5, duration: 0.3, ease: 'power2.out' });
+						const el = btn.querySelector(inner);
+						if (el) gsap.to(el, { x: x * 0.25, y: y * 0.25, duration: 0.3, ease: 'power2.out' });
+					};
+					wrap.onmouseleave = () => {
+						gsap.to(btn, { x: 0, y: 0, duration: 0.9, ease: 'elastic.out(1, 0.3)' });
+						const el = btn.querySelector(inner);
+						if (el) gsap.to(el, { x: 0, y: 0, duration: 0.9, ease: 'elastic.out(1, 0.3)' });
+					};
+				});
+			}
+
+			// ---- Magnetic Links (nav items) ----
+			function initMagneticLinks() {
+				document.querySelectorAll('.avatar, .nav-link, .item').forEach(el => {
+					el.onmousemove = (e) => {
+						const r = el.getBoundingClientRect();
+						const dx = e.clientX - (r.left + r.width / 2);
+						const dy = e.clientY - (r.top + r.height / 2);
+						gsap.to(el, { x: dx * 0.3, y: dy * 0.3, duration: 0.3 });
+					};
+					el.onmouseleave = () => {
+						gsap.to(el, { x: 0, y: 0, duration: 0.6, ease: 'elastic.out(1, 0.3)' });
+					};
+				});
+			}
+
+			// ---- Scramble Text ----
+			function initScramble() {
+				document.querySelectorAll('.section-label').forEach(label => {
+					label.onmouseenter = () => {
+						const s = new TextScramble(label);
+						s.setText(label.textContent || '');
+					};
+				});
+			}
+
+			// ---- Project Preview ----
+			function initProjectPreview() {
+				const preview = document.getElementById('project-preview');
+				if (!preview) return;
+				const map = {
+					'sales-intelligence-dashboard': '/projects/partner-growth.png',
+					'retail-etl-pipeline': '/projects/client-page.png',
+					'partner-growth': '/projects/partner-growth.png',
+					'client-page': '/projects/client-page.png',
+					'finding-home': '/projects/finding-home.png',
+					'type-wunderkammer': '/projects/type-wunderkammer.png'
+				};
+				document.querySelectorAll('.item').forEach(link => {
+					const section = link.closest('section');
+					const label = section?.querySelector('.section-label')?.textContent?.toLowerCase() || '';
+					if (!label.includes('work') && !label.includes('proyectos')) return;
+					const titleEl = link.querySelector('.item-title');
+					if (!titleEl) return;
+					const slug = titleEl.textContent.toLowerCase().trim().replace(/\s+/g, '-').replace(/[^\w-]/g, '');
+					const img = map[slug] || '/projects/client-page.png';
+					link.onmouseenter = () => {
+						preview.innerHTML = `<img src="${img}" alt="preview">`;
+						gsap.to(preview, { opacity: 1, scale: 1, rotate: 0, duration: 0.4, ease: 'power2.out' });
+					};
+					link.onmouseleave = () => {
+						gsap.to(preview, { opacity: 0, scale: 0.8, rotate: -5, duration: 0.4, ease: 'power2.in' });
+					};
+					link.onmousemove = (e) => {
+						gsap.to(preview, { x: e.clientX + 20, y: e.clientY - 90, duration: 0.6, ease: 'power3.out' });
+					};
+				});
+			}
+
+			// ---- Dashboard Analytics ----
+			let dashInterval = null;
+			function initAnalytics() {
+				const metricsEl = document.getElementById('live-metrics');
+				const logsEl = document.getElementById('system-logs');
+				if (!metricsEl && !logsEl) return;
+				if (dashInterval) { clearInterval(dashInterval); dashInterval = null; }
+				const msgs = [
+					'CONNECTING_TO_DATA_WAREHOUSE...', 'SYNCING_POWER_BI_DATASETS...',
+					'QUERY_EXECUTION_SUCCESS [SQL]', 'EXTRACTING_ETL_PIPELINE_LOGS...',
+					'UPDATING_DASHBOARD_METRICS...', 'ANALYZING_TRAFFIC_PATTERNS...',
+					'DATABASE_SYNC_SUCCESS [WORK_COLL]', 'REFRESHING_OLAP_CUBES...',
+					'ESTABLISHING_SECURE_API_CONNECTION', 'SYSTEM_IDLE_NODE_OPTIMIZED'
+				];
+				dashInterval = setInterval(() => {
+					if (!logsEl) return;
+					const t = new Date().toLocaleTimeString('en-GB', { hour12: false });
+					const div = document.createElement('div');
+					div.className = 'log-line';
+					div.textContent = `[${t}] > ${msgs[Math.floor(Math.random() * msgs.length)]}`;
+					logsEl.appendChild(div);
+					if (logsEl.children.length > 12) logsEl.firstChild.remove();
+				}, 1500);
+				const start = Date.now();
+				const tick = () => {
+					if (!metricsEl || !document.body.contains(metricsEl)) return;
+					const s = Math.floor((Date.now() - start) / 1000);
+					const m = String(Math.floor(s / 60)).padStart(2, '0');
+					const sec = String(s % 60).padStart(2, '0');
+					metricsEl.textContent = `T: ${m}:${sec} | THRUPT: ${(Math.random()*50+10).toFixed(1)}MB/S | LAT: ${Math.floor(Math.random()*20+5)}MS`;
+					requestAnimationFrame(tick);
+				};
+				tick();
+			}
+
+			// ---- Contact Form ----
+			function initContactForm() {
+				const form = document.getElementById('contact-form');
+				if (!form) return;
+				form.onsubmit = async (e) => {
+					e.preventDefault();
+					const btn = form.querySelector('.submit-btn span');
+					if (!btn) return;
+					const orig = btn.textContent;
+					btn.textContent = 'Sending...';
+					try {
+						await new Promise(r => setTimeout(r, 800));
+						btn.textContent = 'Sent ✓';
+					} catch {
+						btn.textContent = 'Error';
+					}
+					setTimeout(() => { form.reset(); btn.textContent = orig; }, 3000);
+				};
+			}
+
+			// ---- Preloader (first load only) ----
+			function initPreloader() {
+				const pl = document.getElementById('system-preloader');
+				if (!pl) return;
+				const bar = pl.querySelector('.preloader-bar');
+				const status = pl.querySelector('.preloader-status');
+				gsap.timeline()
+					.to(bar, { width: '20%', duration: 0.4 })
+					.add(() => status.textContent = 'BOOTING_CORE_SYSTEM...')
+					.to(bar, { width: '50%', duration: 0.5, delay: 0.2 })
+					.add(() => status.textContent = 'LOADING_MODULES...')
+					.to(bar, { width: '85%', duration: 0.5 })
+					.add(() => status.textContent = 'DECRYPTING_BIO_METRICS...')
+					.to(bar, { width: '100%', duration: 0.3 })
+					.add(() => status.textContent = 'ACCESS_GRANTED')
+					.to(pl, {
+						opacity: 0, duration: 0.8, ease: 'power4.inOut',
+						onComplete: () => {
+							pl.style.display = 'none';
+							gsap.fromTo(
+								['.header', '.footer', '#menu-wrap', '#theme-wrap', '#lang-wrap'],
+								{ opacity: 0, y: -20 },
+								{ opacity: 1, y: 0, duration: 0.8, stagger: 0.1, ease: 'power2.out' }
+							);
+						}
+					});
+			}
+
+			// ---- Page Transition Wipe ----
+			function initPageTransitions() {
+				// IMPORTANT: Re-query cols inside handlers — they are recreated on each body swap
+				document.addEventListener('astro:before-preparation', (ev) => {
+					const cols = document.querySelectorAll('.transition-column');
+					if (!cols.length) return;
+					const orig = ev.loader;
+					ev.loader = async () => {
+						// Reset cols to hidden state first
+						gsap.set(cols, { scaleY: 0, transformOrigin: 'top' });
+						await new Promise(resolve => {
+							gsap.to(cols, {
+								scaleY: 1, duration: 0.45, stagger: 0.06,
+								ease: 'power4.inOut', onComplete: resolve
+							});
+						});
+						await orig();
+					};
+				});
+
+				document.addEventListener('astro:after-swap', () => {
+					// Re-query: these are the NEW page's columns
+					const cols = document.querySelectorAll('.transition-column');
+					if (!cols.length) return;
+					gsap.set(cols, { scaleY: 1, transformOrigin: 'bottom' });
+					gsap.to(cols, {
+						scaleY: 0, duration: 0.45, stagger: 0.06,
+						ease: 'power4.inOut', delay: 0.05,
+						onComplete: () => gsap.set(cols, { transformOrigin: 'top', scaleY: 0 })
+					});
+				});
+			}
+
+			// ---- MAIN INIT — runs on first load and after each page swap ----
+			function init() {
+				createIcons();
+
+				const pl = document.getElementById('system-preloader');
+				if (pl && !window._portfolioLoaded) {
+					window._portfolioLoaded = true;
 					initPreloader();
+				} else if (pl) {
+					pl.style.display = 'none';
 				}
 
 				initNoise();
 				initCursor();
 				initLenis();
 				initScrollEffects();
+				initTheme();
+				initCommandPalette();
+				initLangToggle();
+				initMobileNav();
+				initMagneticButtons();
+				initMagneticLinks();
+				initScramble();
+				initProjectPreview();
+				initContactForm();
+				initAnalytics();
 			}
 
-			// ... (Migration of functions from main.js will go here)
-			// For brevity, I'll start with the preloader and core effects
-
-			function initPreloader() {
-				const preloader = document.getElementById('system-preloader');
-				const bar = preloader.querySelector('.preloader-bar');
-				const status = preloader.querySelector('.preloader-status');
-				
-				const tl = gsap.timeline();
-				
-				tl.to(bar, { width: '20%', duration: 0.4, ease: "power2.inOut" })
-					.add(() => status.textContent = 'BOOTING_CORE_SYSTEM...')
-					.to(bar, { width: '40%', duration: 0.5, ease: "power2.inOut", delay: 0.2 })
-					.add(() => status.textContent = 'LOADING_UI_RESOURCES...')
-					.to(bar, { width: '65%', duration: 0.4, ease: "power2.inOut" })
-					.add(() => status.textContent = 'CONNECTING_TO_GRID...')
-					.to(bar, { width: '85%', duration: 0.6, ease: "power2.inOut", delay: 0.1 })
-					.add(() => status.textContent = 'DECRYPTING_BIO_METRICS...')
-					.to(bar, { width: '100%', duration: 0.3, ease: "power1.out" })
-					.add(() => status.textContent = 'ACCESS_GRANTED')
-					.to(preloader, { 
-						opacity: 0, 
-						duration: 0.8, 
-						ease: "power4.inOut", 
-						onComplete: () => {
-							preloader.style.display = 'none';
-							gsap.fromTo(['.header', '.footer', '#menu-wrap', '#theme-wrap', '#lang-wrap'], 
-								{ opacity: 0, y: -20 }, 
-								{ opacity: 1, y: 0, duration: 1, ease: "power2.out", stagger: 0.2 }
-							);
-						}
-					});
+			// ---- Bootstrap ----
+			// Reset only the flags that SHOULD reset on first load
+			if (!window._portfolioBootstrapped) {
+				window._portfolioBootstrapped = true;
+				window._portfolioLoaded = false;
 			}
-
-			function initNoise() {
-				const canvas = document.getElementById('noiseCanvas');
-				if (!canvas) return;
-				const ctx = canvas.getContext('2d');
-				let w, h;
-				const resize = () => {
-					w = canvas.width = window.innerWidth;
-					h = canvas.height = window.innerHeight;
-				};
-				window.addEventListener('resize', resize);
-				resize();
-				const noise = () => {
-					const idata = ctx.createImageData(w, h);
-					const buffer32 = new Uint32Array(idata.data.buffer);
-					const len = buffer32.length;
-					for (let i = 0; i < len; i++) {
-						if (Math.random() < 0.5) buffer32[i] = 0xff000000;
-					}
-					ctx.putImageData(idata, 0, 0);
-				};
-				let frame = 0;
-				const loop = () => {
-					frame++;
-					if (frame % 2 === 0) noise();
-					requestAnimationFrame(loop);
-				};
-				loop();
-			}
-
-			function initCursor() {
-				const cursor = document.getElementById('cursor');
-				if (!cursor) return;
-				const pos = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
-				const mouse = { x: pos.x, y: pos.y };
-				const speed = 0.15;
-
-				window.addEventListener('mousemove', e => {
-					mouse.x = e.clientX;
-					mouse.y = e.clientY;
-				});
-
-				gsap.ticker.add(() => {
-					pos.x += (mouse.x - pos.x) * speed;
-					pos.y += (mouse.y - pos.y) * speed;
-					gsap.set(cursor, { x: pos.x, y: pos.y });
-				});
-
-				document.addEventListener('mouseover', e => {
-					if (e.target.closest('a, button, .nav-link, .modal-item')) {
-						cursor.classList.add('hovering');
-					}
-				});
-
-				document.addEventListener('mouseout', e => {
-					if (e.target.closest('a, button, .nav-link, .modal-item')) {
-						cursor.classList.remove('hovering');
-					}
-				});
-			}
-
-			let lenis;
-			function initLenis() {
-				if (lenis) lenis.destroy();
-				lenis = new Lenis({
-					duration: 1.2,
-					easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-					smoothWheel: true
-				});
-				function raf(time) {
-					lenis.raf(time);
-					requestAnimationFrame(raf);
-				}
-				requestAnimationFrame(raf);
-			}
-
-			function initScrollEffects() {
-				gsap.registerPlugin(ScrollTrigger);
-				gsap.to('#progress-bar', {
-					scaleX: 1,
-					ease: 'none',
-					scrollTrigger: {
-						scrub: 0.3
-					}
-				});
-
-				const animatedElements = document.querySelectorAll('.animate');
-				animatedElements.forEach((el) => {
-					gsap.fromTo(el, 
-						{ opacity: 0, y: 30 },
-						{ 
-							opacity: 1, 
-							y: 0, 
-							duration: 1, 
-							ease: "power2.out",
-							scrollTrigger: {
-								trigger: el,
-								start: "top 85%",
-								toggleActions: "play none none none"
-							}
-						}
-					);
-				});
-			}
-
-			// Run on initial load
 			init();
 
-			// Run on every view transition
+			// One-time page transition setup
+			if (!window._transitionsReady) {
+				window._transitionsReady = true;
+				initPageTransitions();
+			}
+
+			// Re-run init after every Astro page swap
 			document.addEventListener('astro:after-swap', init);
+
 		</script>
 	</body>
 </html>

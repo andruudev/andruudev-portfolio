@@ -1,12 +1,8 @@
----
-import BaseLayout from '../layouts/BaseLayout.astro';
----
-
-<BaseLayout>
+export const HomeView = () => `
   <section class="animate">
     <span class="section-label" data-t="profile_label">[01] Profile</span>
     <div class="content-text">
-      <p data-t="profile_text">I'm a Data Analyst & BI Developer focused on transforming complex datasets into actionable insights. Expert in building automated pipelines, interactive dashboards, and scalable data models.</p>
+      <p data-t="profile_text">I'm a Product Designer & Creative Developer with 4 years of experience, based in Ecuador. Focused on building high-end interactive experiences and clean technical interfaces.</p>
     </div>
     <div style="margin-top: 16px;">
       <a href="/about" class="nav-link" style="color: var(--text-secondary); font-family: var(--font-mono); font-size: 11px; text-decoration: none; display: flex; align-items: center; gap: 4px;" data-t="see_more">See More <i data-lucide="arrow-right" style="width: 10px; height: 10px;"></i></a>
@@ -26,7 +22,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       </a>
     </div>
     <div style="margin-top: 16px;">
-      <a href="/projects" class="nav-link" style="color: var(--text-secondary); font-family: var(--font-mono); font-size: 11px; text-decoration: none; display: flex; align-items: center; gap: 4px;" data-t="see_more">See More <i data-lucide="arrow-right" style="width: 10px; height: 10px;"></i></a>
+      <a href="#" class="nav-link" style="color: var(--text-secondary); font-family: var(--font-mono); font-size: 11px; text-decoration: none; display: flex; align-items: center; gap: 4px;" data-t="see_more">See More <i data-lucide="arrow-right" style="width: 10px; height: 10px;"></i></a>
     </div>
   </section>
 
@@ -114,7 +110,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   <section class="animate">
     <span class="section-label" data-t="blog_label">[12] Blog</span>
     <div class="items-list">
-      <a href="/blog/creative-development-gsap" class="item nav-link">
+      <a href="/blog" class="item nav-link">
         <span class="item-title"><i data-lucide="book-text"></i> Creative development with GSAP</span>
         <span class="item-meta">21 Oct 2025</span>
       </a>
@@ -162,4 +158,4 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       </div>
     </div>
   </section>
-</BaseLayout>
+`;

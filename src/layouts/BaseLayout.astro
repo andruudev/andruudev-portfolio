@@ -1,0 +1,243 @@
+---
+import '../styles/global.css';
+import { ClientRouter } from 'astro:transitions';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import ThemeToggle from '../components/ThemeToggle.astro';
+import LangToggle from '../components/LangToggle.astro';
+import CommandPalette from '../components/CommandPalette.astro';
+
+interface Props {
+	title?: string;
+	description?: string;
+	lang?: string;
+}
+
+const { 
+	title = "Jeyson Andrés Mueses | Portfolio | Data Analyst & BI Developer", 
+	description = "Data Analyst & BI Developer focused on transforming complex datasets into actionable insights.",
+	lang = "en" 
+} = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang={lang} data-theme="light">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/svg+xml" href="/andruudev-portfolio/assets/logo-andruudev.png" />
+		<meta name="generator" content={Astro.generator} />
+		<title>{title}</title>
+		<meta name="description" content={description} />
+		
+		<script is:inline src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+		<script is:inline src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+		<script is:inline src="https://unpkg.com/lenis@1.1.2/dist/lenis.min.js"></script>
+		<script is:inline src="https://unpkg.com/lucide@latest"></script>
+		
+		<ClientRouter />
+	</head>
+	<body>
+		<div id="system-preloader">
+			<div class="preloader-content">
+				<div class="preloader-text" data-t="system_initializing">SYSTEM_INITIALIZING...</div>
+				<div class="preloader-bar-bg">
+					<div class="preloader-bar"></div>
+				</div>
+				<div class="preloader-status" data-t="encrypting_session">ENCRYPTING_SESSION...</div>
+			</div>
+		</div>
+		
+		<div id="transition-overlay">
+			<div class="transition-column"></div>
+			<div class="transition-column"></div>
+			<div class="transition-column"></div>
+			<div class="transition-column"></div>
+			<div class="transition-column"></div>
+		</div>
+		
+		<div id="progress-bar"></div>
+		<div id="cursor"></div>
+		<div id="project-preview"></div>
+		<canvas id="noiseCanvas"></canvas>
+
+		<ThemeToggle />
+		<LangToggle />
+		<CommandPalette />
+
+		<div class="container">
+			<Header />
+			<main id="app">
+				<slot />
+			</main>
+			<Footer />
+		</div>
+
+		<script>
+			// Persistent Client-side Logic (GSAP, Lenis, Cursor, etc.)
+			import { translations } from '../translations.js';
+
+			function init() {
+				// Initialize Lucide
+				if (window.lucide) {
+					window.lucide.createIcons();
+				}
+
+				// Initialize Preloader logic (only on first load)
+				const preloader = document.getElementById('system-preloader');
+				if (preloader && preloader.style.display !== 'none') {
+					initPreloader();
+				}
+
+				initNoise();
+				initCursor();
+				initLenis();
+				initScrollEffects();
+			}
+
+			// ... (Migration of functions from main.js will go here)
+			// For brevity, I'll start with the preloader and core effects
+
+			function initPreloader() {
+				const preloader = document.getElementById('system-preloader');
+				const bar = preloader.querySelector('.preloader-bar');
+				const status = preloader.querySelector('.preloader-status');
+				
+				const tl = gsap.timeline();
+				
+				tl.to(bar, { width: '20%', duration: 0.4, ease: "power2.inOut" })
+					.add(() => status.textContent = 'BOOTING_CORE_SYSTEM...')
+					.to(bar, { width: '40%', duration: 0.5, ease: "power2.inOut", delay: 0.2 })
+					.add(() => status.textContent = 'LOADING_UI_RESOURCES...')
+					.to(bar, { width: '65%', duration: 0.4, ease: "power2.inOut" })
+					.add(() => status.textContent = 'CONNECTING_TO_GRID...')
+					.to(bar, { width: '85%', duration: 0.6, ease: "power2.inOut", delay: 0.1 })
+					.add(() => status.textContent = 'DECRYPTING_BIO_METRICS...')
+					.to(bar, { width: '100%', duration: 0.3, ease: "power1.out" })
+					.add(() => status.textContent = 'ACCESS_GRANTED')
+					.to(preloader, { 
+						opacity: 0, 
+						duration: 0.8, 
+						ease: "power4.inOut", 
+						onComplete: () => {
+							preloader.style.display = 'none';
+							gsap.fromTo(['.header', '.footer', '#menu-wrap', '#theme-wrap', '#lang-wrap'], 
+								{ opacity: 0, y: -20 }, 
+								{ opacity: 1, y: 0, duration: 1, ease: "power2.out", stagger: 0.2 }
+							);
+						}
+					});
+			}
+
+			function initNoise() {
+				const canvas = document.getElementById('noiseCanvas');
+				if (!canvas) return;
+				const ctx = canvas.getContext('2d');
+				let w, h;
+				const resize = () => {
+					w = canvas.width = window.innerWidth;
+					h = canvas.height = window.innerHeight;
+				};
+				window.addEventListener('resize', resize);
+				resize();
+				const noise = () => {
+					const idata = ctx.createImageData(w, h);
+					const buffer32 = new Uint32Array(idata.data.buffer);
+					const len = buffer32.length;
+					for (let i = 0; i < len; i++) {
+						if (Math.random() < 0.5) buffer32[i] = 0xff000000;
+					}
+					ctx.putImageData(idata, 0, 0);
+				};
+				let frame = 0;
+				const loop = () => {
+					frame++;
+					if (frame % 2 === 0) noise();
+					requestAnimationFrame(loop);
+				};
+				loop();
+			}
+
+			function initCursor() {
+				const cursor = document.getElementById('cursor');
+				if (!cursor) return;
+				const pos = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
+				const mouse = { x: pos.x, y: pos.y };
+				const speed = 0.15;
+
+				window.addEventListener('mousemove', e => {
+					mouse.x = e.clientX;
+					mouse.y = e.clientY;
+				});
+
+				gsap.ticker.add(() => {
+					pos.x += (mouse.x - pos.x) * speed;
+					pos.y += (mouse.y - pos.y) * speed;
+					gsap.set(cursor, { x: pos.x, y: pos.y });
+				});
+
+				document.addEventListener('mouseover', e => {
+					if (e.target.closest('a, button, .nav-link, .modal-item')) {
+						cursor.classList.add('hovering');
+					}
+				});
+
+				document.addEventListener('mouseout', e => {
+					if (e.target.closest('a, button, .nav-link, .modal-item')) {
+						cursor.classList.remove('hovering');
+					}
+				});
+			}
+
+			let lenis;
+			function initLenis() {
+				if (lenis) lenis.destroy();
+				lenis = new Lenis({
+					duration: 1.2,
+					easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+					smoothWheel: true
+				});
+				function raf(time) {
+					lenis.raf(time);
+					requestAnimationFrame(raf);
+				}
+				requestAnimationFrame(raf);
+			}
+
+			function initScrollEffects() {
+				gsap.registerPlugin(ScrollTrigger);
+				gsap.to('#progress-bar', {
+					scaleX: 1,
+					ease: 'none',
+					scrollTrigger: {
+						scrub: 0.3
+					}
+				});
+
+				const animatedElements = document.querySelectorAll('.animate');
+				animatedElements.forEach((el) => {
+					gsap.fromTo(el, 
+						{ opacity: 0, y: 30 },
+						{ 
+							opacity: 1, 
+							y: 0, 
+							duration: 1, 
+							ease: "power2.out",
+							scrollTrigger: {
+								trigger: el,
+								start: "top 85%",
+								toggleActions: "play none none none"
+							}
+						}
+					);
+				});
+			}
+
+			// Run on initial load
+			init();
+
+			// Run on every view transition
+			document.addEventListener('astro:after-swap', init);
+		</script>
+	</body>
+</html>

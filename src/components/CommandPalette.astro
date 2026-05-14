@@ -1,0 +1,93 @@
+---
+---
+<div class="magnetic-wrap animate" id="menu-wrap">
+  <button class="cmd-btn" id="cmdBtn" aria-label="Open Menu">
+    <i data-lucide="chart-no-axes-gantt" id="menu-icon" style="width: 20px; height: 20px;"></i>
+  </button>
+</div>
+
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal-content">
+    <div class="modal-header">
+      <div style="display: flex; align-items: center; gap: 8px;">
+        <div class="status-dot"></div>
+        <span id="modalTime">Ecuador, 05:00am</span>
+      </div>
+      <div class="header-socials">
+        <!-- Socials here -->
+      </div>
+    </div>
+
+    <div class="modal-list">
+      <div class="modal-category">System</div>
+      <div class="modal-item" id="modalThemeToggle">
+        <span data-t="lights">Lights off/on</span>
+        <span class="modal-shortcut">T</span>
+      </div>
+      <div class="modal-item" id="modalLangToggle">
+        <span id="modalLangText">Language: EN / ES</span>
+        <span class="modal-shortcut">L</span>
+      </div>
+
+      <div class="modal-category" data-t="projects">Pages</div>
+      <a href="/" class="modal-item nav-link-modal">
+        <span data-t="home">Home</span>
+        <span class="modal-shortcut">H</span>
+      </a>
+      <a href="/about" class="modal-item nav-link-modal">
+        <span data-t="about">About</span>
+        <span class="modal-shortcut">A</span>
+      </a>
+      <a href="/skills" class="modal-item nav-link-modal">
+        <span data-t="skills">Skills</span>
+        <span class="modal-shortcut">S</span>
+      </a>
+      <!-- Add other pages -->
+    </div>
+
+    <div class="modal-footer">
+      <a href="mailto:andruudev@gmail.com"> <span>andruudev@gmail.com</span> </a>
+      <span data-t="close">Close ESC</span>
+    </div>
+  </div>
+</div>
+
+<script>
+  import { navigate } from 'astro:transitions/client';
+
+  function initCommandPalette() {
+    const cmdBtn = document.getElementById('cmdBtn');
+    const modalOverlay = document.getElementById('modalOverlay');
+    if (!cmdBtn || !modalOverlay) return;
+
+    cmdBtn.addEventListener('click', () => {
+      modalOverlay.classList.toggle('active');
+    });
+
+    modalOverlay.addEventListener('click', (e) => {
+      if (e.target === modalOverlay) modalOverlay.classList.remove('active');
+    });
+
+    // Keyboard Shortcuts
+    window.addEventListener('keydown', (e) => {
+      const key = e.key.toLowerCase();
+      if ((e.metaKey || e.ctrlKey) && key === 'k') {
+        e.preventDefault();
+        modalOverlay.classList.toggle('active');
+      }
+      if (e.key === 'Escape') {
+        modalOverlay.classList.remove('active');
+      }
+      
+      if (modalOverlay.classList.contains('active')) {
+        if (key === 'h') navigate('/');
+        if (key === 'a') navigate('/about');
+        if (key === 's') navigate('/skills');
+        // ...
+      }
+    });
+  }
+
+  initCommandPalette();
+  document.addEventListener('astro:after-swap', initCommandPalette);
+</script>

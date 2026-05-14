@@ -1,0 +1,30 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const projectEntries = await getCollection('projects');
+  return projectEntries.map(entry => ({
+    params: { slug: entry.id }, props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+---
+
+<BaseLayout title={`${entry.data.title} | Project`}>
+  <article class="animate">
+    <span class="section-label">[02] Project</span>
+    <h1 style="font-family: var(--font-sans); font-size: 32px; margin-bottom: 8px;">{entry.data.title}</h1>
+    <p style="color: var(--text-secondary); font-family: var(--font-mono); font-size: 12px; margin-bottom: 32px;">{entry.data.tech}</p>
+    
+    <div class="content-text">
+      <Content />
+    </div>
+  </article>
+
+  <div style="margin-top: 40px; border-top: 1px solid var(--border-color); padding-top: 24px;">
+    <a href="/" class="nav-link" style="color: var(--text-secondary); font-family: var(--font-mono); font-size: 13px; text-decoration: none;"><i data-lucide="arrow-left"></i> Back to Home</a>
+  </div>
+</BaseLayout>

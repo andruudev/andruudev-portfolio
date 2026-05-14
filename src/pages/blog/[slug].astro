@@ -1,0 +1,36 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const blogEntries = await getCollection('blog');
+  return blogEntries.map(entry => ({
+    params: { slug: entry.id }, props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+---
+
+<BaseLayout title={`${entry.data.title} | Blog`}>
+  <article class="animate">
+    <span class="section-label">[12] Blog Post</span>
+    <h1 style="font-family: var(--font-sans); font-size: 32px; margin-bottom: 8px;">{entry.data.title}</h1>
+    <p style="color: var(--text-secondary); font-family: var(--font-mono); font-size: 12px; margin-bottom: 32px;">{entry.data.date} — {entry.data.tag}</p>
+    
+    <div class="content-text blog-content">
+      <Content />
+    </div>
+  </article>
+
+  <div style="margin-top: 40px; border-top: 1px solid var(--border-color); padding-top: 24px;">
+    <a href="/blog" class="nav-link" style="color: var(--text-secondary); font-family: var(--font-mono); font-size: 13px; text-decoration: none;"><i data-lucide="arrow-left"></i> Back to Blog</a>
+  </div>
+</BaseLayout>
+
+<style is:global>
+  .blog-content h2 { margin-top: 24px; margin-bottom: 12px; font-size: 20px; }
+  .blog-content p { margin-bottom: 16px; }
+  .blog-content ul { margin-bottom: 16px; padding-left: 20px; }
+</style>

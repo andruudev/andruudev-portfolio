@@ -1,0 +1,61 @@
+---
+---
+<div class="magnetic-wrap animate" id="theme-wrap">
+  <button class="theme-toggle-btn" id="themeToggle" aria-label="Toggle Theme">
+    <div class="theme-toggle-inner">
+      <div class="theme-dot"></div>
+      <span data-t="lights">Lights off/on</span>
+    </div>
+  </button>
+</div>
+
+<script>
+  function initThemeToggle() {
+    const themeToggle = document.getElementById('themeToggle');
+    if (!themeToggle) return;
+
+    themeToggle.addEventListener('click', (e) => {
+      toggleTheme(e);
+    });
+
+    // Initial theme set
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    document.documentElement.setAttribute('data-theme', savedTheme);
+  }
+
+  function toggleTheme(event) {
+    const x = event?.clientX || window.innerWidth / 2;
+    const y = event?.clientY || window.innerHeight / 2;
+    const endRadius = Math.hypot(Math.max(x, window.innerWidth - x), Math.max(y, window.innerHeight - y));
+    
+    const currentTheme = document.documentElement.getAttribute('data-theme');
+    const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+
+    const overlay = document.createElement('div');
+    overlay.style.position = 'fixed';
+    overlay.style.top = '0';
+    overlay.style.left = '0';
+    overlay.style.width = '100%';
+    overlay.style.height = '100%';
+    overlay.style.zIndex = '9998';
+    overlay.style.pointerEvents = 'none';
+    overlay.style.backgroundColor = newTheme === 'dark' ? '#0a0a0a' : '#ffffff';
+    overlay.style.clipPath = `circle(0px at ${x}px ${y}px)`;
+    document.body.appendChild(overlay);
+
+    // @ts-ignore
+    gsap.to(overlay, {
+      clipPath: `circle(${endRadius}px at ${x}px ${y}px)`,
+      duration: 0.8,
+      ease: "power3.inOut",
+      onComplete: () => {
+        document.documentElement.setAttribute('data-theme', newTheme);
+        localStorage.setItem('theme', newTheme);
+        document.body.removeChild(overlay);
+      }
+    });
+  }
+
+  initThemeToggle();
+  document.addEventListener('astro:after-swap', initThemeToggle);
+</script>

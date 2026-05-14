@@ -1,0 +1,43 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Experience | Jeyson Andrés Mueses">
+  <section class="animate">
+    <span class="section-label" data-t="experience_label">[08] Experience</span>
+    <h2 style="font-family: var(--font-sans); font-size: 24px; margin-bottom: 24px;" data-t="experience_title">Work Experience</h2>
+    
+    <div class="items-list">
+      <div class="item" style="flex-direction: column; align-items: flex-start; gap: 4px; padding: 16px 0; border-bottom: 1px solid var(--border-color);">
+        <div style="display: flex; justify-content: space-between; width: 100%; align-items: center;">
+          <span style="font-weight: 500;">Senior Product Designer</span>
+          <span style="font-family: var(--font-mono); font-size: 11px; color: var(--text-secondary);">2022 — Present</span>
+        </div>
+        <span style="font-size: 13px; color: var(--text-secondary);">TechCorp Global</span>
+        <p style="font-size: 14px; margin-top: 8px;">Leading the design system team and overseeing the UX strategy for the core financial platform.</p>
+      </div>
+
+      <div class="item" style="flex-direction: column; align-items: flex-start; gap: 4px; padding: 16px 0; border-bottom: 1px solid var(--border-color);">
+        <div style="display: flex; justify-content: space-between; width: 100%; align-items: center;">
+          <span style="font-weight: 500;">UX/UI Designer</span>
+          <span style="font-family: var(--font-mono); font-size: 11px; color: var(--text-secondary);">2020 — 2022</span>
+        </div>
+        <span style="font-size: 13px; color: var(--text-secondary);">Creative Studio X</span>
+        <p style="font-size: 14px; margin-top: 8px;">Developed interactive prototypes and visual identities for over 15 high-profile clients.</p>
+      </div>
+
+      <div class="item" style="flex-direction: column; align-items: flex-start; gap: 4px; padding: 16px 0;">
+        <div style="display: flex; justify-content: space-between; width: 100%; align-items: center;">
+          <span style="font-weight: 500;">Junior Developer</span>
+          <span style="font-family: var(--font-mono); font-size: 11px; color: var(--text-secondary);">2019 — 2020</span>
+        </div>
+        <span style="font-size: 13px; color: var(--text-secondary);">StartUp Inc.</span>
+        <p style="font-size: 14px; margin-top: 8px;">Worked on the front-end implementation of a real-time collaboration tool using React.</p>
+      </div>
+    </div>
+  </section>
+
+  <div style="margin-top: 40px;">
+    <a href="/" class="nav-link" style="color: var(--text-secondary); font-family: var(--font-mono); font-size: 13px; text-decoration: none;" data-t="back_home"><i data-lucide="arrow-left"></i> Back to Home</a>
+  </div>
+</BaseLayout>

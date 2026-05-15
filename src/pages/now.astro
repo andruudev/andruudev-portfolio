@@ -1,0 +1,62 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Now | Jeyson Andrés Mueses" description="What Jeyson Andrés Mueses is working on, learning, and thinking about right now.">
+  <section class="animate">
+    <span class="section-label">[/now] Now</span>
+    <div class="content-text">
+      <p>This is a <a href="https://nownownow.com/about" target="_blank" rel="noopener" style="color: var(--text-secondary); text-decoration: underline; text-underline-offset: 3px;">/now page</a>. It reflects what I'm focused on at this point in time. Last updated: <span style="font-family: var(--font-mono); font-size: 12px;">May 2025</span>.</p>
+    </div>
+  </section>
+
+  <section class="animate">
+    <span class="section-label">[01] Working on</span>
+    <div class="items-list">
+      <div class="item" style="cursor: default; align-items: flex-start; flex-direction: column; gap: 4px; padding: 12px 0; border-bottom: 1px solid var(--border-color);">
+        <span class="item-title"><i data-lucide="bar-chart-3"></i> Power BI Real-Time Dashboard</span>
+        <p style="font-size: 13px; color: var(--text-secondary); margin-top: 6px; line-height: 1.6;">Building a live operations dashboard connected to an Azure Event Hub stream for a logistics client. Exploring DirectQuery vs. Import mode trade-offs at scale.</p>
+      </div>
+      <div class="item" style="cursor: default; align-items: flex-start; flex-direction: column; gap: 4px; padding: 12px 0;">
+        <span class="item-title"><i data-lucide="code-2"></i> This Portfolio</span>
+        <p style="font-size: 13px; color: var(--text-secondary); margin-top: 6px; line-height: 1.6;">Rebuilding and polishing my personal site with Astro. Focusing on making the content match my actual work — not generic placeholders.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="animate">
+    <span class="section-label">[02] Learning</span>
+    <div class="items-list">
+      <div class="item" style="cursor: default;">
+        <span class="item-title"><i data-lucide="graduation-cap"></i> Microsoft DP-700</span>
+        <span class="item-meta">Fabric Analytics Engineer</span>
+      </div>
+      <div class="item" style="cursor: default;">
+        <span class="item-title"><i data-lucide="database"></i> dbt (data build tool)</span>
+        <span class="item-meta">Modern ELT patterns</span>
+      </div>
+      <div class="item" style="cursor: default;">
+        <span class="item-title"><i data-lucide="cpu"></i> LLM APIs for data workflows</span>
+        <span class="item-meta">OpenAI + LangChain</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="animate">
+    <span class="section-label">[03] Reading</span>
+    <div class="items-list">
+      <div class="item" style="cursor: default;">
+        <span class="item-title"><i data-lucide="book-open"></i> Designing Data-Intensive Applications</span>
+        <span class="item-meta">Martin Kleppmann</span>
+      </div>
+      <div class="item" style="cursor: default;">
+        <span class="item-title"><i data-lucide="book-open"></i> The Data Warehouse Toolkit</span>
+        <span class="item-meta">Ralph Kimball</span>
+      </div>
+    </div>
+  </section>
+
+  <div style="margin-top: 40px;">
+    <a href="/" class="nav-link" style="color: var(--text-secondary); font-family: var(--font-mono); font-size: 13px; text-decoration: none;" data-t="back_home"><i data-lucide="arrow-left"></i> Back to Home</a>
+  </div>
+</BaseLayout>

@@ -21,7 +21,7 @@ const {
 ---
 
 <!DOCTYPE html>
-<html lang={lang} data-theme="light">
+<html lang={lang}>
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width" />
@@ -29,6 +29,26 @@ const {
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
 		<meta name="description" content={description} />
+
+		<!-- Open Graph / Social Preview -->
+		<meta property="og:type" content="website" />
+		<meta property="og:url" content="https://andruudev.github.io" />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:image" content="https://andruudev.github.io/assets/og-image.png" />
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:site" content="@andruudev" />
+		<meta name="twitter:title" content={title} />
+		<meta name="twitter:description" content={description} />
+		<meta name="twitter:image" content="https://andruudev.github.io/assets/og-image.png" />
+
+		<!-- Fix FOUC: apply saved theme BEFORE first paint -->
+		<script is:inline>
+			(function() {
+				var saved = localStorage.getItem('theme') || 'light';
+				document.documentElement.setAttribute('data-theme', saved);
+			})();
+		</script>
 		
 		<script is:inline src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 		<script is:inline src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
@@ -233,18 +253,22 @@ const {
 				loop();
 			}
 
-			// ---- Custom Cursor ----
+			// ---- Custom Cursor (desktop only — hidden on touch devices) ----
 			function initCursor() {
 				if (window._cursorRunning) return;
 				const cursor = document.getElementById('cursor');
 				if (!cursor) return;
+				// Disable on touch / mobile
+				if (window.matchMedia('(hover: none)').matches) {
+					cursor.style.display = 'none';
+					return;
+				}
 				window._cursorRunning = true;
 				const pos = { x: -100, y: -100 };
 				const mouse = { x: -100, y: -100 };
 				let started = false;
 				window.addEventListener('mousemove', e => {
 					if (!started) {
-						// Snap to first position instantly
 						pos.x = e.clientX;
 						pos.y = e.clientY;
 						started = true;
@@ -253,7 +277,6 @@ const {
 					mouse.x = e.clientX;
 					mouse.y = e.clientY;
 				});
-				// Hide cursor until mouse moves
 				cursor.style.opacity = '0';
 				gsap.ticker.add(() => {
 					pos.x += (mouse.x - pos.x) * 0.15;
@@ -643,23 +666,43 @@ const {
 				tick();
 			}
 
-			// ---- Contact Form ----
+			// ---- Contact Form (Formspree) ----
+			// To activate: sign up at formspree.io, create a form, get your ID,
+			// then add data-formspree-id="YOUR_ID" to the <form> element in index.astro
 			function initContactForm() {
 				const form = document.getElementById('contact-form');
 				if (!form) return;
+				const formId = form.getAttribute('data-formspree-id');
 				form.onsubmit = async (e) => {
 					e.preventDefault();
 					const btn = form.querySelector('.submit-btn span');
 					if (!btn) return;
 					const orig = btn.textContent;
+					if (!formId || formId === 'YOUR_FORM_ID') {
+						// Dev mode: simulate success
+						btn.textContent = '✓ Sent (dev mode)';
+						setTimeout(() => { form.reset(); btn.textContent = orig; }, 3000);
+						return;
+					}
 					btn.textContent = 'Sending...';
 					try {
-						await new Promise(r => setTimeout(r, 800));
-						btn.textContent = 'Sent ✓';
+						const data = new FormData(form);
+						const res = await fetch(`https://formspree.io/f/${formId}`, {
+							method: 'POST',
+							body: data,
+							headers: { 'Accept': 'application/json' }
+						});
+						if (res.ok) {
+							btn.textContent = '✓ Sent!';
+							form.reset();
+						} else {
+							const json = await res.json();
+							btn.textContent = json.errors ? json.errors[0].message : 'Error';
+						}
 					} catch {
-						btn.textContent = 'Error';
+						btn.textContent = 'Network error';
 					}
-					setTimeout(() => { form.reset(); btn.textContent = orig; }, 3000);
+					setTimeout(() => { btn.textContent = orig; }, 4000);
 				};
 			}
 

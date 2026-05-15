@@ -166,7 +166,7 @@ a:hover {
 
 /* Sections */
 section {
-  margin-bottom: 40px;
+  margin-bottom: 20px;
   padding-bottom: 24px;
   border-bottom: 1px solid var(--border-color);
 }
@@ -390,34 +390,66 @@ section:last-of-type {
 
 .submit-btn {
   align-self: flex-start;
-  background: transparent;
-  border: 1px solid var(--border-color);
-  color: var(--text-color);
+  background: var(--text-color);
+  border: 1px solid var(--text-color);
+  color: var(--bg-color) !important;
   font-family: var(--font-mono);
   font-size: 11px;
-  padding: 8px 16px;
-  border-radius: 4px;
+  padding: 10px 20px;
+  border-radius: 99px;
   cursor: pointer;
   display: flex;
   align-items: center;
   gap: 8px;
-  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .submit-btn:hover {
-  background: var(--text-color);
-  color: var(--bg-color);
+  background: transparent;
+  color: var(--text-color) !important;
+  transform: translateY(-2px);
 }
 
 /* Footer */
 .footer {
-  margin-top: 40px;
-  padding-top: 24px;
+  margin-top: 20px;
+  padding: 24px 0;
   border-top: 1px solid var(--border-color);
   font-size: 13px;
   color: var(--text-secondary);
+}
+
+.footer-content {
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.copyright {
+  font-family: var(--font-sans);
+  font-weight: 400;
+}
+
+.status-indicator {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  opacity: 0.8;
+}
+
+@media (max-width: 600px) {
+  .footer-content {
+    flex-direction: column;
+    gap: 12px;
+    text-align: center;
+  }
+  
+  .status-indicator {
+    justify-content: center;
+  }
 }
 
 /* ============================================================
@@ -1454,13 +1486,6 @@ body.modal-open .cmd-btn {
   }
 
   .footer {
-    flex-direction: column;
-    gap: 16px;
-    text-align: center;
-    padding-bottom: 110px;
-  }
-
-  .footer>div {
-    justify-content: center !important;
+    padding-bottom: 60px;
   }
 }

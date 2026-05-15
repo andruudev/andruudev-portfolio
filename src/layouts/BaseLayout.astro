@@ -255,7 +255,6 @@ const {
 
 			// ---- Custom Cursor (desktop only — hidden on touch devices) ----
 			function initCursor() {
-				if (window._cursorRunning) return;
 				const cursor = document.getElementById('cursor');
 				if (!cursor) return;
 				// Disable on touch / mobile
@@ -263,32 +262,57 @@ const {
 					cursor.style.display = 'none';
 					return;
 				}
-				window._cursorRunning = true;
+				
 				const pos = { x: -100, y: -100 };
 				const mouse = { x: -100, y: -100 };
 				let started = false;
-				window.addEventListener('mousemove', e => {
+
+				if (!window._cursorListenersAdded) {
+					window._cursorListenersAdded = true;
+					window.addEventListener('mousemove', e => {
+						window._mouseX = e.clientX;
+						window._mouseY = e.clientY;
+						window._mouseStarted = true;
+					});
+					
+					document.addEventListener('mouseover', e => {
+						if (e.target.closest('a, button, .nav-link, .modal-item')) {
+							const c = document.getElementById('cursor');
+							if (c) c.classList.add('hovering');
+						}
+					});
+					document.addEventListener('mouseout', e => {
+						if (e.target.closest('a, button, .nav-link, .modal-item')) {
+							const c = document.getElementById('cursor');
+							if (c) c.classList.remove('hovering');
+						}
+					});
+				}
+
+				cursor.style.opacity = '0';
+				
+				// Use GSAP ticker to smoothly follow the mouse
+				const updateCursor = () => {
+					if (!window._mouseStarted) return;
+					
 					if (!started) {
-						pos.x = e.clientX;
-						pos.y = e.clientY;
+						pos.x = window._mouseX;
+						pos.y = window._mouseY;
 						started = true;
 						cursor.style.opacity = '1';
 					}
-					mouse.x = e.clientX;
-					mouse.y = e.clientY;
-				});
-				cursor.style.opacity = '0';
-				gsap.ticker.add(() => {
-					pos.x += (mouse.x - pos.x) * 0.15;
-					pos.y += (mouse.y - pos.y) * 0.15;
+					
+					pos.x += (window._mouseX - pos.x) * 0.15;
+					pos.y += (window._mouseY - pos.y) * 0.15;
 					gsap.set(cursor, { x: pos.x, y: pos.y });
-				});
-				document.addEventListener('mouseover', e => {
-					if (e.target.closest('a, button, .nav-link, .modal-item')) cursor.classList.add('hovering');
-				});
-				document.addEventListener('mouseout', e => {
-					if (e.target.closest('a, button, .nav-link, .modal-item')) cursor.classList.remove('hovering');
-				});
+				};
+				
+				gsap.ticker.add(updateCursor);
+				
+				// Cleanup on swap to avoid memory leaks/double tickers
+				document.addEventListener('astro:before-swap', () => {
+					gsap.ticker.remove(updateCursor);
+				}, { once: true });
 			}
 
 			// ---- Lenis Smooth Scroll ----

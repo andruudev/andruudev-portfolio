@@ -10,32 +10,41 @@
 <div class="modal-overlay" id="modalOverlay">
   <div class="modal-content">
 
-    <!-- Search -->
-    <div class="cp-search">
-      <input
-        type="text"
-        id="cmd-search"
-        placeholder="Search..."
-        autocomplete="off"
-        spellcheck="false"
-      />
-      <button class="cp-esc" id="modalCloseBtn" aria-label="Close">ESC</button>
+    <!-- Top Header (Replaces Search) -->
+    <div class="cp-search" style="justify-content: space-between; padding: 10px 16px;">
+      <div class="cp-time">
+        <div class="cp-dot"></div>
+        <span id="modalTime" style="font-size: 9px;">Ecuador, --:--</span>
+      </div>
+      <div style="display: flex; gap: 14px; align-items: center;">
+        <a href="https://github.com/andruudev" target="_blank" rel="noopener" aria-label="GitHub" style="color: var(--text-secondary); transition: color 0.2s; display: flex;" onmouseover="this.style.color='var(--text-color)'" onmouseout="this.style.color='var(--text-secondary)'">
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.02c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+        </a>
+        <a href="https://linkedin.com/in/andruudev" target="_blank" rel="noopener" aria-label="LinkedIn" style="color: var(--text-secondary); transition: color 0.2s; display: flex;" onmouseover="this.style.color='var(--text-color)'" onmouseout="this.style.color='var(--text-secondary)'">
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+        </a>
+        <a href="https://x.com/andruudev" target="_blank" rel="noopener" aria-label="X (Twitter)" style="color: var(--text-secondary); transition: color 0.2s; display: flex;" onmouseover="this.style.color='var(--text-color)'" onmouseout="this.style.color='var(--text-secondary)'">
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4l11.733 16h4.267l-11.733 -16z"/><path d="M4 20l6.768 -6.768m2.46 -2.46l6.772 -6.772"/></svg>
+        </a>
+        <a href="https://instagram.com/andruudev" target="_blank" rel="noopener" aria-label="Instagram" style="color: var(--text-secondary); transition: color 0.2s; display: flex;" onmouseover="this.style.color='var(--text-color)'" onmouseout="this.style.color='var(--text-secondary)'">
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+        </a>
+        <a href="https://tiktok.com/@andruudev" target="_blank" rel="noopener" aria-label="TikTok" style="color: var(--text-secondary); transition: color 0.2s; display: flex;" onmouseover="this.style.color='var(--text-color)'" onmouseout="this.style.color='var(--text-secondary)'">
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5v3a8 8 0 0 1-5-1.5z"></path></svg>
+        </a>
+        <a href="https://youtube.com/@andruudev" target="_blank" rel="noopener" aria-label="YouTube" style="color: var(--text-secondary); transition: color 0.2s; display: flex;" onmouseover="this.style.color='var(--text-color)'" onmouseout="this.style.color='var(--text-secondary)'">
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33 2.78 2.78 0 0 0 1.94 2c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.33 29 29 0 0 0-.46-5.33z"></path><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon></svg>
+        </a>
+        <a href="mailto:andruudev@gmail.com" aria-label="Email" style="color: var(--text-secondary); transition: color 0.2s; display: flex;" onmouseover="this.style.color='var(--text-color)'" onmouseout="this.style.color='var(--text-secondary)'">
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+        </a>
+      </div>
     </div>
 
     <!-- Scrollable list -->
     <div class="cp-body" id="cmd-list">
 
-      <div class="cp-group" data-group="system">
-        <div class="cp-label">[SYS] System</div>
-        <div class="cp-row" id="modalThemeToggle" data-search="theme lights dark light toggle modo tema">
-          <span class="cp-title" data-t="lights">Lights off / on</span>
-          <span class="cp-meta">Theme</span>
-        </div>
-        <div class="cp-row" id="modalLangToggle" data-search="language lang english spanish idioma en es">
-          <span class="cp-title">Language</span>
-          <span class="cp-meta">EN / ES</span>
-        </div>
-      </div>
+
 
       <div class="cp-group" data-group="pages">
         <div class="cp-label">[NAV] Pages</div>
@@ -77,41 +86,13 @@
         </a>
       </div>
 
-      <div class="cp-group" data-group="social">
-        <div class="cp-label">[EXT] Connect</div>
-        <a href="https://github.com/andruudev" target="_blank" rel="noopener" class="cp-row" data-search="github code repos">
-          <span class="cp-title">GitHub</span>
-          <span class="cp-meta">↗</span>
-        </a>
-        <a href="https://linkedin.com/in/andruudev" target="_blank" rel="noopener" class="cp-row" data-search="linkedin profesional network">
-          <span class="cp-title">LinkedIn</span>
-          <span class="cp-meta">↗</span>
-        </a>
-        <a href="https://x.com/andruudev" target="_blank" rel="noopener" class="cp-row" data-search="twitter x social">
-          <span class="cp-title">X (Twitter)</span>
-          <span class="cp-meta">↗</span>
-        </a>
-        <a href="mailto:andruudev@gmail.com" class="cp-row" data-search="email correo contacto mail">
-          <span class="cp-title">Email</span>
-          <span class="cp-meta">andruudev@gmail.com</span>
-        </a>
-      </div>
+
 
       <!-- Empty state -->
       <div class="cp-empty" id="cmd-empty">No results found.</div>
 
     </div>
 
-    <!-- Footer -->
-    <div class="cp-footer">
-      <div class="cp-time">
-        <div class="cp-dot"></div>
-        <span id="modalTime">Ecuador, --:--</span>
-      </div>
-      <button class="cp-close-text" id="modalCloseText" aria-label="Close menu">
-        <span data-t="close">Close</span>
-      </button>
-    </div>
 
   </div>
 </div>

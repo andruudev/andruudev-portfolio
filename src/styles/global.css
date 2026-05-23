@@ -973,13 +973,10 @@ body.modal-open .cmd-btn {
 
 /* Scrollable body */
 .cp-body {
-  max-height: 60vh;
-  overflow-y: auto;
+  max-height: none;
+  overflow-y: visible;
   padding: 0;
 }
-
-.cp-body::-webkit-scrollbar { width: 3px; }
-.cp-body::-webkit-scrollbar-thumb { background: var(--border-color); border-radius: 3px; }
 
 /* Group */
 .cp-group {

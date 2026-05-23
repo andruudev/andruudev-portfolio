@@ -1,5 +1,11 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const allPosts = await getCollection('blog');
+const blogPosts = allPosts
+  .sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime())
+  .slice(0, 3);
 ---
 
 <BaseLayout>
@@ -154,18 +160,15 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   <section class="animate">
     <span class="section-label" data-t="blog_label">[09] Blog</span>
     <div class="items-list">
-      <a href="/blog/creative-development-gsap" class="item nav-link">
-        <span class="item-title"><i data-lucide="book-text"></i> Why I Ditched Excel for Power BI</span>
-        <span class="item-meta">Oct 2025</span>
-      </a>
-      <a href="/blog/data-pipelines-airflow" class="item nav-link">
-        <span class="item-title"><i data-lucide="workflow"></i> Scalable Data Pipelines with Airflow</span>
-        <span class="item-meta">Dec 2025</span>
-      </a>
-      <a href="/blog/future-of-bi" class="item nav-link">
-        <span class="item-title"><i data-lucide="sparkles"></i> The Future of BI: Generative AI</span>
-        <span class="item-meta">Jan 2026</span>
-      </a>
+      {blogPosts.map(post => (
+        <a href={`/blog/${post.id}`} class="item nav-link">
+          <span class="item-title">
+            <i data-lucide={post.data.tag === 'Data' ? 'bar-chart-3' : 'book-text'}></i> 
+            {post.data.title}
+          </span>
+          <span class="item-meta">{new Date(post.data.date).toLocaleDateString(undefined, { month: 'short', year: 'numeric' })}</span>
+        </a>
+      ))}
     </div>
     <div style="margin-top: 16px;">
       <a href="/blog" class="nav-link" style="color: var(--text-secondary); font-family: var(--font-mono); font-size: 11px; text-decoration: none; display: flex; align-items: center; gap: 4px;" data-t="see_more">See More <i data-lucide="arrow-right" style="width: 10px; height: 10px;"></i></a>

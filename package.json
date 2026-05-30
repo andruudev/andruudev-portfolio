@@ -7,18 +7,24 @@
     "dev": "astro dev",
     "start": "astro dev",
     "build": "astro build",
-    "preview": "astro preview",
+    "preview": "npm run build && wrangler dev",
     "astro": "astro",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist"
+    "deploy": "npm run build && wrangler deploy",
+    "generate-types": "wrangler types"
   },
   "devDependencies": {
-    "gh-pages": "^6.3.0"
+    "gh-pages": "^6.3.0",
+    "wrangler": "^4.95.0"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.9",
+    "@astrojs/cloudflare": "^13.6.0",
     "@astrojs/sitemap": "^3.7.2",
     "astro": "^6.3.2",
     "typescript": "^6.0.3"
+  },
+  "overrides": {
+    "vite": "^7"
   }
 }

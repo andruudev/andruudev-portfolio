@@ -1,0 +1,366 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { getCollection } from "astro:content";
+
+const allPosts = await getCollection("blog");
+const blogPosts = allPosts
+  .sort(
+    (a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime(),
+  )
+  .slice(0, 3);
+---
+
+<BaseLayout>
+  <section class="animate">
+    <span class="section-label" data-t="profile_label">[01] Profile</span>
+    <div class="content-text">
+      <p data-t="profile_text">
+        I'm a Data Analyst & BI Developer focused on transforming complex
+        datasets into actionable insights. I am currently the leader of the AWS
+        Student Builder Groups program at PUCE.
+      </p>
+    </div>
+    <div style="margin-top: 16px;">
+      <a
+        href="/portfolio/about"
+        class="nav-link"
+        style="color: var(--text-secondary); font-family: var(--font-mono); font-size: 11px; text-decoration: none; display: flex; align-items: center; gap: 4px;"
+        data-t="see_more"
+        >See More <i
+          data-lucide="arrow-right"
+          style="width: 10px; height: 10px;"></i></a
+      >
+    </div>
+  </section>
+
+  <section class="animate">
+    <span class="section-label" data-t="work_label">[02] Work</span>
+    <div class="items-list">
+      <a href="/portfolio/project/sales-intelligence" class="item nav-link">
+        <span class="item-title"
+          ><i data-lucide="bar-chart-3"></i> Sales Intelligence Dashboard</span
+        >
+        <span class="item-meta">Power BI + SQL</span>
+      </a>
+      <a href="/portfolio/project/retail-analytics" class="item nav-link">
+        <span class="item-title"
+          ><i data-lucide="database"></i> Retail ETL Pipeline</span
+        >
+        <span class="item-meta">Python + Azure</span>
+      </a>
+      <a href="/portfolio/project/supply-chain" class="item nav-link">
+        <span class="item-title"
+          ><i data-lucide="truck"></i> Supply Chain Optimization</span
+        >
+        <span class="item-meta">Python + SQL + Excel</span>
+      </a>
+    </div>
+    <div style="margin-top: 16px;">
+      <a
+        href="/portfolio"
+        class="nav-link"
+        style="color: var(--text-secondary); font-family: var(--font-mono); font-size: 11px; text-decoration: none; display: flex; align-items: center; gap: 4px;"
+        data-t="see_more"
+        >See More <i
+          data-lucide="arrow-right"
+          style="width: 10px; height: 10px;"></i></a
+      >
+    </div>
+  </section>
+
+  <section class="animate">
+    <span class="section-label">[03] Data Stack</span>
+    <div class="data-stack-grid">
+      <div class="stack-item" title="SQL Server">
+        <i data-lucide="database"></i><span>SQL</span>
+      </div>
+      <div class="stack-item" title="Python">
+        <i data-lucide="code-2"></i><span>Python</span>
+      </div>
+      <div class="stack-item" title="Power BI">
+        <i data-lucide="bar-chart-3"></i><span>Power BI</span>
+      </div>
+      <div class="stack-item" title="Azure">
+        <i data-lucide="cloud"></i><span>Azure</span>
+      </div>
+      <div class="stack-item" title="Excel">
+        <i data-lucide="table-2"></i><span>Excel</span>
+      </div>
+      <div class="stack-item" title="Tableau">
+        <i data-lucide="pie-chart"></i><span>Tableau</span>
+      </div>
+      <div class="stack-item" title="PostgreSQL">
+        <i data-lucide="database"></i><span>PostgreSQL</span>
+      </div>
+      <div class="stack-item" title="Snowflake">
+        <i data-lucide="snowflake"></i><span>Snowflake</span>
+      </div>
+      <div class="stack-item" title="Git">
+        <i data-lucide="git-branch"></i><span>Git</span>
+      </div>
+      <div class="stack-item" title="Docker">
+        <i data-lucide="container"></i><span>Docker</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="animate">
+    <span class="section-label" data-t="experience_label">[04] Experience</span>
+    <div class="items-list">
+      <div class="item" style="cursor: default;">
+        <span class="item-title">Data Analyst & BI Developer</span>
+        <span class="item-meta">Corporación Favorita</span>
+      </div>
+      <div class="item" style="cursor: default;">
+        <span class="item-title">Junior Data Analyst</span>
+        <span class="item-meta">Banco Pichincha</span>
+      </div>
+    </div>
+    <div style="margin-top: 16px;">
+      <a
+        href="/portfolio/experience"
+        class="nav-link"
+        style="color: var(--text-secondary); font-family: var(--font-mono); font-size: 11px; text-decoration: none; display: flex; align-items: center; gap: 4px;"
+        data-t="see_more"
+        >See More <i
+          data-lucide="arrow-right"
+          style="width: 10px; height: 10px;"></i></a
+      >
+    </div>
+  </section>
+
+  <section class="animate">
+    <span class="section-label" data-t="skills_label">[05] Skills</span>
+    <div class="items-list">
+      <div class="item" style="cursor: default;">
+        <span class="item-title">Data Visualization & BI</span>
+        <span class="item-meta">Power BI / Tableau / Looker</span>
+      </div>
+      <div class="item" style="cursor: default;">
+        <span class="item-title">Data Engineering</span>
+        <span class="item-meta">SQL / Python / ETL / Azure</span>
+      </div>
+      <div class="item" style="cursor: default;">
+        <span class="item-title">Statistical Modeling</span>
+        <span class="item-meta">R / Python / Forecasting</span>
+      </div>
+      <div class="item" style="cursor: default;">
+        <span class="item-title">Cloud Data Warehousing</span>
+        <span class="item-meta">Snowflake / BigQuery / Redshift</span>
+      </div>
+    </div>
+    <div style="margin-top: 16px;">
+      <a
+        href="/portfolio/skills"
+        class="nav-link"
+        style="color: var(--text-secondary); font-family: var(--font-mono); font-size: 11px; text-decoration: none; display: flex; align-items: center; gap: 4px;"
+        data-t="see_more"
+        >See More <i
+          data-lucide="arrow-right"
+          style="width: 10px; height: 10px;"></i></a
+      >
+    </div>
+  </section>
+
+  <section class="animate">
+    <span class="section-label" data-t="education_label">[06] Education</span>
+    <div class="items-list">
+      <div class="item" style="cursor: default;">
+        <span class="item-title">B.S. Systems Engineering</span>
+        <span class="item-meta">ESPE · Ecuador</span>
+      </div>
+      <div class="item" style="cursor: default;">
+        <span class="item-title">M.S. Data Science</span>
+        <span class="item-meta">Polytechnic University of Madrid · 2025</span>
+      </div>
+      <div class="item" style="cursor: default;">
+        <span class="item-title">Data Engineering Program</span>
+        <span class="item-meta">MIT Sloan (Executive Education)</span>
+      </div>
+    </div>
+    <div style="margin-top: 16px;">
+      <a
+        href="/portfolio/education"
+        class="nav-link"
+        style="color: var(--text-secondary); font-family: var(--font-mono); font-size: 11px; text-decoration: none; display: flex; align-items: center; gap: 4px;"
+        data-t="see_more"
+        >See More <i
+          data-lucide="arrow-right"
+          style="width: 10px; height: 10px;"></i></a
+      >
+    </div>
+  </section>
+
+  <section class="animate">
+    <span class="section-label" data-t="certifications_label"
+      >[07] Certifications</span
+    >
+    <div class="items-list">
+      <div class="item" style="cursor: default;">
+        <span class="item-title">Microsoft PL-300</span>
+        <span class="item-meta">Power BI Data Analyst · 2024</span>
+      </div>
+      <div class="item" style="cursor: default;">
+        <span class="item-title">Google Data Analytics</span>
+        <span class="item-meta">Professional Certificate · 2023</span>
+      </div>
+      <div class="item" style="cursor: default;">
+        <span class="item-title">Tableau Desktop Specialist</span>
+        <span class="item-meta">Tableau · 2023</span>
+      </div>
+    </div>
+    <div style="margin-top: 16px;">
+      <a
+        href="/portfolio/certifications"
+        class="nav-link"
+        style="color: var(--text-secondary); font-family: var(--font-mono); font-size: 11px; text-decoration: none; display: flex; align-items: center; gap: 4px;"
+        data-t="see_more"
+        >See More <i
+          data-lucide="arrow-right"
+          style="width: 10px; height: 10px;"></i></a
+      >
+    </div>
+  </section>
+
+  <section class="animate">
+    <span class="section-label" data-t="leadership_label">[08] Leadership</span>
+    <div class="items-list">
+      <div class="item" style="cursor: default;">
+        <span class="item-title">Microsoft Student Ambassador</span>
+        <span class="item-meta">MLSA · Ecuador</span>
+      </div>
+      <div class="item" style="cursor: default;">
+        <span class="item-title">Data Mentor</span>
+        <span class="item-meta">ADPList · 50+ sessions</span>
+      </div>
+    </div>
+    <div style="margin-top: 16px;">
+      <a
+        href="/portfolio/leadership"
+        class="nav-link"
+        style="color: var(--text-secondary); font-family: var(--font-mono); font-size: 11px; text-decoration: none; display: flex; align-items: center; gap: 4px;"
+        data-t="see_more"
+        >See More <i
+          data-lucide="arrow-right"
+          style="width: 10px; height: 10px;"></i></a
+      >
+    </div>
+  </section>
+
+  <section class="animate">
+    <span class="section-label" data-t="blog_label">[09] Blog</span>
+    <div class="items-list">
+      {
+        blogPosts.map((post) => (
+          <a href={`/portfolio/blog/${post.id}`} class="item nav-link">
+            <span class="item-title">
+              <i
+                data-lucide={
+                  post.data.tag === "Data" ? "bar-chart-3" : "book-text"
+                }
+              />
+              {post.data.title}
+            </span>
+            <span class="item-meta">
+              {new Date(post.data.date).toLocaleDateString(undefined, {
+                month: "short",
+                year: "numeric",
+              })}
+            </span>
+          </a>
+        ))
+      }
+    </div>
+    <div style="margin-top: 16px;">
+      <a
+        href="/portfolio/blog"
+        class="nav-link"
+        style="color: var(--text-secondary); font-family: var(--font-mono); font-size: 11px; text-decoration: none; display: flex; align-items: center; gap: 4px;"
+        data-t="see_more"
+        >See More <i
+          data-lucide="arrow-right"
+          style="width: 10px; height: 10px;"></i></a
+      >
+    </div>
+  </section>
+
+  <section class="animate">
+    <span class="section-label" data-t="connect_label">[10] Connect</span>
+    <!-- ============================================================
+         CONTACT FORM — Powered by Formspree
+         HOW TO ACTIVATE:
+         1. Go to https://formspree.io and create a free account
+         2. Click "New Form" and name it (e.g. "Portfolio Contact")
+         3. Copy your form ID (looks like: xpzgkwvb)
+         4. Replace YOUR_FORM_ID below with your actual ID
+         That's it — Formspree handles the email delivery for free.
+         ============================================================ -->
+    <form id="contact-form" class="minimal-form" data-formspree-id="mgodjnpp">
+      <div class="form-group">
+        <input
+          type="text"
+          name="name"
+          id="name"
+          placeholder="Name"
+          data-t="name_placeholder"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <input
+          type="email"
+          name="email"
+          id="email"
+          placeholder="Email"
+          data-t="email_placeholder"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <textarea
+          name="message"
+          id="message"
+          placeholder="Message..."
+          data-t="message_placeholder"
+          rows="3"
+          required></textarea>
+      </div>
+      <button type="submit" class="submit-btn">
+        <span data-t="send">Send</span>
+        <i data-lucide="arrow-right"></i>
+      </button>
+    </form>
+  </section>
+
+  <section class="animate" id="network-visualizer">
+    <span class="section-label" data-t="network_label"
+      >[11] Data Pipeline Status</span
+    >
+    <div class="dashboard-grid">
+      <div class="dashboard-node">
+        <div class="node-icon">
+          <div class="status-dot"></div>
+          <svg viewBox="0 0 40 40">
+            <circle
+              cx="20"
+              cy="20"
+              r="18"
+              fill="none"
+              stroke="currentColor"
+              stroke-dasharray="4 4"
+              class="radar-spin"></circle>
+          </svg>
+        </div>
+        <div class="node-info">
+          <div class="node-status" data-t="secure_node">
+            DATA WAREHOUSE CONNECTED
+          </div>
+          <div class="node-metrics" id="live-metrics">INITIALIZING...</div>
+        </div>
+      </div>
+      <div class="system-logs" id="system-logs">
+        <!-- Logs will be injected here -->
+      </div>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,20 +1,36 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
+import BaseLayout from "../../layouts/BaseLayout.astro";
 ---
 
 <BaseLayout title="About | Jeyson Andrés Mueses">
   <section class="animate">
     <span class="section-label" data-t="about_intro_label">[01] Profile</span>
     <div class="content-text">
-      <p data-t="about_text_1">I'm notJeyson Andrés Mueses, a Data Analyst & BI Developer based in Ecuador. I specialize in transforming raw, messy data into clear, actionable intelligence that drives real business decisions.</p>
-      <p data-t="about_text_2">I believe every dataset tells a story — you just need the right tools to read it. My work sits at the intersection of data engineering, analytics, and visual communication: building the pipelines that clean the data, writing the queries that extract the signal, and designing the dashboards that make it impossible to misunderstand.</p>
+      <p data-t="about_text_1">
+        I'm Jeyson Andrés Mueses, a Data Analyst & BI Developer based in
+        Ecuador. I am currently the leader of the AWS Student Builder Groups
+        program at PUCE.
+      </p>
+      <p data-t="about_text_2">
+        I believe every dataset tells a story — you just need the right tools to
+        read it. My work sits at the intersection of data engineering,
+        analytics, and visual communication: building the pipelines that clean
+        the data, writing the queries that extract the signal, and designing the
+        dashboards that make it impossible to misunderstand.
+      </p>
     </div>
   </section>
 
   <section class="animate">
     <span class="section-label" data-t="about_what_label">[02] What I do</span>
     <div class="content-text">
-      <p data-t="about_text_3">I work across the full data lifecycle — from designing ETL pipelines and optimizing SQL queries to building interactive BI dashboards and presenting findings to non-technical stakeholders. I thrive in environments where data is taken seriously and where analytical rigor is valued over gut feel.</p>
+      <p data-t="about_text_3">
+        I work across the full data lifecycle — from designing ETL pipelines and
+        optimizing SQL queries to building interactive BI dashboards and
+        presenting findings to non-technical stakeholders. I thrive in
+        environments where data is taken seriously and where analytical rigor is
+        valued over gut feel.
+      </p>
     </div>
   </section>
 
@@ -22,7 +38,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     <span class="section-label">[03] Currently using</span>
     <div class="items-list">
       <div class="item" style="cursor: default;">
-        <span class="item-title"><i data-lucide="bar-chart-3"></i> BI Tool</span>
+        <span class="item-title"><i data-lucide="bar-chart-3"></i> BI Tool</span
+        >
         <span class="item-meta">Power BI / Tableau</span>
       </div>
       <div class="item" style="cursor: default;">
@@ -45,6 +62,11 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   </section>
 
   <div style="margin-top: 40px;">
-    <a href="/" class="nav-link" style="color: var(--text-secondary); font-family: var(--font-mono); font-size: 13px; text-decoration: none;" data-t="back_home"><i data-lucide="arrow-left"></i> Back to Home</a>
+    <a
+      href="/portfolio"
+      class="nav-link"
+      style="color: var(--text-secondary); font-family: var(--font-mono); font-size: 13px; text-decoration: none;"
+      data-t="back_home"><i data-lucide="arrow-left"></i> Back to Home</a
+    >
   </div>
 </BaseLayout>

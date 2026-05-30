@@ -16,7 +16,9 @@
     "gh-pages": "^6.3.0"
   },
   "dependencies": {
+    "@astrojs/check": "^0.9.9",
     "@astrojs/sitemap": "^3.7.2",
-    "astro": "^6.3.2"
+    "astro": "^6.3.2",
+    "typescript": "^6.0.3"
   }
 }

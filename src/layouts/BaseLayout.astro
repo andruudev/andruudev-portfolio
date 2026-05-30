@@ -1,26 +1,30 @@
 ---
-import '../styles/global.css';
-import { ClientRouter } from 'astro:transitions';
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
-import ThemeToggle from '../components/ThemeToggle.astro';
-import LangToggle from '../components/LangToggle.astro';
-import CommandPalette from '../components/CommandPalette.astro';
+import "../styles/global.css";
+import { ClientRouter } from "astro:transitions";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import ThemeToggle from "../components/ThemeToggle.astro";
+import LangToggle from "../components/LangToggle.astro";
+import CommandPalette from "../components/CommandPalette.astro";
 
 interface Props {
 	title?: string;
 	description?: string;
 	lang?: string;
+	hideHeader?: boolean;
+	hideFooter?: boolean;
 }
 
-const { 
-	title = "Jeyson Andrés Mueses | Portfolio | Data Analyst & BI Developer", 
-	description = "Data Analyst & BI Developer focused on transforming complex datasets into actionable insights.",
-	lang = "en" 
+const {
+	title = "Jeyson Andrés Mueses | Portfolio | Data & Cloud Engineer",
+	description = "Data & Cloud Engineer focused on cloud databases, automated ETL pipelines, and scalable data architectures.",
+	lang = "en",
+	hideHeader = false,
+	hideFooter = false,
 } = Astro.props;
 ---
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang={lang}>
 	<head>
 		<meta charset="UTF-8" />
@@ -35,39 +39,56 @@ const {
 		<meta property="og:url" content="https://andruudev.github.io" />
 		<meta property="og:title" content={title} />
 		<meta property="og:description" content={description} />
-		<meta property="og:image" content="https://andruudev.github.io/assets/og-image.png" />
+		<meta
+			property="og:image"
+			content="https://andruudev.github.io/assets/og-image.png"
+		/>
 		<meta name="twitter:card" content="summary_large_image" />
 		<meta name="twitter:site" content="@andruudev" />
 		<meta name="twitter:title" content={title} />
 		<meta name="twitter:description" content={description} />
-		<meta name="twitter:image" content="https://andruudev.github.io/assets/og-image.png" />
+		<meta
+			name="twitter:image"
+			content="https://andruudev.github.io/assets/og-image.png"
+		/>
 
 		<!-- Fix FOUC: apply saved theme BEFORE first paint -->
 		<script is:inline>
-			(function() {
-				var saved = localStorage.getItem('theme') || 'light';
-				document.documentElement.setAttribute('data-theme', saved);
+			(function () {
+				var saved = localStorage.getItem("theme") || "light";
+				document.documentElement.setAttribute("data-theme", saved);
 			})();
 		</script>
-		
-		<script is:inline src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-		<script is:inline src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-		<script is:inline src="https://unpkg.com/lenis@1.1.2/dist/lenis.min.js"></script>
+
+		<script
+			is:inline
+			src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"
+		></script>
+		<script
+			is:inline
+			src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"
+		></script>
+		<script is:inline src="https://unpkg.com/lenis@1.1.2/dist/lenis.min.js"
+		></script>
 		<script is:inline src="https://unpkg.com/lucide@latest"></script>
-		
+
 		<ClientRouter />
 	</head>
 	<body>
 		<div id="system-preloader">
 			<div class="preloader-content">
-				<div class="preloader-text" data-t="system_initializing">SYSTEM_INITIALIZING...</div>
+				<div class="preloader-text" data-t="system_initializing">
+					SYSTEM_INITIALIZING...
+				</div>
 				<div class="preloader-bar-bg">
 					<div class="preloader-bar"></div>
 				</div>
-				<div class="preloader-status" data-t="encrypting_session">ENCRYPTING_SESSION...</div>
+				<div class="preloader-status" data-t="encrypting_session">
+					ENCRYPTING_SESSION...
+				</div>
 			</div>
 		</div>
-		
+
 		<div id="transition-overlay">
 			<div class="transition-column"></div>
 			<div class="transition-column"></div>
@@ -75,7 +96,7 @@ const {
 			<div class="transition-column"></div>
 			<div class="transition-column"></div>
 		</div>
-		
+
 		<div id="progress-bar"></div>
 		<div id="cursor"></div>
 		<div id="project-preview"></div>
@@ -88,22 +109,53 @@ const {
 		<!-- Mobile Unified Nav Bar -->
 		<div id="mobile-nav-bar">
 			<!-- Theme -->
-			<button class="mobile-nav-btn" id="mobileThemeBtn" aria-label="Toggle theme">
-				<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-					<circle cx="12" cy="12" r="4"/>
-					<path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>
+			<button
+				class="mobile-nav-btn"
+				id="mobileThemeBtn"
+				aria-label="Toggle theme"
+			>
+				<svg
+					width="16"
+					height="16"
+					viewBox="0 0 24 24"
+					fill="none"
+					stroke="currentColor"
+					stroke-width="2"
+					stroke-linecap="round"
+					stroke-linejoin="round"
+				>
+					<circle cx="12" cy="12" r="4"></circle>
+					<path
+						d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"
+					></path>
 				</svg>
-				<span class="mobile-nav-label" id="mobileThemeLabel">Light</span>
+				<span class="mobile-nav-label" id="mobileThemeLabel">Light</span
+				>
 			</button>
 
 			<div class="mobile-nav-divider"></div>
 
 			<!-- Language -->
-			<button class="mobile-nav-btn" id="mobileLangBtn" aria-label="Toggle language">
-				<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-					<circle cx="12" cy="12" r="10"/>
-					<path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
-					<path d="M2 12h20"/>
+			<button
+				class="mobile-nav-btn"
+				id="mobileLangBtn"
+				aria-label="Toggle language"
+			>
+				<svg
+					width="16"
+					height="16"
+					viewBox="0 0 24 24"
+					fill="none"
+					stroke="currentColor"
+					stroke-width="2"
+					stroke-linecap="round"
+					stroke-linejoin="round"
+				>
+					<circle cx="12" cy="12" r="10"></circle>
+					<path
+						d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"
+					></path>
+					<path d="M2 12h20"></path>
 				</svg>
 				<span class="mobile-nav-label" id="mobileLangLabel">EN</span>
 			</button>
@@ -111,22 +163,36 @@ const {
 			<div class="mobile-nav-divider"></div>
 
 			<!-- Menu -->
-			<button class="mobile-nav-btn" id="mobileMenuBtn" aria-label="Open menu">
-				<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" id="mobileMenuIcon">
-					<line x1="4" y1="6" x2="20" y2="6"/>
-					<line x1="4" y1="12" x2="20" y2="12"/>
-					<line x1="4" y1="18" x2="20" y2="18"/>
+			<button
+				class="mobile-nav-btn"
+				id="mobileMenuBtn"
+				aria-label="Open menu"
+			>
+				<svg
+					width="16"
+					height="16"
+					viewBox="0 0 24 24"
+					fill="none"
+					stroke="currentColor"
+					stroke-width="2"
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					id="mobileMenuIcon"
+				>
+					<line x1="4" y1="6" x2="20" y2="6"></line>
+					<line x1="4" y1="12" x2="20" y2="12"></line>
+					<line x1="4" y1="18" x2="20" y2="18"></line>
 				</svg>
 				<span class="mobile-nav-label">Menu</span>
 			</button>
 		</div>
 
 		<div class="container">
-			<Header />
+			{!hideHeader && <Header />}
 			<main id="app">
 				<slot />
 			</main>
-			<Footer />
+			{!hideFooter && <Footer />}
 		</div>
 
 		<script is:inline>
@@ -135,37 +201,105 @@ const {
 			// ============================================================
 			window.__translations = {
 				en: {
-					home: "Home", about: "About", projects: "Projects", skills: "Skills",
-					experience: "Experience", education: "Education", certifications: "Certifications",
-					leadership: "Leadership", blog: "Blog",
-					lights: "Lights off/on", close: "Close ESC", back_home: "Back to Home",
-					see_more: "See More", send: "Send",
-					profile_label: "[01] About me", work_label: "[02] Proyects",
-					connect_label: "[10] Project in mind? or Say Hi!", network_label: "[06] Data Pipeline Status",
-					skills_label: "[05] Skills", experience_label: "[04] Experience",
-					education_label: "[06] Education", certifications_label: "[07] Certifications",
-					leadership_label: "[08] Leadership", blog_label: "[09] Blog",
-					profile_text: "I'm a Data Analyst & BI Developer focused on transforming complex datasets into actionable insights. Expert in building automated pipelines, interactive dashboards, and scalable data models.",
-					system_initializing: "SYSTEM_INITIALIZING...", encrypting_session: "ENCRYPTING_SESSION...",
+					home: "Home",
+					about: "About",
+					projects: "Projects",
+					skills: "Skills",
+					experience: "Experience",
+					education: "Education",
+					certifications: "Certifications",
+					leadership: "Leadership",
+					blog: "Blog",
+					lights: "Lights off/on",
+					close: "Close ESC",
+					back_home: "Back to Home",
+					see_more: "See More",
+					send: "Send",
+					profile_label: "[01] About me",
+					work_label: "[02] Proyects",
+					connect_label: "[10] Project in mind? or Say Hi!",
+					network_label: "[06] Data Pipeline Status",
+					skills_label: "[05] Skills",
+					experience_label: "[04] Experience",
+					education_label: "[06] Education",
+					certifications_label: "[07] Certifications",
+					leadership_label: "[08] Leadership",
+					blog_label: "[09] Blog",
+					profile_text:
+						"I'm a Data & Cloud Engineer focused on building scalable data architectures, automated ETL pipelines, and cloud solutions. <br> I am currently the leader of the AWS Student Builder Groups program at PUCE.",
+					system_initializing: "SYSTEM_INITIALIZING...",
+					encrypting_session: "ENCRYPTING_SESSION...",
 					secure_node: "DATA WAREHOUSE CONNECTED",
-					name_placeholder: "Name", email_placeholder: "Email", message_placeholder: "Message...",
+					name_placeholder: "Name",
+					email_placeholder: "Email",
+					message_placeholder: "Message...",
+					linktree_portfolio_title: "Interactive Portfolio",
+					linktree_portfolio_desc: "Explore my projects, dynamic data stack, and full experience dashboard.",
+					linktree_blog_title: "Field Notes (Blog)",
+					linktree_blog_desc: "Read my articles and guides on data analytics, ETL, and BI best practices.",
+					linktree_call_title: "Book a 1:1 Call",
+					linktree_call_desc: "Schedule a session for mentorship, business queries, or data consulting.",
+					linktree_cv_title: "Download Resume",
+					linktree_cv_desc: "Access my full CV in PDF format (English & Spanish).",
+					linktree_explore: "[01] Navigation",
+					linktree_actions: "[02] Actions & Services",
+					linktree_networks: "[03] Professional Networks",
+					linktree_contact: "[04] Send a Message",
+					linktree_subtitle: "Data & Cloud Engineer | AWS SBGL at PUCE | founder at aprendedata.org",
+					portfolio_home: "Portfolio Home",
+					links: "Linktree",
+					back_to_portfolio_home: "Back to Portfolio Home",
 				},
 				es: {
-					home: "Inicio", about: "Sobre mí", projects: "Proyectos", skills: "Habilidades",
-					experience: "Experiencia", education: "Educación", certifications: "Certificaciones",
-					leadership: "Liderazgo", blog: "Blog",
-					lights: "Luces off/on", close: "Cerrar ESC", back_home: "Volver al Inicio",
-					see_more: "Ver más", send: "Enviar",
-					profile_label: "[01] Sobre mí", work_label: "[02] Proyectos",
-          connect_label: "[10] ¿Proyecto en mente? o di Hola", network_label: "[06] Estado del Pipeline",
-					skills_label: "[05] Habilidades", experience_label: "[04] Experiencia",
-					education_label: "[06] Educación", certifications_label: "[07] Certificaciones",
-					leadership_label: "[08] Liderazgo", blog_label: "[09] Blog",
-					profile_text: "Soy Analista de Datos y Desarrollador BI, enfocado en transformar conjuntos de datos complejos en información estratégica. Experto en construir pipelines automatizados y dashboards interactivos.",
-					system_initializing: "INICIALIZANDO_SISTEMA...", encrypting_session: "ENCRIPTANDO_SESIÓN...",
+					home: "Inicio",
+					about: "Sobre mí",
+					projects: "Proyectos",
+					skills: "Habilidades",
+					experience: "Experiencia",
+					education: "Educación",
+					certifications: "Certificaciones",
+					leadership: "Liderazgo",
+					blog: "Blog",
+					lights: "Luces off/on",
+					close: "Cerrar ESC",
+					back_home: "Volver al Inicio",
+					see_more: "Ver más",
+					send: "Enviar",
+					profile_label: "[01] Sobre mí",
+					work_label: "[02] Proyectos",
+					connect_label: "[10] ¿Proyecto en mente? o di Hola",
+					network_label: "[06] Estado del Pipeline",
+					skills_label: "[05] Habilidades",
+					experience_label: "[04] Experiencia",
+					education_label: "[06] Educación",
+					certifications_label: "[07] Certificaciones",
+					leadership_label: "[08] Liderazgo",
+					blog_label: "[09] Blog",
+					profile_text:
+						"Soy Ingeniero de Datos y Cloud, enfocado en construir arquitecturas de datos escalables, pipelines ETL automatizados y soluciones en la nube. Actualmente soy el líder del programa AWS Student Builder Groups en la PUCE.",
+					system_initializing: "INICIALIZANDO_SISTEMA...",
+					encrypting_session: "ENCRIPTANDO_SESIÓN...",
 					secure_node: "DATA WAREHOUSE CONECTADO",
-					name_placeholder: "Nombre", email_placeholder: "Correo", message_placeholder: "Mensaje...",
-				}
+					name_placeholder: "Nombre",
+					email_placeholder: "Correo",
+					message_placeholder: "Mensaje...",
+					linktree_portfolio_title: "Portafolio Interactivo",
+					linktree_portfolio_desc: "Explora mis proyectos, stack de datos dinámico y dashboard de experiencia completo.",
+					linktree_blog_title: "Notas de Campo (Blog)",
+					linktree_blog_desc: "Lee mis artículos y guías sobre analítica de datos, ETL y mejores prácticas de BI.",
+					linktree_call_title: "Reservar Llamada 1:1",
+					linktree_call_desc: "Programa una sesión de mentoría, consultas comerciales o consultoría de datos.",
+					linktree_cv_title: "Descargar Currículum",
+					linktree_cv_desc: "Accede a mi CV completo en formato PDF.",
+					linktree_explore: "[01] Navegación",
+					linktree_actions: "[02] Acciones y Servicios",
+					linktree_networks: "[03] Redes Profesionales",
+					linktree_contact: "[04] Enviar un Mensaje",
+					linktree_subtitle: "Ingeniero de Datos y Cloud | AWS SBGL en PUCE | fundador de aprendedata.org",
+					portfolio_home: "Inicio del Portafolio",
+					links: "Linktree",
+					back_to_portfolio_home: "Volver al Inicio del Portafolio",
+				},
 			};
 
 			// ============================================================
@@ -181,17 +315,19 @@ const {
 			class TextScramble {
 				constructor(el) {
 					this.el = el;
-					this.chars = '!<>-_\\/[]{}—=+*^?#________';
+					this.chars = "!<>-_\\/[]{}—=+*^?#________";
 					this.update = this.update.bind(this);
 				}
 				setText(newText) {
 					const oldText = this.el.innerText;
 					const length = Math.max(oldText.length, newText.length);
-					const promise = new Promise(resolve => this.resolve = resolve);
+					const promise = new Promise(
+						(resolve) => (this.resolve = resolve),
+					);
 					this.queue = [];
 					for (let i = 0; i < length; i++) {
-						const from = oldText[i] || '';
-						const to = newText[i] || '';
+						const from = oldText[i] || "";
+						const to = newText[i] || "";
 						const start = Math.floor(Math.random() * 40);
 						const end = start + Math.floor(Math.random() * 40);
 						this.queue.push({ from, to, start, end });
@@ -202,7 +338,7 @@ const {
 					return promise;
 				}
 				update() {
-					let output = '';
+					let output = "";
 					let complete = 0;
 					for (let i = 0, n = this.queue.length; i < n; i++) {
 						let { from, to, start, end, char } = this.queue[i];
@@ -211,7 +347,12 @@ const {
 							output += to;
 						} else if (this.frame >= start) {
 							if (!char || Math.random() < 0.28) {
-								char = this.chars[Math.floor(Math.random() * this.chars.length)];
+								char =
+									this.chars[
+										Math.floor(
+											Math.random() * this.chars.length,
+										)
+									];
 								this.queue[i].char = char;
 							}
 							output += `<span class="dud">${char}</span>`;
@@ -232,14 +373,17 @@ const {
 			// ---- Noise Canvas ----
 			function initNoise() {
 				if (window._noiseRunning) return;
-				const canvas = document.getElementById('noiseCanvas');
+				const canvas = document.getElementById("noiseCanvas");
 				if (!canvas) return;
-				const ctx = canvas.getContext('2d');
+				const ctx = canvas.getContext("2d");
 				if (!ctx) return;
 				window._noiseRunning = true;
 				let w, h;
-				const resize = () => { w = canvas.width = window.innerWidth; h = canvas.height = window.innerHeight; };
-				window.addEventListener('resize', resize);
+				const resize = () => {
+					w = canvas.width = window.innerWidth;
+					h = canvas.height = window.innerHeight;
+				};
+				window.addEventListener("resize", resize);
 				resize();
 				const loop = () => {
 					const idata = ctx.createImageData(w, h);
@@ -255,105 +399,129 @@ const {
 
 			// ---- Custom Cursor (desktop only — hidden on touch devices) ----
 			function initCursor() {
-				const cursor = document.getElementById('cursor');
+				const cursor = document.getElementById("cursor");
 				if (!cursor) return;
 				// Disable on touch / mobile
-				if (window.matchMedia('(hover: none)').matches) {
-					cursor.style.display = 'none';
+				if (window.matchMedia("(hover: none)").matches) {
+					cursor.style.display = "none";
 					return;
 				}
-				
+
 				const pos = { x: -100, y: -100 };
-				const mouse = { x: -100, y: -100 };
 				let started = false;
 
 				if (!window._cursorListenersAdded) {
 					window._cursorListenersAdded = true;
-					window.addEventListener('mousemove', e => {
+					window.addEventListener("mousemove", (e) => {
 						window._mouseX = e.clientX;
 						window._mouseY = e.clientY;
 						window._mouseStarted = true;
 					});
-					
-					document.addEventListener('mouseover', e => {
-						if (e.target.closest('a, button, .nav-link, .modal-item')) {
-							const c = document.getElementById('cursor');
-							if (c) c.classList.add('hovering');
+
+					document.addEventListener("mouseover", (e) => {
+						if (
+							e.target.closest(
+								"a, button, .nav-link, .modal-item",
+							)
+						) {
+							const c = document.getElementById("cursor");
+							if (c) c.classList.add("hovering");
 						}
 					});
-					document.addEventListener('mouseout', e => {
-						if (e.target.closest('a, button, .nav-link, .modal-item')) {
-							const c = document.getElementById('cursor');
-							if (c) c.classList.remove('hovering');
+					document.addEventListener("mouseout", (e) => {
+						if (
+							e.target.closest(
+								"a, button, .nav-link, .modal-item",
+							)
+						) {
+							const c = document.getElementById("cursor");
+							if (c) c.classList.remove("hovering");
 						}
 					});
 				}
 
-				cursor.style.opacity = '0';
-				
+				cursor.style.opacity = "0";
+
 				// Use GSAP ticker to smoothly follow the mouse
 				const updateCursor = () => {
 					if (!window._mouseStarted) return;
-					
+
 					if (!started) {
 						pos.x = window._mouseX;
 						pos.y = window._mouseY;
 						started = true;
-						cursor.style.opacity = '1';
+						cursor.style.opacity = "1";
 					}
-					
+
 					pos.x += (window._mouseX - pos.x) * 0.15;
 					pos.y += (window._mouseY - pos.y) * 0.15;
 					gsap.set(cursor, { x: pos.x, y: pos.y });
 				};
-				
+
 				gsap.ticker.add(updateCursor);
-				
+
 				// Cleanup on swap to avoid memory leaks/double tickers
-				document.addEventListener('astro:before-swap', () => {
-					gsap.ticker.remove(updateCursor);
-				}, { once: true });
+				document.addEventListener(
+					"astro:before-swap",
+					() => {
+						gsap.ticker.remove(updateCursor);
+					},
+					{ once: true },
+				);
 			}
 
 			// ---- Lenis Smooth Scroll ----
 			let lenis;
 			function initLenis() {
-				if (lenis) { try { lenis.destroy(); } catch(e) {} lenis = null; }
-				lenis = new Lenis({ duration: 1.2, smoothWheel: true });
-				const raf = (time) => { lenis.raf(time); requestAnimationFrame(raf); };
+				if (lenis) {
+					try {
+						lenis.destroy();
+					} catch (e) {}
+					lenis = null;
+				}
+				// @ts-ignore
+				lenis = new window.Lenis({ duration: 1.2, smoothWheel: true });
+				const raf = (time) => {
+					lenis.raf(time);
+					requestAnimationFrame(raf);
+				};
 				requestAnimationFrame(raf);
 			}
 
 			// ---- Scroll Effects (GSAP + ScrollTrigger) ----
 			function initScrollEffects() {
 				gsap.registerPlugin(ScrollTrigger);
-				ScrollTrigger.getAll().forEach(t => t.kill());
+				ScrollTrigger.getAll().forEach((t) => t.kill());
 
 				// Reset all .animate elements to invisible before creating triggers
-				document.querySelectorAll('.animate').forEach(el => {
+				document.querySelectorAll(".animate").forEach((el) => {
 					gsap.set(el, { opacity: 0, y: 30 });
-					const label = el.querySelector('.section-label');
-					if (label) label.classList.remove('visible');
+					const label = el.querySelector(".section-label");
+					if (label) label.classList.remove("visible");
 				});
 
-				gsap.to('#progress-bar', {
-					scaleX: 1, ease: 'none',
-					scrollTrigger: { scrub: 0.3 }
+				gsap.to("#progress-bar", {
+					scaleX: 1,
+					ease: "none",
+					scrollTrigger: { scrub: 0.3 },
 				});
 
-				document.querySelectorAll('.animate').forEach(el => {
-					const label = el.querySelector('.section-label');
-					gsap.to(el,
-						{
-							opacity: 1, y: 0, duration: 0.8, ease: 'power2.out',
-							scrollTrigger: {
-								trigger: el,
-								start: 'top 90%',
-								toggleActions: 'play none none none',
-								onEnter: () => { if (label) label.classList.add('visible'); }
-							}
-						}
-					);
+				document.querySelectorAll(".animate").forEach((el) => {
+					const label = el.querySelector(".section-label");
+					gsap.to(el, {
+						opacity: 1,
+						y: 0,
+						duration: 0.8,
+						ease: "power2.out",
+						scrollTrigger: {
+							trigger: el,
+							start: "top 90%",
+							toggleActions: "play none none none",
+							onEnter: () => {
+								if (label) label.classList.add("visible");
+							},
+						},
+					});
 				});
 
 				// Refresh after a tick so the new page layout is computed
@@ -362,64 +530,78 @@ const {
 
 			// ---- Theme Toggle ----
 			function initTheme() {
-				const saved = localStorage.getItem('theme') || 'light';
-				document.documentElement.setAttribute('data-theme', saved);
+				const saved = localStorage.getItem("theme") || "light";
+				document.documentElement.setAttribute("data-theme", saved);
 
 				const doToggle = (e) => {
 					const x = e.clientX ?? window.innerWidth / 2;
 					const y = e.clientY ?? window.innerHeight / 2;
-					const radius = Math.hypot(Math.max(x, window.innerWidth - x), Math.max(y, window.innerHeight - y));
-					const current = document.documentElement.getAttribute('data-theme');
-					const next = current === 'light' ? 'dark' : 'light';
+					const radius = Math.hypot(
+						Math.max(x, window.innerWidth - x),
+						Math.max(y, window.innerHeight - y),
+					);
+					const current =
+						document.documentElement.getAttribute("data-theme");
+					const next = current === "light" ? "dark" : "light";
 
-					const ov = document.createElement('div');
+					const ov = document.createElement("div");
 					Object.assign(ov.style, {
-						position: 'fixed', inset: '0',
-						width: '100vw', height: '100vh',
-						zIndex: '999999',
-						pointerEvents: 'none',
-						backgroundColor: next === 'dark' ? '#0a0a0a' : '#ffffff',
-						clipPath: `circle(0px at ${x}px ${y}px)`
+						position: "fixed",
+						inset: "0",
+						width: "100vw",
+						height: "100vh",
+						zIndex: "999999",
+						pointerEvents: "none",
+						backgroundColor:
+							next === "dark" ? "#0a0a0a" : "#ffffff",
+						clipPath: `circle(0px at ${x}px ${y}px)`,
 					});
 					document.body.appendChild(ov);
 					gsap.to(ov, {
 						clipPath: `circle(${radius}px at ${x}px ${y}px)`,
 						duration: 0.8,
-						ease: 'power3.inOut',
+						ease: "power3.inOut",
 						onComplete: () => {
-							document.documentElement.setAttribute('data-theme', next);
-							localStorage.setItem('theme', next);
+							document.documentElement.setAttribute(
+								"data-theme",
+								next,
+							);
+							localStorage.setItem("theme", next);
 							ov.remove();
-						}
+						},
 					});
 				};
 
 				// Use onclick to avoid duplicate listeners across swaps
-				const themeBtn = document.getElementById('themeToggle');
-				const modalThemeBtn = document.getElementById('modalThemeToggle');
+				const themeBtn = document.getElementById("themeToggle");
+				const modalThemeBtn =
+					document.getElementById("modalThemeToggle");
 				if (themeBtn) themeBtn.onclick = doToggle;
 				if (modalThemeBtn) modalThemeBtn.onclick = doToggle;
 			}
 
 			// ---- Command Palette / Menu (SINGLE state machine) ----
 			function initCommandPalette() {
-				const cmdBtn = document.getElementById('cmdBtn');
-				const overlay = document.getElementById('modalOverlay');
-				const modalTime = document.getElementById('modalTime');
-				const closeBtn = document.getElementById('modalCloseBtn');
-				const closeText = document.getElementById('modalCloseText');
+				const cmdBtn = document.getElementById("cmdBtn");
+				const overlay = document.getElementById("modalOverlay");
+				const modalTime = document.getElementById("modalTime");
+				const closeBtn = document.getElementById("modalCloseBtn");
+				const closeText = document.getElementById("modalCloseText");
 				if (!overlay) return;
 
 				const updateTime = () => {
 					if (!modalTime) return;
-					const t = new Date().toLocaleTimeString('en-GB', {
-						timeZone: 'America/Guayaquil', hour: '2-digit', minute: '2-digit', hour12: true
+					const t = new Date().toLocaleTimeString("en-GB", {
+						timeZone: "America/Guayaquil",
+						hour: "2-digit",
+						minute: "2-digit",
+						hour12: true,
 					});
 					modalTime.textContent = `Ecuador, ${t}`;
 				};
 
 				const resetMobileIcon = (isOpen) => {
-					const icon = document.getElementById('mobileMenuIcon');
+					const icon = document.getElementById("mobileMenuIcon");
 					if (!icon) return;
 					icon.innerHTML = isOpen
 						? `<line x1="18" y1="6" x2="6" y2="18" stroke-linecap="round"/><line x1="6" y1="6" x2="18" y2="18" stroke-linecap="round"/>`
@@ -428,21 +610,27 @@ const {
 
 				const openMenu = () => {
 					updateTime();
-					overlay.classList.add('active');
-					document.body.classList.add('modal-open');
+					overlay.classList.add("active");
+					document.body.classList.add("modal-open");
 					window._menuOpen = true;
 					resetMobileIcon(true);
-					const icon = document.getElementById('menu-icon');
-					if (icon) { icon.setAttribute('data-lucide', 'x'); createIcons(); }
+					const icon = document.getElementById("menu-icon");
+					if (icon) {
+						icon.setAttribute("data-lucide", "x");
+						createIcons();
+					}
 				};
 
 				const closeMenu = () => {
-					overlay.classList.remove('active');
-					document.body.classList.remove('modal-open');
+					overlay.classList.remove("active");
+					document.body.classList.remove("modal-open");
 					window._menuOpen = false;
 					resetMobileIcon(false);
-					const icon = document.getElementById('menu-icon');
-					if (icon) { icon.setAttribute('data-lucide', 'chart-no-axes-gantt'); createIcons(); }
+					const icon = document.getElementById("menu-icon");
+					if (icon) {
+						icon.setAttribute("data-lucide", "chart-no-axes-gantt");
+						createIcons();
+					}
 				};
 
 				// Expose globally so mobile nav can use them
@@ -450,10 +638,16 @@ const {
 				window._closeMenu = closeMenu;
 
 				// Desktop button
-				if (cmdBtn) cmdBtn.onclick = () => overlay.classList.contains('active') ? closeMenu() : openMenu();
+				if (cmdBtn)
+					cmdBtn.onclick = () =>
+						overlay.classList.contains("active")
+							? closeMenu()
+							: openMenu();
 
 				// Backdrop click
-				overlay.onclick = (e) => { if (e.target === overlay) closeMenu(); };
+				overlay.onclick = (e) => {
+					if (e.target === overlay) closeMenu();
+				};
 
 				// Close buttons INSIDE the modal
 				if (closeBtn) closeBtn.onclick = closeMenu;
@@ -461,39 +655,72 @@ const {
 
 				// Keyboard shortcuts
 				window.onkeydown = (e) => {
-					if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
+					if (
+						(e.metaKey || e.ctrlKey) &&
+						e.key.toLowerCase() === "k"
+					) {
 						e.preventDefault();
-						overlay.classList.contains('active') ? closeMenu() : openMenu();
+						overlay.classList.contains("active")
+							? closeMenu()
+							: openMenu();
 					}
-					if (e.key === 'Escape') closeMenu();
+					if (e.key === "Escape") closeMenu();
 				};
 			}
 
 			// ---- Lang Toggle ----
 			function initLangToggle() {
-				const btn = document.getElementById('langToggle');
-				const textEl = document.getElementById('langText');
-				if (!btn) return;
-				let lang = localStorage.getItem('lang') || 'en';
-				if (textEl) textEl.textContent = lang.toUpperCase();
+				let lang = localStorage.getItem("lang") || "en";
 				applyTranslations(lang);
-				btn.onclick = () => {
-					lang = lang === 'en' ? 'es' : 'en';
-					localStorage.setItem('lang', lang);
-					if (textEl) textEl.textContent = lang.toUpperCase();
-					applyTranslations(lang);
+				
+				const btn = document.getElementById("langToggle");
+				const textEl = document.getElementById("langText");
+				
+				if (textEl) textEl.textContent = lang.toUpperCase();
+				
+				if (btn) {
+					btn.onclick = () => {
+						lang = lang === "en" ? "es" : "en";
+						localStorage.setItem("lang", lang);
+						if (textEl) textEl.textContent = lang.toUpperCase();
+						applyTranslations(lang);
+					};
+				}
+				
+				const modalLangBtn = document.getElementById("modalLangToggle");
+				if (modalLangBtn) modalLangBtn.onclick = () => {
+					if (btn) {
+						btn.click();
+					} else {
+						lang = lang === "en" ? "es" : "en";
+						localStorage.setItem("lang", lang);
+						applyTranslations(lang);
+					}
 				};
-				const modalLangBtn = document.getElementById('modalLangToggle');
-				if (modalLangBtn) modalLangBtn.onclick = () => btn.click();
+
+				const mobileLangBtn = document.getElementById("mobileLangBtn");
+				if (mobileLangBtn) mobileLangBtn.onclick = () => {
+					if (btn) btn.click();
+					else {
+						lang = lang === "en" ? "es" : "en";
+						localStorage.setItem("lang", lang);
+						applyTranslations(lang);
+						const mobileLangLabel = document.getElementById("mobileLangLabel");
+						if (mobileLangLabel) mobileLangLabel.textContent = lang.toUpperCase();
+					}
+				};
 			}
 
 			function applyTranslations(lang) {
 				const t = (window.__translations || {})[lang];
 				if (!t) return;
-				document.querySelectorAll('[data-t]').forEach(el => {
-					const key = el.getAttribute('data-t');
+				document.querySelectorAll("[data-t]").forEach((el) => {
+					const key = el.getAttribute("data-t");
 					if (key && t[key]) {
-						if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+						if (
+							el.tagName === "INPUT" ||
+							el.tagName === "TEXTAREA"
+						) {
 							el.placeholder = t[key];
 						} else {
 							el.innerHTML = t[key];
@@ -504,22 +731,30 @@ const {
 
 			// ---- Mobile Nav Bar ----
 			function initMobileNav() {
-				const mobileThemeBtn = document.getElementById('mobileThemeBtn');
-				const mobileThemeLabel = document.getElementById('mobileThemeLabel');
-				const mobileLangBtn = document.getElementById('mobileLangBtn');
-				const mobileLangLabel = document.getElementById('mobileLangLabel');
-				const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+				const mobileThemeBtn =
+					document.getElementById("mobileThemeBtn");
+				const mobileThemeLabel =
+					document.getElementById("mobileThemeLabel");
+				const mobileLangBtn = document.getElementById("mobileLangBtn");
+				const mobileLangLabel =
+					document.getElementById("mobileLangLabel");
+				const mobileMenuBtn = document.getElementById("mobileMenuBtn");
 
 				if (!mobileMenuBtn) return;
 
 				// --- Helpers ---
 				const syncThemeLabel = () => {
-					const theme = document.documentElement.getAttribute('data-theme') || 'light';
-					if (mobileThemeLabel) mobileThemeLabel.textContent = theme === 'dark' ? 'Dark' : 'Light';
+					const theme =
+						document.documentElement.getAttribute("data-theme") ||
+						"light";
+					if (mobileThemeLabel)
+						mobileThemeLabel.textContent =
+							theme === "dark" ? "Dark" : "Light";
 				};
 				const syncLangLabel = () => {
-					const lang = localStorage.getItem('lang') || 'en';
-					if (mobileLangLabel) mobileLangLabel.textContent = lang.toUpperCase();
+					const lang = localStorage.getItem("lang") || "en";
+					if (mobileLangLabel)
+						mobileLangLabel.textContent = lang.toUpperCase();
 				};
 
 				syncThemeLabel();
@@ -528,26 +763,44 @@ const {
 				// --- Theme ---
 				if (mobileThemeBtn) {
 					mobileThemeBtn.onclick = (e) => {
-						const x = e.clientX, y = e.clientY;
-						const radius = Math.hypot(Math.max(x, window.innerWidth - x), Math.max(y, window.innerHeight - y));
-						const next = document.documentElement.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
-						const ov = document.createElement('div');
+						const x = e.clientX,
+							y = e.clientY;
+						const radius = Math.hypot(
+							Math.max(x, window.innerWidth - x),
+							Math.max(y, window.innerHeight - y),
+						);
+						const next =
+							document.documentElement.getAttribute(
+								"data-theme",
+							) === "light"
+								? "dark"
+								: "light";
+						const ov = document.createElement("div");
 						Object.assign(ov.style, {
-							position: 'fixed', inset: '0', width: '100vw', height: '100vh',
-							zIndex: '999999', pointerEvents: 'none',
-							backgroundColor: next === 'dark' ? '#0a0a0a' : '#ffffff',
-							clipPath: `circle(0px at ${x}px ${y}px)`
+							position: "fixed",
+							inset: "0",
+							width: "100vw",
+							height: "100vh",
+							zIndex: "999999",
+							pointerEvents: "none",
+							backgroundColor:
+								next === "dark" ? "#0a0a0a" : "#ffffff",
+							clipPath: `circle(0px at ${x}px ${y}px)`,
 						});
 						document.body.appendChild(ov);
 						gsap.to(ov, {
 							clipPath: `circle(${radius}px at ${x}px ${y}px)`,
-							duration: 0.8, ease: 'power3.inOut',
+							duration: 0.8,
+							ease: "power3.inOut",
 							onComplete: () => {
-								document.documentElement.setAttribute('data-theme', next);
-								localStorage.setItem('theme', next);
+								document.documentElement.setAttribute(
+									"data-theme",
+									next,
+								);
+								localStorage.setItem("theme", next);
 								syncThemeLabel();
 								ov.remove();
-							}
+							},
 						});
 					};
 				}
@@ -555,7 +808,7 @@ const {
 				// --- Language ---
 				if (mobileLangBtn) {
 					mobileLangBtn.onclick = () => {
-						const langBtn = document.getElementById('langToggle');
+						const langBtn = document.getElementById("langToggle");
 						if (langBtn) langBtn.click();
 						syncLangLabel();
 					};
@@ -574,9 +827,21 @@ const {
 			// ---- Magnetic Buttons (floating UI) ----
 			function initMagneticButtons() {
 				[
-					{ wrapId: 'menu-wrap', btnId: 'cmdBtn', inner: '#menu-icon' },
-					{ wrapId: 'theme-wrap', btnId: 'themeToggle', inner: '.theme-toggle-inner' },
-					{ wrapId: 'lang-wrap', btnId: 'langToggle', inner: '#langText' }
+					{
+						wrapId: "menu-wrap",
+						btnId: "cmdBtn",
+						inner: "#menu-icon",
+					},
+					{
+						wrapId: "theme-wrap",
+						btnId: "themeToggle",
+						inner: ".theme-toggle-inner",
+					},
+					{
+						wrapId: "lang-wrap",
+						btnId: "langToggle",
+						inner: "#langText",
+					},
 				].forEach(({ wrapId, btnId, inner }) => {
 					const wrap = document.getElementById(wrapId);
 					const btn = document.getElementById(btnId);
@@ -585,72 +850,131 @@ const {
 						const r = wrap.getBoundingClientRect();
 						const x = e.clientX - r.left - r.width / 2;
 						const y = e.clientY - r.top - r.height / 2;
-						gsap.to(btn, { x: x * 0.5, y: y * 0.5, duration: 0.3, ease: 'power2.out' });
+						gsap.to(btn, {
+							x: x * 0.5,
+							y: y * 0.5,
+							duration: 0.3,
+							ease: "power2.out",
+						});
 						const el = btn.querySelector(inner);
-						if (el) gsap.to(el, { x: x * 0.25, y: y * 0.25, duration: 0.3, ease: 'power2.out' });
+						if (el)
+							gsap.to(el, {
+								x: x * 0.25,
+								y: y * 0.25,
+								duration: 0.3,
+								ease: "power2.out",
+							});
 					};
 					wrap.onmouseleave = () => {
-						gsap.to(btn, { x: 0, y: 0, duration: 0.9, ease: 'elastic.out(1, 0.3)' });
+						gsap.to(btn, {
+							x: 0,
+							y: 0,
+							duration: 0.9,
+							ease: "elastic.out(1, 0.3)",
+						});
 						const el = btn.querySelector(inner);
-						if (el) gsap.to(el, { x: 0, y: 0, duration: 0.9, ease: 'elastic.out(1, 0.3)' });
+						if (el)
+							gsap.to(el, {
+								x: 0,
+								y: 0,
+								duration: 0.9,
+								ease: "elastic.out(1, 0.3)",
+							});
 					};
 				});
 			}
 
 			// ---- Magnetic Links (nav items) ----
 			function initMagneticLinks() {
-				document.querySelectorAll('.avatar, .nav-link, .item').forEach(el => {
-					el.onmousemove = (e) => {
-						const r = el.getBoundingClientRect();
-						const dx = e.clientX - (r.left + r.width / 2);
-						const dy = e.clientY - (r.top + r.height / 2);
-						gsap.to(el, { x: dx * 0.3, y: dy * 0.3, duration: 0.3 });
-					};
-					el.onmouseleave = () => {
-						gsap.to(el, { x: 0, y: 0, duration: 0.6, ease: 'elastic.out(1, 0.3)' });
-					};
-				});
+				document
+					.querySelectorAll(".avatar, .nav-link, .item")
+					.forEach((el) => {
+						el.onmousemove = (e) => {
+							const r = el.getBoundingClientRect();
+							const dx = e.clientX - (r.left + r.width / 2);
+							const dy = e.clientY - (r.top + r.height / 2);
+							gsap.to(el, {
+								x: dx * 0.3,
+								y: dy * 0.3,
+								duration: 0.3,
+							});
+						};
+						el.onmouseleave = () => {
+							gsap.to(el, {
+								x: 0,
+								y: 0,
+								duration: 0.6,
+								ease: "elastic.out(1, 0.3)",
+							});
+						};
+					});
 			}
 
 			// ---- Scramble Text ----
 			function initScramble() {
-				document.querySelectorAll('.section-label').forEach(label => {
+				document.querySelectorAll(".section-label").forEach((label) => {
 					label.onmouseenter = () => {
 						const s = new TextScramble(label);
-						s.setText(label.textContent || '');
+						s.setText(label.textContent || "");
 					};
 				});
 			}
 
 			// ---- Project Preview ----
 			function initProjectPreview() {
-				const preview = document.getElementById('project-preview');
+				const preview = document.getElementById("project-preview");
 				if (!preview) return;
 				const map = {
-					'sales-intelligence-dashboard': '/projects/partner-growth.png',
-					'retail-etl-pipeline': '/projects/client-page.png',
-					'partner-growth': '/projects/partner-growth.png',
-					'client-page': '/projects/client-page.png',
-					'finding-home': '/projects/finding-home.png',
-					'type-wunderkammer': '/projects/type-wunderkammer.png'
+					"sales-intelligence-dashboard":
+						"/projects/partner-growth.png",
+					"retail-etl-pipeline": "/projects/client-page.png",
+					"partner-growth": "/projects/partner-growth.png",
+					"client-page": "/projects/client-page.png",
+					"finding-home": "/projects/finding-home.png",
+					"type-wunderkammer": "/projects/type-wunderkammer.png",
 				};
-				document.querySelectorAll('.item').forEach(link => {
-					const section = link.closest('section');
-					const label = section?.querySelector('.section-label')?.textContent?.toLowerCase() || '';
-					if (!label.includes('work') && !label.includes('proyectos')) return;
-					const titleEl = link.querySelector('.item-title');
+				document.querySelectorAll(".item").forEach((link) => {
+					const section = link.closest("section");
+					const label =
+						section
+							?.querySelector(".section-label")
+							?.textContent?.toLowerCase() || "";
+					if (!label.includes("work") && !label.includes("proyectos"))
+						return;
+					const titleEl = link.querySelector(".item-title");
 					if (!titleEl) return;
-					const slug = titleEl.textContent.toLowerCase().trim().replace(/\s+/g, '-').replace(/[^\w-]/g, '');
-					const img = map[slug] || '/projects/client-page.png';
+					const slug = titleEl.textContent
+						.toLowerCase()
+						.trim()
+						.replace(/\s+/g, "-")
+						.replace(/[^\w-]/g, "");
+					const img = map[slug] || "/projects/client-page.png";
 					link.onmouseenter = () => {
 						preview.innerHTML = `<img src="${img}" alt="preview">`;
-						gsap.to(preview, { opacity: 1, scale: 1, rotate: 0, duration: 0.4, ease: 'power2.out' });
+						gsap.to(preview, {
+							opacity: 1,
+							scale: 1,
+							rotate: 0,
+							duration: 0.4,
+							ease: "power2.out",
+						});
 					};
 					link.onmouseleave = () => {
-						gsap.to(preview, { opacity: 0, scale: 0.8, rotate: -5, duration: 0.4, ease: 'power2.in' });
+						gsap.to(preview, {
+							opacity: 0,
+							scale: 0.8,
+							rotate: -5,
+							duration: 0.4,
+							ease: "power2.in",
+						});
 					};
 					link.onmousemove = (e) => {
-						gsap.to(preview, { x: e.clientX + 20, y: e.clientY - 90, duration: 0.6, ease: 'power3.out' });
+						gsap.to(preview, {
+							x: e.clientX + 20,
+							y: e.clientY - 90,
+							duration: 0.6,
+							ease: "power3.out",
+						});
 					};
 				});
 			}
@@ -658,33 +982,44 @@ const {
 			// ---- Dashboard Analytics ----
 			let dashInterval = null;
 			function initAnalytics() {
-				const metricsEl = document.getElementById('live-metrics');
-				const logsEl = document.getElementById('system-logs');
+				const metricsEl = document.getElementById("live-metrics");
+				const logsEl = document.getElementById("system-logs");
 				if (!metricsEl && !logsEl) return;
-				if (dashInterval) { clearInterval(dashInterval); dashInterval = null; }
+				if (dashInterval) {
+					clearInterval(dashInterval);
+					dashInterval = null;
+				}
 				const msgs = [
-					'CONNECTING_TO_DATA_WAREHOUSE...', 'SYNCING_POWER_BI_DATASETS...',
-					'QUERY_EXECUTION_SUCCESS [SQL]', 'EXTRACTING_ETL_PIPELINE_LOGS...',
-					'UPDATING_DASHBOARD_METRICS...', 'ANALYZING_TRAFFIC_PATTERNS...',
-					'DATABASE_SYNC_SUCCESS [WORK_COLL]', 'REFRESHING_OLAP_CUBES...',
-					'ESTABLISHING_SECURE_API_CONNECTION', 'SYSTEM_IDLE_NODE_OPTIMIZED'
+					"CONNECTING_TO_DATA_WAREHOUSE...",
+					"SYNCING_POWER_BI_DATASETS...",
+					"QUERY_EXECUTION_SUCCESS [SQL]",
+					"EXTRACTING_ETL_PIPELINE_LOGS...",
+					"UPDATING_DASHBOARD_METRICS...",
+					"ANALYZING_TRAFFIC_PATTERNS...",
+					"DATABASE_SYNC_SUCCESS [WORK_COLL]",
+					"REFRESHING_OLAP_CUBES...",
+					"ESTABLISHING_SECURE_API_CONNECTION",
+					"SYSTEM_IDLE_NODE_OPTIMIZED",
 				];
 				dashInterval = setInterval(() => {
 					if (!logsEl) return;
-					const t = new Date().toLocaleTimeString('en-GB', { hour12: false });
-					const div = document.createElement('div');
-					div.className = 'log-line';
+					const t = new Date().toLocaleTimeString("en-GB", {
+						hour12: false,
+					});
+					const div = document.createElement("div");
+					div.className = "log-line";
 					div.textContent = `[${t}] > ${msgs[Math.floor(Math.random() * msgs.length)]}`;
 					logsEl.appendChild(div);
 					if (logsEl.children.length > 12) logsEl.firstChild.remove();
 				}, 1500);
 				const start = Date.now();
 				const tick = () => {
-					if (!metricsEl || !document.body.contains(metricsEl)) return;
+					if (!metricsEl || !document.body.contains(metricsEl))
+						return;
 					const s = Math.floor((Date.now() - start) / 1000);
-					const m = String(Math.floor(s / 60)).padStart(2, '0');
-					const sec = String(s % 60).padStart(2, '0');
-					metricsEl.textContent = `T: ${m}:${sec} | THRUPT: ${(Math.random()*50+10).toFixed(1)}MB/S | LAT: ${Math.floor(Math.random()*20+5)}MS`;
+					const m = String(Math.floor(s / 60)).padStart(2, "0");
+					const sec = String(s % 60).padStart(2, "0");
+					metricsEl.textContent = `T: ${m}:${sec} | THRUPT: ${(Math.random() * 50 + 10).toFixed(1)}MB/S | LAT: ${Math.floor(Math.random() * 20 + 5)}MS`;
 					requestAnimationFrame(tick);
 				};
 				tick();
@@ -694,99 +1029,138 @@ const {
 			// To activate: sign up at formspree.io, create a form, get your ID,
 			// then add data-formspree-id="YOUR_ID" to the <form> element in index.astro
 			function initContactForm() {
-				const form = document.getElementById('contact-form');
+				const form = document.getElementById("contact-form");
 				if (!form) return;
-				const formId = form.getAttribute('data-formspree-id');
+				const formId = form.getAttribute("data-formspree-id");
 				form.onsubmit = async (e) => {
 					e.preventDefault();
-					const btn = form.querySelector('.submit-btn span');
+					const btn = form.querySelector(".submit-btn span");
 					if (!btn) return;
 					const orig = btn.textContent;
-					if (!formId || formId === 'YOUR_FORM_ID') {
+					if (!formId || formId === "YOUR_FORM_ID") {
 						// Dev mode: simulate success
-						btn.textContent = '✓ Sent (dev mode)';
-						setTimeout(() => { form.reset(); btn.textContent = orig; }, 3000);
+						btn.textContent = "✓ Sent (dev mode)";
+						setTimeout(() => {
+							form.reset();
+							btn.textContent = orig;
+						}, 3000);
 						return;
 					}
-					btn.textContent = 'Sending...';
+					btn.textContent = "Sending...";
 					try {
 						const data = new FormData(form);
-						const res = await fetch(`https://formspree.io/f/${formId}`, {
-							method: 'POST',
-							body: data,
-							headers: { 'Accept': 'application/json' }
-						});
+						const res = await fetch(
+							`https://formspree.io/f/${formId}`,
+							{
+								method: "POST",
+								body: data,
+								headers: { Accept: "application/json" },
+							},
+						);
 						if (res.ok) {
-							btn.textContent = '✓ Sent!';
+							btn.textContent = "✓ Sent!";
 							form.reset();
 						} else {
 							const json = await res.json();
-							btn.textContent = json.errors ? json.errors[0].message : 'Error';
+							btn.textContent = json.errors
+								? json.errors[0].message
+								: "Error";
 						}
 					} catch {
-						btn.textContent = 'Network error';
+						btn.textContent = "Network error";
 					}
-					setTimeout(() => { btn.textContent = orig; }, 4000);
+					setTimeout(() => {
+						btn.textContent = orig;
+					}, 4000);
 				};
 			}
 
 			// ---- Preloader (first load only) ----
 			function initPreloader() {
-				const pl = document.getElementById('system-preloader');
+				const pl = document.getElementById("system-preloader");
 				if (!pl) return;
-				const bar = pl.querySelector('.preloader-bar');
-				const status = pl.querySelector('.preloader-status');
+				const bar = pl.querySelector(".preloader-bar");
+				const status = pl.querySelector(".preloader-status");
 				gsap.timeline()
-					.to(bar, { width: '20%', duration: 0.4 })
-					.add(() => status.textContent = 'BOOTING_CORE_SYSTEM...')
-					.to(bar, { width: '50%', duration: 0.5, delay: 0.2 })
-					.add(() => status.textContent = 'LOADING_MODULES...')
-					.to(bar, { width: '85%', duration: 0.5 })
-					.add(() => status.textContent = 'DECRYPTING_BIO_METRICS...')
-					.to(bar, { width: '100%', duration: 0.3 })
-					.add(() => status.textContent = 'ACCESS_GRANTED')
+					.to(bar, { width: "20%", duration: 0.4 })
+					.add(() => (status.textContent = "BOOTING_CORE_SYSTEM..."))
+					.to(bar, { width: "50%", duration: 0.5, delay: 0.2 })
+					.add(() => (status.textContent = "LOADING_MODULES..."))
+					.to(bar, { width: "85%", duration: 0.5 })
+					.add(
+						() =>
+							(status.textContent = "DECRYPTING_BIO_METRICS..."),
+					)
+					.to(bar, { width: "100%", duration: 0.3 })
+					.add(() => (status.textContent = "ACCESS_GRANTED"))
 					.to(pl, {
-						opacity: 0, duration: 0.8, ease: 'power4.inOut',
+						opacity: 0,
+						duration: 0.8,
+						ease: "power4.inOut",
 						onComplete: () => {
-							pl.style.display = 'none';
+							pl.style.display = "none";
 							gsap.fromTo(
-								['.header', '.footer', '#menu-wrap', '#theme-wrap', '#lang-wrap'],
+								[
+									".header",
+									".footer",
+									"#menu-wrap",
+									"#theme-wrap",
+									"#lang-wrap",
+								],
 								{ opacity: 0, y: -20 },
-								{ opacity: 1, y: 0, duration: 0.8, stagger: 0.1, ease: 'power2.out' }
+								{
+									opacity: 1,
+									y: 0,
+									duration: 0.8,
+									stagger: 0.1,
+									ease: "power2.out",
+								},
 							);
-						}
+						},
 					});
 			}
 
 			// ---- Page Transition Wipe ----
 			function initPageTransitions() {
 				// IMPORTANT: Re-query cols inside handlers — they are recreated on each body swap
-				document.addEventListener('astro:before-preparation', (ev) => {
-					const cols = document.querySelectorAll('.transition-column');
+				document.addEventListener("astro:before-preparation", (ev) => {
+					const cols =
+						document.querySelectorAll(".transition-column");
 					if (!cols.length) return;
 					const orig = ev.loader;
 					ev.loader = async () => {
 						// Reset cols to hidden state first
-						gsap.set(cols, { scaleY: 0, transformOrigin: 'top' });
-						await new Promise(resolve => {
+						gsap.set(cols, { scaleY: 0, transformOrigin: "top" });
+						await new Promise((resolve) => {
 							gsap.to(cols, {
-								scaleY: 1, duration: 0.45, stagger: 0.06,
-								ease: 'power4.inOut', onComplete: resolve
+								scaleY: 1,
+								duration: 0.45,
+								stagger: 0.06,
+								ease: "power4.inOut",
+								onComplete: resolve,
 							});
 						});
 						await orig();
 					};
 				});
 
-				document.addEventListener('astro:after-swap', () => {
+				document.addEventListener("astro:after-swap", () => {
 					// Re-query: these are the NEW page's columns
-					const cols = document.querySelectorAll('.transition-column');
+					const cols =
+						document.querySelectorAll(".transition-column");
 					if (!cols.length) return;
-					gsap.set(cols, { scaleY: 1, transformOrigin: 'bottom' });
+					gsap.set(cols, { scaleY: 1, transformOrigin: "bottom" });
 					gsap.to(cols, {
-						scaleY: 0, duration: 0.45, stagger: 0.06,
-						ease: 'power4.inOut', delay: 0.05,
-						onComplete: () => gsap.set(cols, { transformOrigin: 'top', scaleY: 0 })
+						scaleY: 0,
+						duration: 0.45,
+						stagger: 0.06,
+						ease: "power4.inOut",
+						delay: 0.05,
+						onComplete: () =>
+							gsap.set(cols, {
+								transformOrigin: "top",
+								scaleY: 0,
+							}),
 					});
 				});
 			}
@@ -795,12 +1169,12 @@ const {
 			function init() {
 				createIcons();
 
-				const pl = document.getElementById('system-preloader');
+				const pl = document.getElementById("system-preloader");
 				if (pl && !window._portfolioLoaded) {
 					window._portfolioLoaded = true;
 					initPreloader();
 				} else if (pl) {
-					pl.style.display = 'none';
+					pl.style.display = "none";
 				}
 
 				initNoise();
@@ -834,8 +1208,7 @@ const {
 			}
 
 			// Re-run init after every Astro page swap
-			document.addEventListener('astro:after-swap', init);
-
+			document.addEventListener("astro:after-swap", init);
 		</script>
 	</body>
 </html>

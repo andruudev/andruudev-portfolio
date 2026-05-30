@@ -1,225 +1,386 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
-import { getCollection } from 'astro:content';
-
-const allPosts = await getCollection('blog');
-const blogPosts = allPosts
-  .sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime())
-  .slice(0, 3);
+import BaseLayout from "../layouts/BaseLayout.astro";
+import SocialLinks from "../components/SocialLinks.astro";
 ---
 
-<BaseLayout>
-  <section class="animate">
-    <span class="section-label" data-t="profile_label">[01] Profile</span>
-    <div class="content-text">
-      <p data-t="profile_text">I'm a Data Analyst & BI Developer focused on transforming complex datasets into actionable insights. Expert in building automated pipelines, interactive dashboards, and scalable data models.</p>
-    </div>
-    <div style="margin-top: 16px;">
-      <a href="/about" class="nav-link" style="color: var(--text-secondary); font-family: var(--font-mono); font-size: 11px; text-decoration: none; display: flex; align-items: center; gap: 4px;" data-t="see_more">See More <i data-lucide="arrow-right" style="width: 10px; height: 10px;"></i></a>
-    </div>
-  </section>
+<BaseLayout title="Jeyson Andrés Mueses | Links" hideHeader={true}>
+  <div class="linktree-container animate">
+    <!-- Profile Info -->
+    <header class="linktree-profile">
+      <img src="/assets/andruudev-profile.png" alt="Jeyson Andrés Mueses" class="linktree-avatar" />
+      <h1 class="linktree-name">Jeyson Andrés Mueses 🇪🇨</h1>
+      <p class="linktree-subtitle" data-t="linktree_subtitle">Data & Cloud Engineer | AWS SBGL at PUCE | founder at aprendedata.org</p>
+      
+      <div class="linktree-socials">
+        <SocialLinks className="linktree-social-btn" />
+      </div>
+    </header>
 
-  <section class="animate">
-    <span class="section-label" data-t="work_label">[02] Work</span>
-    <div class="items-list">
-      <a href="/project/sales-intelligence" class="item nav-link">
-        <span class="item-title"><i data-lucide="bar-chart-3"></i> Sales Intelligence Dashboard</span>
-        <span class="item-meta">Power BI + SQL</span>
-      </a>
-      <a href="/project/retail-analytics" class="item nav-link">
-        <span class="item-title"><i data-lucide="database"></i> Retail ETL Pipeline</span>
-        <span class="item-meta">Python + Azure</span>
-      </a>
-      <a href="/project/supply-chain" class="item nav-link">
-        <span class="item-title"><i data-lucide="truck"></i> Supply Chain Optimization</span>
-        <span class="item-meta">Python + SQL + Excel</span>
-      </a>
-    </div>
-    <div style="margin-top: 16px;">
-      <a href="/projects" class="nav-link" style="color: var(--text-secondary); font-family: var(--font-mono); font-size: 11px; text-decoration: none; display: flex; align-items: center; gap: 4px;" data-t="see_more">See More <i data-lucide="arrow-right" style="width: 10px; height: 10px;"></i></a>
-    </div>
-  </section>
-
-  <section class="animate">
-    <span class="section-label">[03] Data Stack</span>
-    <div class="data-stack-grid">
-      <div class="stack-item" title="SQL Server"><i data-lucide="database"></i><span>SQL</span></div>
-      <div class="stack-item" title="Python"><i data-lucide="code-2"></i><span>Python</span></div>
-      <div class="stack-item" title="Power BI"><i data-lucide="bar-chart-3"></i><span>Power BI</span></div>
-      <div class="stack-item" title="Azure"><i data-lucide="cloud"></i><span>Azure</span></div>
-      <div class="stack-item" title="Excel"><i data-lucide="table-2"></i><span>Excel</span></div>
-      <div class="stack-item" title="Tableau"><i data-lucide="pie-chart"></i><span>Tableau</span></div>
-      <div class="stack-item" title="PostgreSQL"><i data-lucide="database"></i><span>PostgreSQL</span></div>
-      <div class="stack-item" title="Snowflake"><i data-lucide="snowflake"></i><span>Snowflake</span></div>
-      <div class="stack-item" title="Git"><i data-lucide="git-branch"></i><span>Git</span></div>
-      <div class="stack-item" title="Docker"><i data-lucide="container"></i><span>Docker</span></div>
-    </div>
-  </section>
-
-  <section class="animate">
-    <span class="section-label" data-t="experience_label">[04] Experience</span>
-    <div class="items-list">
-      <div class="item" style="cursor: default;">
-        <span class="item-title">Data Analyst & BI Developer</span>
-        <span class="item-meta">Corporación Favorita</span>
-      </div>
-      <div class="item" style="cursor: default;">
-        <span class="item-title">Junior Data Analyst</span>
-        <span class="item-meta">Banco Pichincha</span>
-      </div>
-    </div>
-    <div style="margin-top: 16px;">
-      <a href="/experience" class="nav-link" style="color: var(--text-secondary); font-family: var(--font-mono); font-size: 11px; text-decoration: none; display: flex; align-items: center; gap: 4px;" data-t="see_more">See More <i data-lucide="arrow-right" style="width: 10px; height: 10px;"></i></a>
-    </div>
-  </section>
-
-  <section class="animate">
-    <span class="section-label" data-t="skills_label">[05] Skills</span>
-    <div class="items-list">
-      <div class="item" style="cursor: default;">
-        <span class="item-title">Data Visualization & BI</span>
-        <span class="item-meta">Power BI / Tableau / Looker</span>
-      </div>
-      <div class="item" style="cursor: default;">
-        <span class="item-title">Data Engineering</span>
-        <span class="item-meta">SQL / Python / ETL / Azure</span>
-      </div>
-      <div class="item" style="cursor: default;">
-        <span class="item-title">Statistical Modeling</span>
-        <span class="item-meta">R / Python / Forecasting</span>
-      </div>
-      <div class="item" style="cursor: default;">
-        <span class="item-title">Cloud Data Warehousing</span>
-        <span class="item-meta">Snowflake / BigQuery / Redshift</span>
-      </div>
-    </div>
-    <div style="margin-top: 16px;">
-      <a href="/skills" class="nav-link" style="color: var(--text-secondary); font-family: var(--font-mono); font-size: 11px; text-decoration: none; display: flex; align-items: center; gap: 4px;" data-t="see_more">See More <i data-lucide="arrow-right" style="width: 10px; height: 10px;"></i></a>
-    </div>
-  </section>
-
-  <section class="animate">
-    <span class="section-label" data-t="education_label">[06] Education</span>
-    <div class="items-list">
-      <div class="item" style="cursor: default;">
-        <span class="item-title">B.S. Systems Engineering</span>
-        <span class="item-meta">ESPE · Ecuador</span>
-      </div>
-      <div class="item" style="cursor: default;">
-        <span class="item-title">M.S. Data Science</span>
-        <span class="item-meta">Polytechnic University of Madrid · 2025</span>
-      </div>
-      <div class="item" style="cursor: default;">
-        <span class="item-title">Data Engineering Program</span>
-        <span class="item-meta">MIT Sloan (Executive Education)</span>
-      </div>
-    </div>
-    <div style="margin-top: 16px;">
-      <a href="/education" class="nav-link" style="color: var(--text-secondary); font-family: var(--font-mono); font-size: 11px; text-decoration: none; display: flex; align-items: center; gap: 4px;" data-t="see_more">See More <i data-lucide="arrow-right" style="width: 10px; height: 10px;"></i></a>
-    </div>
-  </section>
-
-  <section class="animate">
-    <span class="section-label" data-t="certifications_label">[07] Certifications</span>
-    <div class="items-list">
-      <div class="item" style="cursor: default;">
-        <span class="item-title">Microsoft PL-300</span>
-        <span class="item-meta">Power BI Data Analyst · 2024</span>
-      </div>
-      <div class="item" style="cursor: default;">
-        <span class="item-title">Google Data Analytics</span>
-        <span class="item-meta">Professional Certificate · 2023</span>
-      </div>
-      <div class="item" style="cursor: default;">
-        <span class="item-title">Tableau Desktop Specialist</span>
-        <span class="item-meta">Tableau · 2023</span>
-      </div>
-    </div>
-    <div style="margin-top: 16px;">
-      <a href="/certifications" class="nav-link" style="color: var(--text-secondary); font-family: var(--font-mono); font-size: 11px; text-decoration: none; display: flex; align-items: center; gap: 4px;" data-t="see_more">See More <i data-lucide="arrow-right" style="width: 10px; height: 10px;"></i></a>
-    </div>
-  </section>
-
-  <section class="animate">
-    <span class="section-label" data-t="leadership_label">[08] Leadership</span>
-    <div class="items-list">
-      <div class="item" style="cursor: default;">
-        <span class="item-title">Microsoft Student Ambassador</span>
-        <span class="item-meta">MLSA · Ecuador</span>
-      </div>
-      <div class="item" style="cursor: default;">
-        <span class="item-title">Data Mentor</span>
-        <span class="item-meta">ADPList · 50+ sessions</span>
-      </div>
-    </div>
-    <div style="margin-top: 16px;">
-      <a href="/leadership" class="nav-link" style="color: var(--text-secondary); font-family: var(--font-mono); font-size: 11px; text-decoration: none; display: flex; align-items: center; gap: 4px;" data-t="see_more">See More <i data-lucide="arrow-right" style="width: 10px; height: 10px;"></i></a>
-    </div>
-  </section>
-
-  <section class="animate">
-    <span class="section-label" data-t="blog_label">[09] Blog</span>
-    <div class="items-list">
-      {blogPosts.map(post => (
-        <a href={`/blog/${post.id}`} class="item nav-link">
-          <span class="item-title">
-            <i data-lucide={post.data.tag === 'Data' ? 'bar-chart-3' : 'book-text'}></i> 
-            {post.data.title}
-          </span>
-          <span class="item-meta">{new Date(post.data.date).toLocaleDateString(undefined, { month: 'short', year: 'numeric' })}</span>
-        </a>
-      ))}
-    </div>
-    <div style="margin-top: 16px;">
-      <a href="/blog" class="nav-link" style="color: var(--text-secondary); font-family: var(--font-mono); font-size: 11px; text-decoration: none; display: flex; align-items: center; gap: 4px;" data-t="see_more">See More <i data-lucide="arrow-right" style="width: 10px; height: 10px;"></i></a>
-    </div>
-  </section>
-
-  <section class="animate">
-    <span class="section-label" data-t="connect_label">[10] Connect</span>
-    <!-- ============================================================
-         CONTACT FORM — Powered by Formspree
-         HOW TO ACTIVATE:
-         1. Go to https://formspree.io and create a free account
-         2. Click "New Form" and name it (e.g. "Portfolio Contact")
-         3. Copy your form ID (looks like: xpzgkwvb)
-         4. Replace YOUR_FORM_ID below with your actual ID
-         That's it — Formspree handles the email delivery for free.
-         ============================================================ -->
-    <form id="contact-form" class="minimal-form" data-formspree-id="mgodjnpp">
-      <div class="form-group">
-        <input type="text" name="name" id="name" placeholder="Name" data-t="name_placeholder" required />
-      </div>
-      <div class="form-group">
-        <input type="email" name="email" id="email" placeholder="Email" data-t="email_placeholder" required />
-      </div>
-      <div class="form-group">
-        <textarea name="message" id="message" placeholder="Message..." data-t="message_placeholder" rows="3" required></textarea>
-      </div>
-      <button type="submit" class="submit-btn">
-        <span data-t="send">Send</span> <i data-lucide="arrow-right"></i>
-      </button>
-    </form>
-  </section>
-
-  <section class="animate" id="network-visualizer">
-    <span class="section-label" data-t="network_label">[11] Data Pipeline Status</span>
-    <div class="dashboard-grid">
-      <div class="dashboard-node">
-        <div class="node-icon">
-          <div class="status-dot"></div>
-          <svg viewBox="0 0 40 40">
-            <circle cx="20" cy="20" r="18" fill="none" stroke="currentColor" stroke-dasharray="4 4" class="radar-spin" />
+    <!-- Sections -->
+    <section class="linktree-section animate">
+      <span class="section-label" data-t="linktree_explore">[01] Navigation</span>
+      <div class="linktree-list">
+        <a href="/portfolio" class="linktree-item nav-link">
+          <div class="linktree-item-content">
+            <span class="linktree-item-title">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect width="7" height="9" x="3" y="3" rx="1"/>
+                <rect width="7" height="5" x="14" y="3" rx="1"/>
+                <rect width="7" height="9" x="14" y="10" rx="1"/>
+                <rect width="7" height="5" x="3" y="14" rx="1"/>
+              </svg>
+              <span data-t="linktree_portfolio_title">Interactive Portfolio</span>
+            </span>
+            <span class="linktree-item-desc" data-t="linktree_portfolio_desc">Explore my projects, dynamic data stack, and full experience dashboard.</span>
+          </div>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="linktree-arrow">
+            <path d="M5 12h14"/>
+            <path d="m12 5 7 7-7 7"/>
           </svg>
-        </div>
-        <div class="node-info">
-          <div class="node-status" data-t="secure_node">DATA WAREHOUSE CONNECTED</div>
-          <div class="node-metrics" id="live-metrics">INITIALIZING...</div>
-        </div>
+        </a>
+
+        <a href="/portfolio/blog" class="linktree-item nav-link">
+          <div class="linktree-item-content">
+            <span class="linktree-item-title">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"/>
+                <path d="M6 6h10"/>
+                <path d="M6 10h10"/>
+              </svg>
+              <span data-t="linktree_blog_title">Field Notes (Blog)</span>
+            </span>
+            <span class="linktree-item-desc" data-t="linktree_blog_desc">Read my articles and guides on data analytics, ETL, and BI best practices.</span>
+          </div>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="linktree-arrow">
+            <path d="M5 12h14"/>
+            <path d="m12 5 7 7-7 7"/>
+          </svg>
+        </a>
       </div>
-      <div class="system-logs" id="system-logs">
-        <!-- Logs will be injected here -->
+    </section>
+
+    <section class="linktree-section animate">
+      <span class="section-label" data-t="linktree_actions">[02] Actions & Services</span>
+      <div class="linktree-list">
+        <a href="https://calendar.app.google/x4k7jeHac8j5fP5X6" target="_blank" rel="noopener" class="linktree-item nav-link">
+          <div class="linktree-item-content">
+            <span class="linktree-item-title">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M8 2v4"/>
+                <path d="M16 2v4"/>
+                <rect width="18" height="18" x="3" y="4" rx="2"/>
+                <path d="M3 10h18"/>
+              </svg>
+              <span data-t="linktree_call_title">Book a 1:1 Call</span>
+            </span>
+            <span class="linktree-item-desc" data-t="linktree_call_desc">Schedule a session for mentorship, business queries, or data consulting.</span>
+          </div>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="linktree-arrow">
+            <path d="M15 3h6v6"/>
+            <path d="M10 14 21 3"/>
+            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+          </svg>
+        </a>
+
+        <a href="/assets/cv-andruudev.pdf" download class="linktree-item nav-link">
+          <div class="linktree-item-content">
+            <span class="linktree-item-title">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                <polyline points="7 10 12 15 17 10"/>
+                <line x1="12" y1="15" x2="12" y2="3"/>
+              </svg>
+              <span data-t="linktree_cv_title">Download Resume</span>
+            </span>
+            <span class="linktree-item-desc" data-t="linktree_cv_desc">Access my full CV in PDF format (English & Spanish).</span>
+          </div>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="linktree-arrow">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+            <polyline points="7 10 12 15 17 10"/>
+            <line x1="12" y1="15" x2="12" y2="3"/>
+          </svg>
+        </a>
       </div>
-    </div>
-  </section>
+    </section>
+
+    <section class="linktree-section animate">
+      <span class="section-label" data-t="linktree_networks">[03] Professional Networks</span>
+      <div class="linktree-networks-grid">
+        <a href="https://linkedin.com/in/andruudev" target="_blank" rel="noopener" class="network-card nav-link">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+          </svg>
+          <span>LinkedIn</span>
+        </a>
+        <a href="https://github.com/andruudev" target="_blank" rel="noopener" class="network-card nav-link">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.28 1.15-.28 2.35 0 3.5-.73 1.02-1.08 2.25-1 3.5 0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/>
+            <path d="M9 18c-4.51 2-5-2-7-2"/>
+          </svg>
+          <span>GitHub</span>
+        </a>
+        <a href="https://x.com/andruudev" target="_blank" rel="noopener" class="network-card nav-link">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.253 5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+          </svg>
+          <span>X</span>
+        </a>
+        <a href="https://dev.to/andruudev" target="_blank" rel="noopener" class="network-card nav-link">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 5h16a1 1 0 0 1 1 1v12a1 1 0 0 1 -1 1h-16a1 1 0 0 1 -1 -1v-12a1 1 0 0 1 1 -1z"/>
+            <path d="M7 9v6h1.5a1.5 1.5 0 0 0 1.5 -1.5v-3a1.5 1.5 0 0 0 -1.5 -1.5h-1.5z"/>
+            <path d="M14 9h-2v6h2"/>
+            <path d="M12 12h2"/>
+            <path d="M17 9l1 6l1 -6"/>
+          </svg>
+          <span>Dev.to</span>
+        </a>
+        <a href="https://instagram.com/andruudev" target="_blank" rel="noopener" class="network-card nav-link">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+          </svg>
+          <span>Instagram</span>
+        </a>
+        <a href="https://tiktok.com/@andruudev" target="_blank" rel="noopener" class="network-card nav-link">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.76a4.85 4.85 0 0 1-1.01-.07z"/>
+          </svg>
+          <span>TikTok</span>
+        </a>
+        <a href="https://youtube.com/@andruudev" target="_blank" rel="noopener" class="network-card nav-link">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+          </svg>
+          <span>YouTube</span>
+        </a>
+        <a href="mailto:andruudev@gmail.com" class="network-card nav-link">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect width="20" height="16" x="2" y="4" rx="2"/>
+            <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+          </svg>
+          <span>Email</span>
+        </a>
+      </div>
+    </section>
+
+    <section class="linktree-section animate">
+      <span class="section-label" data-t="linktree_contact">[04] Send a Message</span>
+      <form id="contact-form" class="minimal-form" data-formspree-id="mgodjnpp">
+        <div class="form-group">
+          <input
+            type="text"
+            name="name"
+            id="name"
+            placeholder="Name"
+            data-t="name_placeholder"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <input
+            type="email"
+            name="email"
+            id="email"
+            placeholder="Email"
+            data-t="email_placeholder"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <textarea
+            name="message"
+            id="message"
+            placeholder="Message..."
+            data-t="message_placeholder"
+            rows="3"
+            required></textarea>
+        </div>
+        <button type="submit" class="submit-btn">
+          <span data-t="send">Send</span>
+          <i data-lucide="arrow-right"></i>
+        </button>
+      </form>
+    </section>
+  </div>
 </BaseLayout>
+
+<style>
+  .linktree-container {
+    max-width: 520px;
+    margin: 0 auto;
+    padding: 20px 0;
+  }
+  .linktree-profile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin-bottom: 40px;
+  }
+  .linktree-avatar {
+    width: 96px;
+    height: 96px;
+    border-radius: 50%;
+    object-fit: cover;
+    filter: grayscale(1);
+    border: 2px solid var(--border-color);
+    margin-bottom: 16px;
+    transition: transform 0.5s ease;
+  }
+  .linktree-avatar:hover {
+    transform: rotate(5deg) scale(1.05);
+  }
+  .linktree-name {
+    font-size: 22px;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    margin-bottom: 8px;
+  }
+  .linktree-subtitle {
+    font-size: 13px;
+    color: var(--text-secondary);
+    max-width: 360px;
+    margin-bottom: 20px;
+    line-height: 1.5;
+  }
+  .linktree-socials {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+  }
+  :global(.linktree-social-btn) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    background: rgba(255, 255, 255, 0.02);
+    transition: all 0.2s ease;
+  }
+  :global(.linktree-social-btn:hover) {
+    color: var(--text-color);
+    border-color: var(--text-color);
+    background: var(--selection-bg);
+  }
+  .linktree-section {
+    margin-bottom: 32px;
+    padding-bottom: 0px;
+    border-bottom: none;
+  }
+  .linktree-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .linktree-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.3s ease;
+  }
+  [data-theme='light'] .linktree-item {
+    background: rgba(0, 0, 0, 0.01);
+  }
+  .linktree-item:hover {
+    background: var(--selection-bg);
+    border-color: var(--text-color);
+    transform: translateY(-2px);
+    opacity: 1;
+  }
+  .linktree-item-content {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    align-items: flex-start;
+  }
+  .linktree-item-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 500;
+    font-size: 15px;
+  }
+  .linktree-item-title svg {
+    width: 16px;
+    height: 16px;
+    color: var(--text-secondary);
+    transition: var(--transition);
+  }
+  .linktree-item:hover .linktree-item-title svg {
+    color: var(--text-color);
+  }
+  .linktree-item-desc {
+    font-size: 12px;
+    color: var(--text-secondary);
+    text-align: left;
+    line-height: 1.4;
+  }
+  .linktree-arrow {
+    width: 16px;
+    height: 16px;
+    color: var(--text-secondary);
+    transition: transform 0.2s ease;
+  }
+  .linktree-item:hover .linktree-arrow {
+    color: var(--text-color);
+    transform: translateX(3px);
+  }
+  .linktree-networks-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+  }
+  @media (max-width: 480px) {
+    .linktree-networks-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  .network-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 16px;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+  }
+  [data-theme='light'] .network-card {
+    background: rgba(0, 0, 0, 0.01);
+  }
+  .network-card:hover {
+    background: var(--selection-bg);
+    border-color: var(--text-color);
+    transform: translateY(-2px);
+    opacity: 1;
+  }
+  .network-card svg {
+    width: 20px;
+    height: 20px;
+    color: var(--text-secondary);
+    transition: var(--transition);
+  }
+  .network-card:hover svg {
+    color: var(--text-color);
+  }
+  .network-card span {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+</style>

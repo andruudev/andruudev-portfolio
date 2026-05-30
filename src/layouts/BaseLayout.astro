@@ -13,6 +13,7 @@ interface Props {
 	lang?: string;
 	hideHeader?: boolean;
 	hideFooter?: boolean;
+	hideMenu?: boolean;
 }
 
 const {
@@ -21,6 +22,7 @@ const {
 	lang = "en",
 	hideHeader = false,
 	hideFooter = false,
+	hideMenu = false,
 } = Astro.props;
 ---
 
@@ -104,7 +106,7 @@ const {
 
 		<ThemeToggle />
 		<LangToggle />
-		<CommandPalette />
+		{!hideMenu && <CommandPalette />}
 
 		<!-- Mobile Unified Nav Bar -->
 		<div id="mobile-nav-bar">
@@ -160,31 +162,33 @@ const {
 				<span class="mobile-nav-label" id="mobileLangLabel">EN</span>
 			</button>
 
-			<div class="mobile-nav-divider"></div>
+			{!hideMenu && <div class="mobile-nav-divider"></div>}
 
 			<!-- Menu -->
-			<button
-				class="mobile-nav-btn"
-				id="mobileMenuBtn"
-				aria-label="Open menu"
-			>
-				<svg
-					width="16"
-					height="16"
-					viewBox="0 0 24 24"
-					fill="none"
-					stroke="currentColor"
-					stroke-width="2"
-					stroke-linecap="round"
-					stroke-linejoin="round"
-					id="mobileMenuIcon"
+			{!hideMenu && (
+				<button
+					class="mobile-nav-btn"
+					id="mobileMenuBtn"
+					aria-label="Open menu"
 				>
-					<line x1="4" y1="6" x2="20" y2="6"></line>
-					<line x1="4" y1="12" x2="20" y2="12"></line>
-					<line x1="4" y1="18" x2="20" y2="18"></line>
-				</svg>
-				<span class="mobile-nav-label">Menu</span>
-			</button>
+					<svg
+						width="16"
+						height="16"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="2"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						id="mobileMenuIcon"
+					>
+						<line x1="4" y1="6" x2="20" y2="6"></line>
+						<line x1="4" y1="12" x2="20" y2="12"></line>
+						<line x1="4" y1="18" x2="20" y2="18"></line>
+					</svg>
+					<span class="mobile-nav-label">Menu</span>
+				</button>
+			)}
 		</div>
 
 		<div class="container">
@@ -740,7 +744,7 @@ const {
 					document.getElementById("mobileLangLabel");
 				const mobileMenuBtn = document.getElementById("mobileMenuBtn");
 
-				if (!mobileMenuBtn) return;
+
 
 				// --- Helpers ---
 				const syncThemeLabel = () => {
@@ -815,13 +819,15 @@ const {
 				}
 
 				// --- Menu Toggle (delegates to global) ---
-				mobileMenuBtn.onclick = () => {
-					if (window._menuOpen) {
-						if (window._closeMenu) window._closeMenu();
-					} else {
-						if (window._openMenu) window._openMenu();
-					}
-				};
+				if (mobileMenuBtn) {
+					mobileMenuBtn.onclick = () => {
+						if (window._menuOpen) {
+							if (window._closeMenu) window._closeMenu();
+						} else {
+							if (window._openMenu) window._openMenu();
+						}
+					};
+				}
 			}
 
 			// ---- Magnetic Buttons (floating UI) ----

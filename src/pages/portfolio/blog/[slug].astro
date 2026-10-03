@@ -13,7 +13,7 @@ const { entry } = Astro.props;
 const { Content } = await render(entry);
 ---
 
-<BaseLayout title={`${entry.data.title} | Blog`}>
+<BaseLayout title={`${entry.data.title} | Blog`} description={entry.data.description} ogType="article">
   <article class="animate">
     <span class="section-label">[12] Blog Post</span>
     <h1 style="font-family: var(--font-sans); font-size: 32px; margin-bottom: 8px;">{entry.data.title}</h1>

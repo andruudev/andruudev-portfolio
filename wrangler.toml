@@ -1,3 +1,6 @@
 name = "andruudev-portfolio"
-pages_build_output_dir = "./dist"
 compatibility_date = "2024-09-23"
+compatibility_flags = ["global_fetch_strictly_public"]
+
+[assets]
+directory = "./dist"

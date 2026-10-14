@@ -1,0 +1,102 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+---
+
+<BaseLayout title="Events & Staff | Jeyson Andrés Mueses" description="Tech events organized, staff leads, and community workshops by Jeyson Andrés Mueses.">
+  <section class="animate">
+    <span class="section-label" data-t="events_label">[09] Events & Staff</span>
+    <h2 style="font-family: var(--font-sans); font-size: 24px; margin-bottom: 8px;">Events & Community Staff</h2>
+    <p style="color: var(--text-secondary); font-size: 14px; margin-bottom: 24px;">Key metrics, logistics, and technical sessions organized across developer communities.</p>
+
+    <!-- Subhead Stats Line -->
+    <div class="events-subhead-bar" style="margin-bottom: 24px;">
+      <div class="events-subhead-pill">
+        <i data-lucide="users" style="width: 14px; height: 14px;"></i>
+        <span><strong>500+</strong> Attendees</span>
+      </div>
+      <div class="events-subhead-pill">
+        <i data-lucide="presentation" style="width: 14px; height: 14px;"></i>
+        <span><strong>12+</strong> Workshops</span>
+      </div>
+      <div class="events-subhead-pill">
+        <i data-lucide="calendar" style="width: 14px; height: 14px;"></i>
+        <span><strong>4</strong> Tech Events</span>
+      </div>
+    </div>
+
+    <!-- 2x2 Minimal Grid -->
+    <div class="events-minimal-grid">
+      <!-- Event 1 -->
+      <div class="event-minimal-card">
+        <div class="event-minimal-thumb" style="height: 140px;">
+          <img src="/assets/events/aws-workshop.jpg" alt="AWS Community Day & PUCE Workshops" />
+          <span class="event-minimal-badge">Organizer & Lead</span>
+        </div>
+        <div class="event-minimal-body" style="padding: 14px;">
+          <div class="event-minimal-top">
+            <span class="event-minimal-title" style="font-size: 15px;">AWS Community Day & PUCE Cloud Workshops</span>
+            <span class="event-minimal-year">2024</span>
+          </div>
+          <p style="font-size: 13px; color: var(--text-secondary); margin-top: 6px; line-height: 1.5;">
+            Organized hands-on cloud architecture labs covering AWS S3, EC2, Lambda, and AWS Glue. Trained 250+ engineering students on cloud data pipelines as AWS Student Builder Group Leader.
+          </p>
+        </div>
+      </div>
+
+      <!-- Event 2 -->
+      <div class="event-minimal-card">
+        <div class="event-minimal-thumb" style="height: 140px;">
+          <img src="/assets/events/microsoft-summit.jpg" alt="Microsoft AI & Cloud Student Summit" />
+          <span class="event-minimal-badge">Tech Staff Lead</span>
+        </div>
+        <div class="event-minimal-body" style="padding: 14px;">
+          <div class="event-minimal-top">
+            <span class="event-minimal-title" style="font-size: 15px;">Microsoft AI & Cloud Student Summit</span>
+            <span class="event-minimal-year">2024</span>
+          </div>
+          <p style="font-size: 13px; color: var(--text-secondary); margin-top: 6px; line-height: 1.5;">
+            Coordinated event logistics and AV infrastructure as Microsoft Student Ambassador (MLSA). Co-hosted live sessions on Power BI data modeling and Azure Data Factory for 150+ attendees.
+          </p>
+        </div>
+      </div>
+
+      <!-- Event 3 -->
+      <div class="event-minimal-card">
+        <div class="event-minimal-thumb" style="height: 140px;">
+          <img src="/assets/events/data-meetup.jpg" alt="DataQuito Meetups & Hackathon Staff" />
+          <span class="event-minimal-badge">Co-Organizer & Staff</span>
+        </div>
+        <div class="event-minimal-body" style="padding: 14px;">
+          <div class="event-minimal-top">
+            <span class="event-minimal-title" style="font-size: 15px;">DataQuito Tech Meetups & Hackathon Staff</span>
+            <span class="event-minimal-year">2023</span>
+          </div>
+          <p style="font-size: 13px; color: var(--text-secondary); margin-top: 6px; line-height: 1.5;">
+            Co-founded and managed logistics for monthly community meetups in Quito. Managed participant check-ins, staff coordination, and mentor support during data analytics hackathons for 80+ hackers.
+          </p>
+        </div>
+      </div>
+
+      <!-- Event 4 -->
+      <div class="event-minimal-card">
+        <div class="event-minimal-thumb" style="height: 140px;">
+          <img src="/assets/events/bootcamp.jpg" alt="PUCE Data & Cloud Analytics Bootcamp" />
+          <span class="event-minimal-badge">Speaker & Staff</span>
+        </div>
+        <div class="event-minimal-body" style="padding: 14px;">
+          <div class="event-minimal-top">
+            <span class="event-minimal-title" style="font-size: 15px;">PUCE Data & Cloud Analytics Bootcamp</span>
+            <span class="event-minimal-year">2023</span>
+          </div>
+          <p style="font-size: 13px; color: var(--text-secondary); margin-top: 6px; line-height: 1.5;">
+            Designed syllabus and served as staff lead for university data analytics bootcamp. Taught practical SQL querying, Python automation, and data visualization for 60+ participants.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div style="margin-top: 40px;">
+    <a href="/portfolio" class="nav-link" style="color: var(--text-secondary); font-family: var(--font-mono); font-size: 13px; text-decoration: none;" data-t="back_home"><i data-lucide="arrow-left"></i> Back to Home</a>
+  </div>
+</BaseLayout>

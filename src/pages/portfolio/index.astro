@@ -248,7 +248,114 @@ const blogPosts = allPosts
   </section>
 
   <section class="animate">
-    <span class="section-label" data-t="blog_label">[09] Blog</span>
+    <span class="section-label" data-t="events_label">[09] Events & Staff</span>
+
+    <!-- Subhead Stats Line -->
+    <div class="events-subhead-bar">
+      <div class="events-subhead-pill">
+        <i data-lucide="users" style="width: 12px; height: 12px;"></i>
+        <span><strong>500+</strong> Attendees</span>
+      </div>
+      <div class="events-subhead-pill">
+        <i data-lucide="presentation" style="width: 12px; height: 12px;"></i>
+        <span><strong>12+</strong> Workshops</span>
+      </div>
+      <div class="events-subhead-pill">
+        <i data-lucide="calendar" style="width: 12px; height: 12px;"></i>
+        <span><strong>4</strong> Events</span>
+      </div>
+    </div>
+
+    <!-- 2x2 Minimal Grid -->
+    <div class="events-minimal-grid">
+      <!-- 1. AWS Community Day -->
+      <a href="/portfolio/events" class="event-minimal-card nav-link">
+        <div class="event-minimal-thumb">
+          <img src="/assets/events/aws-workshop.jpg" alt="AWS Community Day" />
+          <span class="event-minimal-badge">Organizer</span>
+        </div>
+        <div class="event-minimal-body">
+          <div class="event-minimal-top">
+            <span class="event-minimal-title">AWS Community Day & PUCE</span>
+            <span class="event-minimal-year">2024</span>
+          </div>
+          <div class="event-minimal-stat">
+            <i data-lucide="users" style="width: 10px; height: 10px;"></i>
+            <span>250+ students · AWS Cloud</span>
+          </div>
+        </div>
+      </a>
+
+      <!-- 2. Microsoft Student Summit -->
+      <a href="/portfolio/events" class="event-minimal-card nav-link">
+        <div class="event-minimal-thumb">
+          <img src="/assets/events/microsoft-summit.jpg" alt="Microsoft Student Summit" />
+          <span class="event-minimal-badge">Staff Lead</span>
+        </div>
+        <div class="event-minimal-body">
+          <div class="event-minimal-top">
+            <span class="event-minimal-title">Microsoft AI & Cloud Summit</span>
+            <span class="event-minimal-year">2024</span>
+          </div>
+          <div class="event-minimal-stat">
+            <i data-lucide="users" style="width: 10px; height: 10px;"></i>
+            <span>150+ attendees · Power BI</span>
+          </div>
+        </div>
+      </a>
+
+      <!-- 3. DataQuito Hackathon -->
+      <a href="/portfolio/events" class="event-minimal-card nav-link">
+        <div class="event-minimal-thumb">
+          <img src="/assets/events/data-meetup.jpg" alt="DataQuito Meetups" />
+          <span class="event-minimal-badge">Co-Organizer</span>
+        </div>
+        <div class="event-minimal-body">
+          <div class="event-minimal-top">
+            <span class="event-minimal-title">DataQuito Meetup & Hackathon</span>
+            <span class="event-minimal-year">2023</span>
+          </div>
+          <div class="event-minimal-stat">
+            <i data-lucide="users" style="width: 10px; height: 10px;"></i>
+            <span>80+ participants · Data</span>
+          </div>
+        </div>
+      </a>
+
+      <!-- 4. Data & Cloud Bootcamp -->
+      <a href="/portfolio/events" class="event-minimal-card nav-link">
+        <div class="event-minimal-thumb">
+          <img src="/assets/events/bootcamp.jpg" alt="Data Analytics Bootcamp" />
+          <span class="event-minimal-badge">Speaker</span>
+        </div>
+        <div class="event-minimal-body">
+          <div class="event-minimal-top">
+            <span class="event-minimal-title">PUCE Data & Cloud Bootcamp</span>
+            <span class="event-minimal-year">2023</span>
+          </div>
+          <div class="event-minimal-stat">
+            <i data-lucide="users" style="width: 10px; height: 10px;"></i>
+            <span>60+ attendees · SQL & Python</span>
+          </div>
+        </div>
+      </a>
+    </div>
+
+    <div style="margin-top: 16px;">
+      <a
+        href="/portfolio/events"
+        class="nav-link"
+        style="color: var(--text-secondary); font-family: var(--font-mono); font-size: 11px; text-decoration: none; display: flex; align-items: center; gap: 4px;"
+        data-t="see_more"
+        >See More <i
+          data-lucide="arrow-right"
+          style="width: 10px; height: 10px;"></i></a
+      >
+    </div>
+  </section>
+
+  <section class="animate">
+    <span class="section-label" data-t="blog_label">[10] Blog</span>
     <div class="items-list">
       {
         blogPosts.map((post) => (
@@ -285,7 +392,7 @@ const blogPosts = allPosts
   </section>
 
   <section class="animate">
-    <span class="section-label" data-t="connect_label">[10] Connect</span>
+    <span class="section-label" data-t="connect_label">[11] Connect</span>
     <!-- ============================================================
          CONTACT FORM — Powered by Formspree
          HOW TO ACTIVATE:
@@ -334,7 +441,7 @@ const blogPosts = allPosts
 
   <section class="animate" id="network-visualizer">
     <span class="section-label" data-t="network_label"
-      >[11] Data Pipeline Status</span
+      >[12] Data Pipeline Status</span
     >
     <div class="dashboard-grid">
       <div class="dashboard-node">

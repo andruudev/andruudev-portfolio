@@ -2,6 +2,10 @@
 
 Static portfolio and personal links site built with Astro and TypeScript.
 
+## Resuming work
+
+Start with [AGENTS.md](AGENTS.md), the [project context](docs/PROJECT_CONTEXT.md) and the [continuity plan](docs/WORK_PLAN.md). They preserve the product decisions, content provenance, translation architecture and known verification limits from the previous working session.
+
 ## Development
 
 ```sh

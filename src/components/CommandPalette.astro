@@ -2,13 +2,13 @@
 import SocialLinks from './SocialLinks.astro';
 ---
 <div class="magnetic-wrap animate" id="menu-wrap">
-  <button class="cmd-btn" id="cmdBtn" aria-label="Open Menu" aria-expanded="false" aria-controls="modalOverlay">
+  <button class="cmd-btn" id="cmdBtn" aria-label="Open navigation menu" data-i18n-aria="open_menu" aria-expanded="false" aria-controls="modalOverlay">
     <i data-lucide="chart-no-axes-gantt" id="menu-icon" style="width: 18px; height: 18px; flex-shrink: 0;"></i>
     <span class="cmd-btn-label" data-t="menu">MENU</span>
   </button>
 </div>
 
-<div class="modal-overlay" id="modalOverlay" role="dialog" aria-modal="true" aria-label="Navigation">
+<div class="modal-overlay" id="modalOverlay" role="dialog" aria-modal="true" aria-label="Site navigation" data-i18n-aria="navigation">
   <div class="modal-content">
 
     <button type="button" id="modalCloseBtn" class="modal-close-btn" data-t="close_menu">Close menu</button>
@@ -35,15 +35,18 @@ import SocialLinks from './SocialLinks.astro';
           <span class="cp-meta">/portfolio</span>
         </a>
         <a href="/" class="cp-row">
-          <span class="cp-title" data-t="links">Linktree</span>
+          <span class="cp-title" data-t="links">Launchpad · All links</span>
           <span class="cp-meta">/</span>
+        </a>
+        <a href="/portfolio#projects" class="cp-row">
+          <span class="cp-title" data-t="projects">Projects</span><span class="cp-meta">/portfolio#projects</span>
         </a>
         <a href="/portfolio/about" class="cp-row">
           <span class="cp-title" data-t="about">About</span>
           <span class="cp-meta">/portfolio/about</span>
         </a>
         <a href="/portfolio/now" class="cp-row">
-          <span class="cp-title">Now</span>
+          <span class="cp-title" data-t="now">Now</span>
           <span class="cp-meta">/portfolio/now</span>
         </a>
         <a href="/portfolio/skills" class="cp-row">

@@ -1,48 +1,14 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import Copy from "../../components/Copy.astro";
+import { stack } from "../../data/profile";
 ---
-
-<BaseLayout title="Skills | Jeyson Andrés Mueses">
+<BaseLayout title="Cloud & DevOps Stack | Jeyson Andrés Mueses">
   <section class="animate">
-    <span class="section-label" data-t="skills_label">[07] Skills</span>
-    <h2 style="font-family: var(--font-sans); font-size: 24px; margin-bottom: 8px;" data-t="skills_title">Technical Skills</h2>
-    <p style="font-size: 14px; color: var(--text-secondary); margin-bottom: 32px;">Tools and technologies I work with daily across cloud platforms and infrastructure automation.</p>
-
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 32px;">
-      <div>
-        <h3 style="font-family: var(--font-mono); font-size: 11px; color: var(--text-secondary); margin-bottom: 12px; text-transform: uppercase; letter-spacing: 1px;">Cloud Platforms</h3>
-        <ul style="list-style: none; font-size: 14px; display: flex; flex-direction: column; gap: 8px;">
-          <li>AWS (EKS, EC2, S3, IAM)</li>
-          <li>AWS Lambda & EventBridge</li>
-          <li>Microsoft Azure</li>
-          <li>Cloudflare Workers & Pages</li>
-          <li>GCP (Fundamentals)</li>
-        </ul>
-      </div>
-      <div>
-        <h3 style="font-family: var(--font-mono); font-size: 11px; color: var(--text-secondary); margin-bottom: 12px; text-transform: uppercase; letter-spacing: 1px;">Containers & CI/CD</h3>
-        <ul style="list-style: none; font-size: 14px; display: flex; flex-direction: column; gap: 8px;">
-          <li>Docker & Docker Compose</li>
-          <li>Kubernetes (K8s) & Helm</li>
-          <li>ArgoCD (GitOps)</li>
-          <li>GitHub Actions</li>
-          <li>GitLab CI / CI Pipelines</li>
-        </ul>
-      </div>
-      <div>
-        <h3 style="font-family: var(--font-mono); font-size: 11px; color: var(--text-secondary); margin-bottom: 12px; text-transform: uppercase; letter-spacing: 1px;">IaC & Observability</h3>
-        <ul style="list-style: none; font-size: 14px; display: flex; flex-direction: column; gap: 8px;">
-          <li>Terraform / OpenTofu</li>
-          <li>Linux / Bash Scripting</li>
-          <li>Python Automation</li>
-          <li>Prometheus & Grafana</li>
-          <li>CloudWatch / Datadog</li>
-        </ul>
-      </div>
-    </div>
+    <span class="section-label" data-t="skills_label">[05] Skills</span>
+    <Copy as="h1" class="page-title" text={{ en: 'From commit to reliable systems.', es: 'Del commit a sistemas confiables.' }} />
+    <Copy as="p" class="section-intro" text={{ en: 'The stack explored across my cloud and DevOps labs: provision, deploy, observe and improve.', es: 'El stack que exploro en mis laboratorios cloud y DevOps: aprovisionar, desplegar, observar y mejorar.' }} />
+    <div class="capability-grid">{stack.map(group => <div class="capability-card"><i data-lucide={group.icon}></i><Copy as="h3" text={group.title} /><ul>{group.tools.map(tool => <li>{tool}</li>)}</ul></div>)}</div>
   </section>
-
-  <div style="margin-top: 40px;">
-    <a href="/portfolio" class="nav-link" style="color: var(--text-secondary); font-family: var(--font-mono); font-size: 13px; text-decoration: none;" data-t="back_home"><i data-lucide="arrow-left"></i> Back to Home</a>
-  </div>
+  <a href="/portfolio" class="text-link" data-t="back_home"><i data-lucide="arrow-left"></i> Back to Home</a>
 </BaseLayout>

@@ -5,6 +5,41 @@
     "title": {
       "type": "string"
     },
+    "titleEs": {
+      "type": "string"
+    },
+    "descriptionEs": {
+      "type": "string"
+    },
+    "category": {
+      "type": "string"
+    },
+    "featured": {
+      "default": false,
+      "type": "boolean"
+    },
+    "outcomes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "string"
+          },
+          "label": {
+            "type": "string"
+          },
+          "labelEs": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "value",
+          "label",
+          "labelEs"
+        ]
+      }
+    },
     "tech": {
       "type": "string"
     },
@@ -24,6 +59,11 @@
   },
   "required": [
     "title",
-    "tech"
+    "titleEs",
+    "descriptionEs",
+    "category",
+    "outcomes",
+    "tech",
+    "image"
   ]
 }

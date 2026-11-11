@@ -1,0 +1,15 @@
+---
+import Copy from './Copy.astro';
+import { events } from '../data/profile';
+interface Props { linked?: boolean; }
+const { linked = false } = Astro.props;
+---
+<div class="community-grid">
+  {events.map(event => <article class="community-card">
+    <div class="community-mark"><i data-lucide={event.icon}></i><span>{event.code}</span><span class="eyebrow">{event.year}</span></div>
+    <Copy class="eyebrow" text={event.role} />
+    <h3>{event.name}</h3>
+    <Copy as="p" class="muted" text={event.description} />
+  </article>)}
+</div>
+{linked && <a href="/portfolio/events" class="text-link"><Copy text={{ en: 'Community & events', es: 'Comunidad y eventos' }} /> <span aria-hidden="true">↗</span></a>}

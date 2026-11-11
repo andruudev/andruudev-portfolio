@@ -1,26 +1,17 @@
 ---
+import BlogList from "../../../components/BlogList.astro";
 import BaseLayout from '../../../layouts/BaseLayout.astro';
-import { getCollection } from 'astro:content';
-
-const posts = await getCollection('blog');
-const sortedPosts = posts.sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
+import Copy from '../../../components/Copy.astro';
+import { copy } from '../../../data/profile';
+import { getBlogPosts } from '../../../data/content';
+const posts = getBlogPosts().sort((a,b) => (b.data.updated ?? b.data.date).localeCompare(a.data.updated ?? a.data.date) || a.data.title.localeCompare(b.data.title));
 ---
-
-<BaseLayout title="Blog | Jeyson Andrés Mueses">
+<BaseLayout title="Field Notes | Cloud & DevOps | Jeyson Andrés Mueses" description="Practical notes on AWS, Terraform, Kubernetes, GitOps and observability.">
   <section class="animate">
-    <span class="section-label" data-t="blog_label">[12] Blog</span>
-    <h2 style="font-family: var(--font-sans); font-size: 24px; margin-bottom: 24px;" data-t="blog_title">Field Notes</h2>
-    <div class="items-list">
-      {sortedPosts.map(post => (
-        <a href={`/portfolio/blog/${post.id}`} class="item">
-          <span class="item-title"><i data-lucide="book-text"></i> {post.data.title}</span>
-          <span class="item-meta">{post.data.date}</span>
-        </a>
-      ))}
-    </div>
+    <span class="section-label" data-t="blog_label">[10] Field notes</span>
+    <Copy as="h1" class="page-title" text={copy('Notes from the cloud side.', 'Notas desde el lado cloud.')} />
+    <Copy as="p" class="section-intro" text={copy('Ideas, practical guides and design decisions. Read every article in English or Spanish using the language button.', 'Ideas, guías prácticas y decisiones de diseño. Lee cada artículo en inglés o español con el botón de idioma.')} />
+    <BlogList posts={posts} />
   </section>
-
-  <div style="margin-top: 40px;">
-    <a href="/portfolio" class="nav-link" style="color: var(--text-secondary); font-family: var(--font-mono); font-size: 13px; text-decoration: none;" data-t="back_home"><i data-lucide="arrow-left"></i> Back to Home</a>
-  </div>
+  <a href="/portfolio" class="text-link" data-t="back_home">Back to home</a>
 </BaseLayout>

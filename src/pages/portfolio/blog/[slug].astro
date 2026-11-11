@@ -1,128 +1,37 @@
 ---
 import BaseLayout from '../../../layouts/BaseLayout.astro';
-import { getCollection, render } from 'astro:content';
-
+import Copy from '../../../components/Copy.astro';
+import LocalizedDate from '../../../components/LocalizedDate.astro';
+import { copy } from '../../../data/profile';
+import { categoryCopy } from '../../../i18n/language.js';
+import { getBlogPosts } from '../../../data/content';
 export async function getStaticPaths() {
-  const blogEntries = await getCollection('blog');
-  return blogEntries.map(entry => ({
-    params: { slug: entry.id }, props: { entry },
-  }));
+  return getBlogPosts().map(entry => ({ params: { slug: entry.id }, props: { entry } }));
 }
-
 const { entry } = Astro.props;
-const { Content } = await render(entry);
+const english = entry.translation;
+const EnglishContent = english.Content;
+const SpanishContent = entry.Content;
+const minutes = Math.max(1, Math.ceil((english.body ?? '').split(/\s+/).length / 200));
+const minutesEs = Math.max(1, Math.ceil((entry.body ?? '').split(/\s+/).length / 200));
+const articleSchema = {
+  '@context': 'https://schema.org', '@type': 'BlogPosting', headline: english.data.title,
+  description: english.data.description, datePublished: entry.data.date,
+  dateModified: entry.data.updated ?? entry.data.date,
+  inLanguage: ['en', 'es'], author: { '@type': 'Person', name: 'Jeyson Andrés Mueses', url: Astro.site?.href },
+  mainEntityOfPage: new URL(Astro.url.pathname, Astro.site).href,
+};
 ---
-
-<BaseLayout title={`${entry.data.title} | Blog`} description={entry.data.description} ogType="article" lang={entry.data.lang}>
+<BaseLayout title={`${english.data.title} | Field Notes`} titleEs={`${entry.data.title} | Notas de campo`} description={english.data.description ?? ''} descriptionEs={entry.data.description} ogType="article">
   <article class="animate">
-    <span class="section-label">[12] Blog Post</span>
-    <h1 style="font-family: var(--font-sans); font-size: 32px; margin-bottom: 8px;">{entry.data.title}</h1>
-    <p style="color: var(--text-secondary); font-family: var(--font-mono); font-size: 12px; margin-bottom: 32px;">{entry.data.date} — {entry.data.tag}</p>
-    
-    <div class="content-text blog-content">
-      <Content />
-    </div>
+    <div class="article-meta"><Copy class="eyebrow" text={categoryCopy(entry.data.tag)} /><Copy class="eyebrow" text={copy(`${minutes} min read`, `${minutesEs} min de lectura`)} /></div>
+    <Copy as="h1" class="page-title" text={copy(english.data.title,entry.data.title)} />
+    <Copy as="p" class="section-intro" text={copy(english.data.description ?? '',entry.data.description ?? '')} />
+    <p class="article-byline"><span>Jeyson Andrés Mueses</span><LocalizedDate value={entry.data.date} />{entry.data.updated && <span><Copy text={copy('Updated', 'Actualizado')} /> <LocalizedDate value={entry.data.updated} /></span>}</p>
+    {!entry.hasTranslation && <Copy as="p" class="study-note" text={copy('This article is currently available in Spanish.', 'Este artículo está disponible en español.')} />}
+    <div class="prose" data-language-content="en" lang={english.language}><EnglishContent /></div>
+    <div class="prose" data-language-content="es" lang="es" hidden><SpanishContent /></div>
   </article>
-
-  <div style="margin-top: 40px; border-top: 1px solid var(--border-color); padding-top: 24px;">
-    <a href="/portfolio/blog" class="nav-link" style="color: var(--text-secondary); font-family: var(--font-mono); font-size: 13px; text-decoration: none;"><i data-lucide="arrow-left"></i> Back to Blog</a>
-  </div>
+  <div class="case-footer"><a href="/portfolio/blog" class="text-link"><i data-lucide="arrow-left"></i><Copy text={copy('All field notes', 'Todas las notas')} /></a><a href="/portfolio#contact" class="text-link"><Copy text={copy('Let’s discuss it', 'Conversemos sobre esto')} /> ↗</a></div>
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(articleSchema).replace(/</g, '\\u003c')} />
 </BaseLayout>
-
-<style is:global>
-  .blog-content h2 { 
-    margin-top: 36px; 
-    margin-bottom: 16px; 
-    font-size: 20px; 
-    font-family: var(--font-sans); 
-    font-weight: 600;
-    color: var(--text-color);
-    border-bottom: 1px solid var(--border-color);
-    padding-bottom: 8px;
-  }
-  .blog-content h3 { 
-    margin-top: 28px; 
-    margin-bottom: 12px; 
-    font-size: 16px; 
-    font-family: var(--font-sans); 
-    font-weight: 600;
-    color: var(--text-color);
-  }
-  .blog-content p { 
-    margin-bottom: 18px; 
-    line-height: 1.7; 
-    color: var(--text-color);
-    opacity: 0.9;
-  }
-  .blog-content ul { 
-    margin-bottom: 18px; 
-    padding-left: 24px; 
-    line-height: 1.7;
-    color: var(--text-color);
-  }
-  .blog-content li {
-    margin-bottom: 8px;
-  }
-  .blog-content img {
-    max-width: 100%;
-    height: auto;
-    border-radius: 12px;
-    margin: 32px auto;
-    display: block;
-    box-shadow: 0 12px 36px rgba(0, 0, 0, 0.25);
-    border: 1px solid var(--border-color);
-  }
-  [data-theme='light'] .blog-content img {
-    box-shadow: 0 12px 36px rgba(0, 0, 0, 0.08);
-  }
-  .blog-content blockquote {
-    margin: 28px 0;
-    padding: 16px 20px;
-    background-color: rgba(255, 255, 255, 0.02);
-    border-left: 3px solid var(--text-color);
-    border-radius: 0 8px 8px 0;
-    font-style: italic;
-    color: var(--text-secondary);
-  }
-  [data-theme='light'] .blog-content blockquote {
-    background-color: rgba(0, 0, 0, 0.02);
-  }
-  .blog-content blockquote p {
-    margin-bottom: 0;
-  }
-  .blog-content pre {
-    padding: 18px;
-    border-radius: 8px;
-    background-color: rgba(255, 255, 255, 0.02) !important;
-    border: 1px solid var(--border-color);
-    overflow-x: auto;
-    margin: 28px 0;
-  }
-  [data-theme='light'] .blog-content pre {
-    background-color: rgba(0, 0, 0, 0.015) !important;
-  }
-  .blog-content code {
-    font-family: var(--font-mono);
-    font-size: 0.9em;
-    padding: 3px 6px;
-    background-color: rgba(255, 255, 255, 0.05);
-    border-radius: 4px;
-    border: 1px solid var(--border-color);
-    color: var(--text-color);
-  }
-  [data-theme='light'] .blog-content code {
-    background-color: rgba(0, 0, 0, 0.035);
-  }
-  .blog-content pre code {
-    padding: 0;
-    background-color: transparent;
-    border: none;
-    font-size: 13px;
-    color: inherit;
-  }
-  .blog-content hr {
-    margin: 40px 0;
-    border: 0;
-    border-top: 1px solid var(--border-color);
-  }
-</style>

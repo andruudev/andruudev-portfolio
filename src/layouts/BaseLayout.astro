@@ -1,5 +1,6 @@
 ---
 import "../styles/global.css";
+import { pageMetadata } from "../i18n/page-metadata";
 import { ClientRouter } from "astro:transitions";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
@@ -9,7 +10,9 @@ import CommandPalette from "../components/CommandPalette.astro";
 
 interface Props {
 	title?: string;
+	titleEs?: string;
 	description?: string;
+	descriptionEs?: string;
 	image?: string;
 	imageAlt?: string;
 	ogType?: "website" | "article" | "profile";
@@ -35,8 +38,14 @@ const {
 	hideMenu = false,
 } = Astro.props;
 
-const ogImageUrl = new URL(image, siteUrl).href;
-const locale = lang === "es" ? "es_ES" : "en_US";
+// Social platforms generally expect raster previews; SVG architecture diagrams stay in-page.
+const socialImage = image.endsWith('.svg') ? '/assets/og-image.png' : image;
+const pagePath = Astro.url.pathname.replace(/\/$/, '') || '/';
+const spanishTitle = Astro.props.titleEs ?? pageMetadata[pagePath]?.title ?? title;
+const spanishDescription = Astro.props.descriptionEs ?? pageMetadata[pagePath]?.description ?? description;
+const ogImageUrl = new URL(socialImage, siteUrl).href;
+const ogImageType = /\.jpe?g$/i.test(socialImage) ? 'image/jpeg' : 'image/png';
+const locale = lang === "es" ? "es_EC" : "en_US";
 ---
 
 <!doctype html>
@@ -45,27 +54,28 @@ const locale = lang === "es" ? "es_ES" : "en_US";
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/png" href="/assets/logo-andruudev.png" />
+		<link rel="preload" href="/fonts/geist-sans.woff2" as="font" type="font/woff2" crossorigin />
 		<meta name="generator" content={Astro.generator} />
 
 		<!-- Canonical URL -->
 		<link rel="canonical" href={canonicalURL} />
 
 		<!-- Meta Etiquetas Principales -->
-		<title>{title}</title>
-		<meta name="title" content={title} />
-		<meta name="description" content={description} />
+		<title data-en={title} data-es={spanishTitle}>{title}</title>
+		<meta name="title" data-content-en={title} data-content-es={spanishTitle} content={title} />
+		<meta name="description" data-content-en={description} data-content-es={spanishDescription} content={description} />
 		<meta name="author" content="Jeyson Andrés Mueses (andruudev)" />
 
 		<!-- Open Graph / Facebook / LinkedIn / WhatsApp -->
 		<meta property="og:type" content={ogType} />
 		<meta property="og:url" content={canonicalURL} />
 		<meta property="og:site_name" content="andruudev | Jeyson Andrés Mueses" />
-		<meta property="og:title" content={title} />
-		<meta property="og:description" content={description} />
+		<meta property="og:title" data-content-en={title} data-content-es={spanishTitle} content={title} />
+		<meta property="og:description" data-content-en={description} data-content-es={spanishDescription} content={description} />
 		<meta property="og:image" content={ogImageUrl} />
 		<meta property="og:image:secure_url" content={ogImageUrl} />
 		<meta property="og:image:alt" content={imageAlt} />
-		<meta property="og:image:type" content="image/png" />
+		<meta property="og:image:type" content={ogImageType} />
 		<meta property="og:image:width" content="1200" />
 		<meta property="og:image:height" content="630" />
 		<meta property="og:locale" content={locale} />
@@ -75,45 +85,47 @@ const locale = lang === "es" ? "es_ES" : "en_US";
 		<meta name="twitter:site" content="@andruudev" />
 		<meta name="twitter:creator" content="@andruudev" />
 		<meta name="twitter:url" content={canonicalURL} />
-		<meta name="twitter:title" content={title} />
-		<meta name="twitter:description" content={description} />
+		<meta name="twitter:title" data-content-en={title} data-content-es={spanishTitle} content={title} />
+		<meta name="twitter:description" data-content-en={description} data-content-es={spanishDescription} content={description} />
 		<meta name="twitter:image" content={ogImageUrl} />
 		<meta name="twitter:image:alt" content={imageAlt} />
 
 		<!-- Fix FOUC: apply saved theme BEFORE first paint -->
 		<script is:inline>
 			(function () {
-				var saved = localStorage.getItem("theme") || "light";
+				var saved = "light";
+				try { saved = localStorage.getItem("theme") === "dark" ? "dark" : "light"; } catch {}
 				document.documentElement.setAttribute("data-theme", saved);
 			})();
 		</script>
 
 		<script
 			is:inline
-			src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"
+			src="/vendor/gsap-3.12.5.min.js"
 		></script>
 		<script
 			is:inline
-			src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"
+			src="/vendor/ScrollTrigger-3.12.5.min.js"
 		></script>
-		<script is:inline src="https://unpkg.com/lenis@1.1.2/dist/lenis.min.js"
+		<script is:inline src="/vendor/lenis-1.1.2.min.js"
 		></script>
-		<script is:inline src="https://unpkg.com/lucide@latest"></script>
+		<script is:inline src="/vendor/lucide-1.72.0.min.js"></script>
 
 		<noscript><style>#system-preloader, #transition-overlay, #cursor { display: none !important; }</style></noscript>
 		<ClientRouter />
 	</head>
 	<body>
+		<p class="sr-only" id="language-status" role="status" aria-live="polite" aria-atomic="true"></p>
 		<div id="system-preloader">
 			<div class="preloader-content">
 				<div class="preloader-text" data-t="system_initializing">
-					SYSTEM_INITIALIZING...
+					LOADING_PORTFOLIO…
 				</div>
 				<div class="preloader-bar-bg">
 					<div class="preloader-bar"></div>
 				</div>
 				<div class="preloader-status" data-t="encrypting_session">
-					ENCRYPTING_SESSION...
+					CLOUD & DEVOPS / ECUADOR
 				</div>
 			</div>
 		</div>
@@ -167,7 +179,7 @@ const locale = lang === "es" ? "es_ES" : "en_US";
 			<button
 				class="mobile-nav-btn"
 				id="mobileLangBtn"
-				aria-label="Toggle language"
+				aria-label="Switch to Spanish" title="Current language: English. Switch to Spanish."
 			>
 				<svg
 					width="16"
@@ -185,7 +197,7 @@ const locale = lang === "es" ? "es_ES" : "en_US";
 					></path>
 					<path d="M2 12h20"></path>
 				</svg>
-				<span class="mobile-nav-label" id="mobileLangLabel">EN</span>
+				<span class="mobile-nav-label" id="mobileLangLabel" lang="es">Español</span>
 			</button>
 
 			{!hideMenu && <div class="mobile-nav-divider"></div>}
@@ -195,7 +207,7 @@ const locale = lang === "es" ? "es_ES" : "en_US";
 				<button
 					class="mobile-nav-btn"
 					id="mobileMenuBtn"
-					aria-label="Open menu"
+					aria-label="Open navigation menu" data-i18n-aria="open_menu"
 					aria-expanded="false"
 					aria-controls="modalOverlay"
 				>

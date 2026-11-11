@@ -77,34 +77,21 @@ class TextScramble {
 
 // ---- Noise Canvas ----
 function initNoise() {
-	if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-	
-	const canvas = document.getElementById("noiseCanvas");
-	if (!canvas) return;
-	const ctx = canvas.getContext("2d");
-	if (!ctx) return;
-	let noiseFrame;
-	onPageCleanup(() => {
-		cancelAnimationFrame(noiseFrame);
-		window.removeEventListener("resize", resize);
-	});
-	let w, h;
-	const resize = () => {
-		w = canvas.width = window.innerWidth;
-		h = canvas.height = window.innerHeight;
-	};
-	window.addEventListener("resize", resize);
-	resize();
-	const loop = () => {
-		const idata = ctx.createImageData(w, h);
-		const buf = new Uint32Array(idata.data.buffer);
-		for (let i = 0; i < buf.length; i++) {
-			if (Math.random() < 0.5) buf[i] = 0xff000000;
-		}
-		ctx.putImageData(idata, 0, 0);
-		noiseFrame = requestAnimationFrame(loop);
-	};
-	loop();
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  const canvas = document.getElementById("noiseCanvas");
+  if (!canvas) return;
+  // A small, static, tiled texture avoids allocating a viewport-sized image each frame.
+  canvas.width = canvas.height = 128;
+  const context = canvas.getContext("2d");
+  if (!context) return;
+  const pixels = context.createImageData(128, 128);
+  const buffer = new Uint32Array(pixels.data.buffer);
+  for (let i = 0; i < buffer.length; i++) buffer[i] = Math.random() < 0.5 ? 0xff000000 : 0;
+  context.putImageData(pixels, 0, 0);
+  canvas.style.backgroundImage = `url(${canvas.toDataURL()})`;
+  canvas.style.backgroundRepeat = 'repeat';
+  canvas.style.backgroundSize = '128px 128px';
+  context.clearRect(0, 0, 128, 128);
 }
 
 // ---- Custom Cursor (desktop only — hidden on touch devices) ----
@@ -467,7 +454,7 @@ function initScramble() {
 // ---- Dashboard Analytics ----
 let dashInterval = null;
 function initAnalytics() {
-	const metricsEl = document.getElementById("live-metrics");
+	const metricsEl = document.getElementById("demo-elapsed");
 	const logsEl = document.getElementById("system-logs");
 	if (!metricsEl && !logsEl) return;
 	onPageCleanup(() => { clearInterval(dashInterval); dashInterval = null; });
@@ -500,62 +487,26 @@ function initAnalytics() {
 	}, 1500);
 	const start = Date.now();
 	let metricsFrame;
-	onPageCleanup(() => cancelAnimationFrame(metricsFrame));
+	onPageCleanup(() => clearTimeout(metricsFrame));
 	const tick = () => {
 		if (!metricsEl || !document.body.contains(metricsEl))
 			return;
 		const s = Math.floor((Date.now() - start) / 1000);
 		const m = String(Math.floor(s / 60)).padStart(2, "0");
 		const sec = String(s % 60).padStart(2, "0");
-		metricsEl.textContent = `T: ${m}:${sec} | THRUPT: ${(Math.random() * 50 + 10).toFixed(1)}MB/S | LAT: ${Math.floor(Math.random() * 20 + 5)}MS`;
-		metricsFrame = requestAnimationFrame(tick);
+		metricsEl.textContent = ` / ${m}:${sec}`;
+		metricsFrame = setTimeout(tick, 1000);
 	};
 	tick();
 }
 
 // ---- Preloader (first load only) ----
 function initPreloader() {
-	const pl = document.getElementById("system-preloader");
-	if (!pl) return;
-	const bar = pl.querySelector(".preloader-bar");
-	const status = pl.querySelector(".preloader-status");
-	gsap.timeline()
-		.to(bar, { width: "20%", duration: 0.4 })
-		.add(() => (status.textContent = "BOOTING_CORE_SYSTEM..."))
-		.to(bar, { width: "50%", duration: 0.5, delay: 0.2 })
-		.add(() => (status.textContent = "LOADING_MODULES..."))
-		.to(bar, { width: "85%", duration: 0.5 })
-		.add(
-			() =>
-				(status.textContent = "DECRYPTING_BIO_METRICS..."),
-		)
-		.to(bar, { width: "100%", duration: 0.3 })
-		.add(() => (status.textContent = "ACCESS_GRANTED"))
-		.to(pl, {
-			opacity: 0,
-			duration: 0.8,
-			ease: "power4.inOut",
-			onComplete: () => {
-				pl.style.display = "none";
-				gsap.fromTo(
-					[
-						".header",
-						".footer",
-						"#menu-wrap",
-						"#theme-wrap",
-						"#lang-wrap",
-					],
-					{ opacity: 0, y: -20 },
-					{
-						opacity: 1,
-						y: 0,
-						duration: 0.8,
-						stagger: 0.1,
-						ease: "power2.out",
-					},
-				);
-			},
-		});
+  const preloader = document.getElementById('system-preloader');
+  if (!preloader) return;
+  gsap.timeline()
+    .to(preloader.querySelector('.preloader-bar'), { width: '100%', duration: 0.25 })
+    .to(preloader, { opacity: 0, duration: 0.25, onComplete: () => { preloader.style.display = 'none'; } });
 }
 
 // ---- Page Transition Wipe ----

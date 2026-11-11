@@ -1,0 +1,6 @@
+---
+import { formatDate } from '../i18n/language.js';
+interface Props { value: string; }
+const { value } = Astro.props;
+---
+<time datetime={value} data-localized-date={value}>{formatDate(value, 'en')}</time>

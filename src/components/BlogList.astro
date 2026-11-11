@@ -1,0 +1,14 @@
+---
+import type { BlogPost } from '../data/content';
+import Copy from './Copy.astro';
+import LocalizedDate from './LocalizedDate.astro';
+import { categoryCopy } from '../i18n/language.js';
+interface Props { posts: BlogPost[]; }
+const { posts } = Astro.props;
+
+---
+<div class="post-list">{posts.map(post => <a href={`/portfolio/blog/${post.id}`} class="post-row">
+  <div class="entry-heading"><Copy class="eyebrow" text={categoryCopy(post.data.tag)} /><LocalizedDate value={post.data.updated ?? post.data.date} /></div>
+  <Copy as="h3" text={{ en: post.translation.data.title, es: post.data.title }} />
+  <Copy as="p" class="muted" text={{ en: post.translation.data.description ?? '', es: post.data.description ?? '' }} />
+</a>)}</div>

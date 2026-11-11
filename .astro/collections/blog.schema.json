@@ -8,6 +8,17 @@
     "date": {
       "type": "string"
     },
+    "updated": {
+      "type": "string"
+    },
+    "lang": {
+      "default": "en",
+      "type": "string",
+      "enum": [
+        "en",
+        "es"
+      ]
+    },
     "tag": {
       "type": "string"
     },

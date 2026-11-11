@@ -1,0 +1,13 @@
+---
+import Copy from './Copy.astro';
+import type { ProfileEntry } from '../data/profile';
+interface Props { entries: ProfileEntry[]; compact?: boolean; }
+const { entries, compact = false } = Astro.props;
+---
+<div class="profile-entries">
+  {entries.map(entry => <div class="profile-entry">
+    <div class="entry-heading"><Copy as="h3" text={entry.title} /><Copy class="eyebrow" text={entry.status} /></div>
+    <p class="entry-organization">{entry.organization}</p>
+    {!compact && <Copy as="p" class="muted" text={entry.description} />}
+  </div>)}
+</div>

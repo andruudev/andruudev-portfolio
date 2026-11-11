@@ -12,7 +12,9 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist",
     "check": "astro check",
-    "verify": "npm run check && npm run build && node scripts/verify-build.mjs"
+    "verify": "npm run test:language && npm run test:content && npm run check && npm run build && node scripts/verify-build.mjs",
+    "test:language": "node --test tests/language.test.mjs",
+    "test:content": "node --test tests/content.test.mjs"
   },
   "devDependencies": {
     "gh-pages": "^6.3.0",

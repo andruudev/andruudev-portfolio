@@ -1,10 +1,13 @@
 ---
+import Copy from "../../components/Copy.astro";
+import { copy, stack } from "../../data/profile";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 ---
 
 <BaseLayout title="About | Jeyson Andrés Mueses">
   <section class="animate">
     <span class="section-label" data-t="about_intro_label">[01] Profile</span>
+    <Copy as="h1" class="page-title" text={copy("Cloud & DevOps. A builder’s mindset.", "Cloud & DevOps. Mentalidad de constructor.")} />
     <div class="content-text">
       <p data-t="about_text_1">
         I'm Jeyson Andrés Mueses, a Cloud & DevOps Engineer based in
@@ -36,32 +39,9 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
   </section>
 
   <section class="animate">
-    <span class="section-label">[03] Currently using</span>
-    <div class="items-list">
-      <div class="item" style="cursor: default;">
-        <span class="item-title"><i data-lucide="cloud"></i> Cloud Platform</span
-        >
-        <span class="item-meta">AWS / Azure / Cloudflare</span>
-      </div>
-      <div class="item" style="cursor: default;">
-        <span class="item-title"><i data-lucide="container"></i> Containers & Orchestration</span>
-        <span class="item-meta">Docker / Kubernetes / Helm</span>
-      </div>
-      <div class="item" style="cursor: default;">
-        <span class="item-title"><i data-lucide="cpu"></i> IaC & GitOps</span>
-        <span class="item-meta">Terraform / ArgoCD / GitHub Actions</span>
-      </div>
-      <div class="item" style="cursor: default;">
-        <span class="item-title"><i data-lucide="terminal"></i> Language & OS</span>
-        <span class="item-meta">Python / Bash / Linux</span>
-      </div>
-      <div class="item" style="cursor: default;">
-        <span class="item-title"><i data-lucide="activity"></i> Observability & DB</span>
-        <span class="item-meta">Prometheus / Grafana / PostgreSQL</span>
-      </div>
-    </div>
+    <Copy class="section-label" text={copy('[03] Lab stack', '[03] Stack del laboratorio')} />
+    <div class="capability-grid">{stack.map(group => <div class="capability-card"><i data-lucide={group.icon}></i><Copy as="h3" text={group.title} /><ul>{group.tools.map(tool => <li>{tool}</li>)}</ul></div>)}</div>
   </section>
-
   <div style="margin-top: 40px;">
     <a
       href="/portfolio"

@@ -1,17 +1,18 @@
 ---
+import Copy from './Copy.astro';
 import SocialLinks from './SocialLinks.astro';
 ---
 <header class="header animate">
   <div style="display: flex; align-items: flex-start; gap: 20px;">
     <a href="/portfolio" class="nav-link">
-      <img src="/assets/andruudev-profile.png" alt="Jeyson Andrés Mueses" class="avatar"
+      <img src="/assets/andruudev-profile.png" alt="Jeyson Andrés Mueses" class="avatar" width="64" height="64" decoding="async"
         style="width: 64px; height: 64px;" />
     </a>
     <div class="profile-info-wrap">
       <div class="profile-info">
         <a href="/portfolio" class="nav-link" style="flex-direction: column; align-items: flex-start; gap: 4px;">
-          <h1 style="font-size: 20px; font-weight: 500; letter-spacing: -0.02em; margin: 0;">Jeyson Andrés Mueses 🇪🇨</h1>
-          <p style="color: var(--text-secondary); font-size: 12px; margin: 0;">cloud & devops engineer | leader at awspuce.com | creative director at velitty.com</p>
+          <p class="profile-name" style="font-size: 20px; font-weight: 500; letter-spacing: -0.02em; margin: 0;">Jeyson Andrés Mueses 🇪🇨</p>
+          <p style="color: var(--text-secondary); font-size: 12px; margin: 0;"><Copy text={{ en: "Cloud & DevOps Engineer · AWS community builder", es: "Cloud & DevOps Engineer · Comunidad AWS" }} /></p>
         </a>
       </div>
       <div class="header-socials" style="margin-top: 12px; justify-content: flex-start; gap: 14px;">
@@ -22,7 +23,7 @@ import SocialLinks from './SocialLinks.astro';
 
 
           <!-- Download CV -->
-          <a href="/assets/cv-andruudev.pdf" download target="_blank" rel="noopener" class="book-btn" aria-label="Download CV">
+          <a href="/assets/cv-andruudev.pdf" download target="_blank" rel="noopener" class="book-btn" aria-label="Download CV" data-i18n-aria="download_cv">
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
               <polyline points="7 10 12 15 17 10"/>
@@ -32,7 +33,7 @@ import SocialLinks from './SocialLinks.astro';
           </a>
 
           <!-- Book Appointment -->
-          <a href="https://calendar.app.google/x4k7jeHac8j5fP5X6" target="_blank" rel="noopener" class="book-btn" aria-label="Book Appointment">
+          <a href="https://calendar.app.google/x4k7jeHac8j5fP5X6" target="_blank" rel="noopener" class="book-btn" aria-label="Book a call" data-i18n-aria="book_appointment">
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
               <line x1="16" y1="2" x2="16" y2="6"/>

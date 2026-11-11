@@ -1,1 +1,9 @@
-export default new Map();
+
+import __ASTRO_IMAGE_IMPORT_Z1aeQbY from "../../assets/blog/aws-basics.png?astroContentImageFlag=&importer=src%2Fcontent%2Fblog%2Fguia-aws-desde-cero.md";
+import __ASTRO_IMAGE_IMPORT_CTV6N from "../../assets/blog/aws-basics.png?astroContentImageFlag=&importer=src%2Fcontent%2Fblog-translations%2Fguia-aws-desde-cero.md";
+import __ASTRO_IMAGE_IMPORT_ZUsYOm from "../../assets/blog/kiro-advanced.png?astroContentImageFlag=&importer=src%2Fcontent%2Fblog%2Fkiro-ide-conceptos-avanzados.md";
+import __ASTRO_IMAGE_IMPORT_ZR7xPj from "../../assets/blog/kiro-advanced.png?astroContentImageFlag=&importer=src%2Fcontent%2Fblog-translations%2Fkiro-ide-conceptos-avanzados.md";
+import __ASTRO_IMAGE_IMPORT_1EFvXp from "../../assets/blog/kiro-basics.png?astroContentImageFlag=&importer=src%2Fcontent%2Fblog%2Fkiro-ide-guia-basica.md";
+import __ASTRO_IMAGE_IMPORT_Z17R9vz from "../../assets/blog/kiro-basics.png?astroContentImageFlag=&importer=src%2Fcontent%2Fblog-translations%2Fkiro-ide-guia-basica.md";
+export default new Map([["../../assets/blog/aws-basics.png?astroContentImageFlag=&importer=src%2Fcontent%2Fblog%2Fguia-aws-desde-cero.md", __ASTRO_IMAGE_IMPORT_Z1aeQbY], ["../../assets/blog/aws-basics.png?astroContentImageFlag=&importer=src%2Fcontent%2Fblog-translations%2Fguia-aws-desde-cero.md", __ASTRO_IMAGE_IMPORT_CTV6N], ["../../assets/blog/kiro-advanced.png?astroContentImageFlag=&importer=src%2Fcontent%2Fblog%2Fkiro-ide-conceptos-avanzados.md", __ASTRO_IMAGE_IMPORT_ZUsYOm], ["../../assets/blog/kiro-advanced.png?astroContentImageFlag=&importer=src%2Fcontent%2Fblog-translations%2Fkiro-ide-conceptos-avanzados.md", __ASTRO_IMAGE_IMPORT_ZR7xPj], ["../../assets/blog/kiro-basics.png?astroContentImageFlag=&importer=src%2Fcontent%2Fblog%2Fkiro-ide-guia-basica.md", __ASTRO_IMAGE_IMPORT_1EFvXp], ["../../assets/blog/kiro-basics.png?astroContentImageFlag=&importer=src%2Fcontent%2Fblog-translations%2Fkiro-ide-guia-basica.md", __ASTRO_IMAGE_IMPORT_Z17R9vz]]);
+		

@@ -1,13 +1,11 @@
 ---
+import Copy from './Copy.astro';
+const year = new Date().getUTCFullYear();
 ---
 <footer class="footer animate">
   <div class="footer-content">
-    <p class="copyright">© 2026 Jeyson Andrés Mueses</p>
-    <div class="footer-info">
-      <div class="status-indicator">
-        <div class="status-dot"></div>
-        <span>Build with ❤️ from 🇪🇨 to the 🌏 | By people fifirisnais para la people fifirisnais</span>
-      </div>
-    </div>
+    <p class="copyright">© {year} Jeyson Andrés Mueses</p>
+    <Copy as="p" class="footer-origin" text={{ en: 'Built with care in Ecuador 🇪🇨. Shared with the world.', es: 'Hecho con cariño en Ecuador 🇪🇨. Compartido con el mundo.' }} />
   </div>
+  <p class="footer-signature">By people fifirisnais,<br class="footer-break" /> para la people fifirisnais.</p>
 </footer>

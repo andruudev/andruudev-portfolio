@@ -1,30 +1,27 @@
 ---
+import { categoryCopy } from "../../../i18n/language.js";
 import BaseLayout from '../../../layouts/BaseLayout.astro';
-import { getCollection, render } from 'astro:content';
-
+import Copy from '../../../components/Copy.astro';
+import { copy } from '../../../data/profile';
+import { getProjects } from '../../../data/content';
 export async function getStaticPaths() {
-  const projectEntries = await getCollection('projects');
-  return projectEntries.map(entry => ({
-    params: { slug: entry.id }, props: { entry },
-  }));
+  return getProjects().map(entry => ({ params: { slug: entry.id }, props: { entry } }));
 }
-
 const { entry } = Astro.props;
-const { Content } = await render(entry);
+const Content = entry.Content;
+const SpanishContent = entry.translation.Content;
 ---
-
-<BaseLayout title={`${entry.data.title} | Project`} description={entry.data.description} image={entry.data.image}>
-  <article class="animate">
-    <span class="section-label">[02] Project</span>
-    <h1 style="font-family: var(--font-sans); font-size: 32px; margin-bottom: 8px;">{entry.data.title}</h1>
-    <p style="color: var(--text-secondary); font-family: var(--font-mono); font-size: 12px; margin-bottom: 32px;">{entry.data.tech}</p>
-    
-    <div class="content-text">
-      <Content />
-    </div>
+<BaseLayout title={`${entry.data.title} | Cloud & DevOps Lab`} description={entry.data.description} descriptionEs={entry.data.descriptionEs} titleEs={`${entry.data.titleEs} | Laboratorio Cloud & DevOps`} image={entry.data.image}>
+  <article class="animate case-study">
+    <div class="entry-heading"><Copy class="eyebrow" text={categoryCopy(entry.data.category)} /><Copy class="study-badge" text={copy('Fictional design study', 'Caso de diseño ficticio')} /></div>
+    <Copy as="h1" class="page-title" text={copy(entry.data.title,entry.data.titleEs)} />
+    <Copy as="p" class="section-intro" text={copy(entry.data.description ?? '',entry.data.descriptionEs)} />
+    <p class="project-stack">{entry.data.tech}</p>
+    <figure class="architecture-figure"><a href={entry.data.image} target="_blank" rel="noopener" data-href-en={entry.data.image} data-href-es={entry.data.image.replace(".svg", ".es.svg")} aria-label="Open full architecture diagram" data-i18n-aria="open_architecture"><img src={entry.data.image} data-src-en={entry.data.image} data-src-es={entry.data.image.replace(".svg", ".es.svg")} data-alt-en={`Conceptual architecture for ${entry.data.title}`} data-alt-es={`Arquitectura conceptual: ${entry.data.titleEs}`} alt={`Conceptual architecture for ${entry.data.title}`} width="1200" height="630" decoding="async" /></a><figcaption><Copy text={copy('Conceptual architecture · open to enlarge', 'Arquitectura conceptual · abrir para ampliar')} /></figcaption></figure>
+    <div class="study-note"><Copy as="p" text={copy('Scope: architecture and validation design. The indicators summarize design targets. Implementation evidence will be added as the lab develops.', 'Alcance: diseño de arquitectura y validación. Los indicadores resumen objetivos del diseño. La evidencia de implementación se añadirá a medida que evolucione el laboratorio.')} /></div>
+    <div class="outcome-grid">{entry.data.outcomes.map(outcome => <div><strong>{outcome.value}</strong><Copy text={copy(outcome.label,outcome.labelEs)} /></div>)}</div>
+    <div class="prose" data-language-content="en" lang="en"><Content /></div>
+    <div class="prose" data-language-content="es" lang={entry.translation.language} hidden><SpanishContent /></div>
   </article>
-
-  <div style="margin-top: 40px; border-top: 1px solid var(--border-color); padding-top: 24px;">
-    <a href="/portfolio" class="nav-link" style="color: var(--text-secondary); font-family: var(--font-mono); font-size: 13px; text-decoration: none;"><i data-lucide="arrow-left"></i> Back to Home</a>
-  </div>
+  <div class="case-footer"><a href="/portfolio#projects" class="text-link"><i data-lucide="arrow-left"></i><Copy text={copy('All cloud labs', 'Todos los laboratorios cloud')} /></a><a href="/portfolio#contact" class="text-link"><Copy text={copy('Discuss this design', 'Conversemos sobre este diseño')} /> ↗</a></div>
 </BaseLayout>

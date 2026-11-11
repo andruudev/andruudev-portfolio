@@ -6,15 +6,13 @@ tag: "Cloud"
 description: "Más allá del chat de IA: cómo exprimir Kiro IDE utilizando automatizaciones locales, integraciones con fuentes de datos externas y bucles de prueba automatizados."
 ---
 
-# Kiro IDE Avanzado: Hooks, Protocolo MCP y el Bucle de Verificación
-
 En mi artículo anterior, vimos cómo Kiro IDE introduce el desarrollo guiado por especificaciones (Spec-Driven Development) para trabajar mano a mano con agentes de inteligencia artificial. Pero seamos sinceros: usar la IA para que escriba funciones sencillas o helpers es solo rascar la superficie.
 
 Donde Kiro realmente brilla es cuando empezamos a tratar a sus agentes como ingenieros de software autónomos que interactúan con nuestro entorno de desarrollo y sistemas de integración continua (CI/CD). 
 
 Hoy vamos a sumergirnos en las características más avanzadas de Kiro y cómo puedes implementarlas en tus proyectos reales.
 
-![Esquema de arquitectura avanzada y bucles en Kiro IDE](/assets/kiro-advanced.png)
+![Esquema de arquitectura avanzada y bucles en Kiro IDE](../../assets/blog/kiro-advanced.png)
 
 ---
 

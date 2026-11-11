@@ -6,13 +6,11 @@ tag: "AI"
 description: "Si estás cansado de copiar y pegar código de ChatGPT, Kiro IDE propone algo diferente: Spec-Driven Development con agentes de IA autónomos integrados en tu editor de toda la vida."
 ---
 
-# Primeros Pasos con Kiro IDE: De Cero a Tu Primer Agente de Código
-
 Si eres como yo, probablemente pases una buena parte del día en tu editor de código. Y si has estado usando inteligencia artificial para programar, tu flujo de trabajo se parece a esto: vas al navegador, le describes tu problema a ChatGPT o Claude, copias el bloque de código generado, regresas a tu editor, lo pegas, te das cuenta de que rompió tres cosas, y repites el proceso.
 
 Hace unas semanas decidí probar **Kiro IDE**, el nuevo entorno de desarrollo agéntico desarrollado por AWS. Y déjame decirte: la forma en la que colaboramos con la IA está a punto de cambiar por completo.
 
-![Colaboración humana con agente de IA en Kiro IDE](/assets/kiro-basics.png)
+![Colaboración humana con agente de IA en Kiro IDE](../../assets/blog/kiro-basics.png)
 
 ## ¿Qué demonios es un "IDE Agéntico"?
 

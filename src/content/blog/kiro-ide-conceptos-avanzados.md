@@ -1,4 +1,5 @@
 ---
+lang: "es"
 title: "Kiro IDE Avanzado: Hooks, Protocolo MCP y el Bucle de Verificación"
 date: "2026-06-21"
 tag: "Cloud"

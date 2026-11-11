@@ -1,0 +1,39 @@
+import assert from 'node:assert/strict';
+import { existsSync, readdirSync, readFileSync } from 'node:fs';
+import { join, resolve } from 'node:path';
+import { translations } from '../src/i18n/translations.js';
+
+function files(directory) {
+  return readdirSync(directory, { withFileTypes: true }).flatMap((entry) =>
+    entry.isDirectory() ? files(join(directory, entry.name)) : [join(directory, entry.name)],
+  );
+}
+
+assert(existsSync('dist/index.html'), 'Run npm run build before verifying the site.');
+const problems = [];
+const pages = files('dist').filter((file) => file.endsWith('.html'));
+for (const file of pages) {
+  const html = readFileSync(file, 'utf8');
+  for (const [, attribute, value] of html.matchAll(/\b(href|src)="([^"]+)"/g)) {
+    if (!value.startsWith('/') || value.startsWith('//')) continue;
+    const pathname = decodeURIComponent(value.split(/[?#]/)[0]);
+    const target = resolve('dist', '.' + pathname);
+    if (!existsSync(target) && !existsSync(join(target, 'index.html'))) {
+      problems.push(`${file}: broken ${attribute} ${value}`);
+    }
+  }
+}
+
+const keys = new Set(files('src').filter((file) => file.endsWith('.astro')).flatMap((file) =>
+  [...readFileSync(file, 'utf8').matchAll(/data-t="([^"]+)"/g)].map((match) => match[1]),
+));
+for (const lang of ['en', 'es']) {
+  for (const key of keys) {
+    if (!translations[lang][key]) problems.push(`Missing ${lang} translation: ${key}`);
+  }
+}
+const config = readFileSync('astro.config.mjs', 'utf8');
+const site = config.match(/site:\s*['"]([^'"]+)['"]/)[1];
+assert(readFileSync('dist/robots.txt', 'utf8').includes(`${site}/sitemap-index.xml`), 'robots.txt must use the configured site domain.');
+assert.equal(problems.length, 0, problems.join('\n'));
+console.log(`Verified ${pages.length} HTML files, internal links/assets, and ${keys.size} translation keys in both languages.`);

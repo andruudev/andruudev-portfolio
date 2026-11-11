@@ -10,7 +10,9 @@
     "preview": "astro preview",
     "astro": "astro",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist"
+    "deploy": "gh-pages -d dist",
+    "check": "astro check",
+    "verify": "npm run check && npm run build && node scripts/verify-build.mjs"
   },
   "devDependencies": {
     "gh-pages": "^6.3.0",

@@ -1,4 +1,5 @@
 ---
+lang: "es"
 title: "Primeros Pasos con Kiro IDE: De Cero a Tu Primer Agente de Código"
 date: "2026-06-20"
 tag: "AI"

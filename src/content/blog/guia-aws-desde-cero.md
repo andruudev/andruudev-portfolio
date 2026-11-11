@@ -1,4 +1,5 @@
 ---
+lang: "es"
 title: "AWS desde Cero: Guía de Inicio para Desarrolladores"
 date: "2026-06-22"
 tag: "Cloud"

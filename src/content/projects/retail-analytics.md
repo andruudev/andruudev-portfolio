@@ -3,7 +3,6 @@ title: "Retail ETL Pipeline"
 tech: "Python + Azure Data Factory"
 description: "Automated end-to-end ETL pipeline on Azure that processes 2M+ daily records from retail POS systems into a centralized data warehouse, enabling inventory optimization and demand forecasting."
 pubDate: 2025-05-10
-image: "/projects/retail-analytics.png"
 ---
 
 ## The Challenge

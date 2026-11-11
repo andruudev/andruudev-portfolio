@@ -3,7 +3,6 @@ title: "Sales Intelligence Dashboard"
 tech: "Power BI + SQL Server"
 description: "End-to-end BI solution consolidating sales data from 5 regional branches into a single Power BI dashboard, enabling real-time KPI monitoring and reducing reporting time by 65%."
 pubDate: 2025-03-15
-image: "/projects/sales-intelligence.png"
 ---
 
 ## The Challenge

@@ -2,16 +2,17 @@
 import SocialLinks from './SocialLinks.astro';
 ---
 <div class="magnetic-wrap animate" id="menu-wrap">
-  <button class="cmd-btn" id="cmdBtn" aria-label="Open Menu">
+  <button class="cmd-btn" id="cmdBtn" aria-label="Open Menu" aria-expanded="false" aria-controls="modalOverlay">
     <i data-lucide="chart-no-axes-gantt" id="menu-icon" style="width: 18px; height: 18px; flex-shrink: 0;"></i>
-    <span class="cmd-btn-label">MENU</span>
+    <span class="cmd-btn-label" data-t="menu">MENU</span>
   </button>
 </div>
 
-<div class="modal-overlay" id="modalOverlay">
+<div class="modal-overlay" id="modalOverlay" role="dialog" aria-modal="true" aria-label="Navigation">
   <div class="modal-content">
 
-    <!-- Top Header (Replaces Search) -->
+    <button type="button" id="modalCloseBtn" class="modal-close-btn" data-t="close_menu">Close menu</button>
+    <!-- Top Header -->
     <div class="cp-search" style="justify-content: space-between; padding: 10px 16px;">
       <div class="cp-time">
         <div class="cp-dot"></div>
@@ -28,7 +29,7 @@ import SocialLinks from './SocialLinks.astro';
 
 
       <div class="cp-group" data-group="pages">
-        <div class="cp-label">[NAV] Pages</div>
+        <div class="cp-label" data-t="pages">[NAV] Pages</div>
         <a href="/portfolio" class="cp-row">
           <span class="cp-title" data-t="portfolio_home">Portfolio Home</span>
           <span class="cp-meta">/portfolio</span>

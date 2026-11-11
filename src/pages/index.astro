@@ -1,4 +1,5 @@
 ---
+import ContactForm from "../components/ContactForm.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import SocialLinks from "../components/SocialLinks.astro";
 ---
@@ -185,41 +186,7 @@ import SocialLinks from "../components/SocialLinks.astro";
 
     <section class="linktree-section animate">
       <span class="section-label" data-t="linktree_contact">[04] Send a Message</span>
-      <form id="contact-form" class="minimal-form" data-formspree-id="mgodjnpp">
-        <div class="form-group">
-          <input
-            type="text"
-            name="name"
-            id="name"
-            placeholder="Name"
-            data-t="name_placeholder"
-            required
-          />
-        </div>
-        <div class="form-group">
-          <input
-            type="email"
-            name="email"
-            id="email"
-            placeholder="Email"
-            data-t="email_placeholder"
-            required
-          />
-        </div>
-        <div class="form-group">
-          <textarea
-            name="message"
-            id="message"
-            placeholder="Message..."
-            data-t="message_placeholder"
-            rows="3"
-            required></textarea>
-        </div>
-        <button type="submit" class="submit-btn">
-          <span data-t="send">Send</span>
-          <i data-lucide="arrow-right"></i>
-        </button>
-      </form>
+      <ContactForm />
     </section>
   </div>
 </BaseLayout>

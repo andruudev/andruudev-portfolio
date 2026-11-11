@@ -1,7 +1,11 @@
 ---
+import ContactForm from "../../components/ContactForm.astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { getCollection } from "astro:content";
 
+const projects = (await getCollection("projects")).sort((a, b) =>
+  (b.data.pubDate?.getTime() ?? 0) - (a.data.pubDate?.getTime() ?? 0),
+);
 const allPosts = await getCollection("blog");
 const blogPosts = allPosts
   .sort(
@@ -37,35 +41,12 @@ const blogPosts = allPosts
   <section class="animate">
     <span class="section-label" data-t="work_label">[02] Work</span>
     <div class="items-list">
-      <a href="/portfolio/project/sales-intelligence" class="item nav-link">
-        <span class="item-title"
-          ><i data-lucide="cloud"></i> Multi-Cloud Infrastructure with Terraform</span
-        >
-        <span class="item-meta">Terraform + AWS + GitHub Actions</span>
-      </a>
-      <a href="/portfolio/project/retail-analytics" class="item nav-link">
-        <span class="item-title"
-          ><i data-lucide="container"></i> Kubernetes GitOps CI/CD Platform</span
-        >
-        <span class="item-meta">Kubernetes + ArgoCD + Docker</span>
-      </a>
-      <a href="/portfolio/project/supply-chain" class="item nav-link">
-        <span class="item-title"
-          ><i data-lucide="cpu"></i> AWS Serverless Event-Driven Platform</span
-        >
-        <span class="item-meta">AWS Lambda + EventBridge + DynamoDB</span>
-      </a>
-    </div>
-    <div style="margin-top: 16px;">
-      <a
-        href="/portfolio"
-        class="nav-link"
-        style="color: var(--text-secondary); font-family: var(--font-mono); font-size: 11px; text-decoration: none; display: flex; align-items: center; gap: 4px;"
-        data-t="see_more"
-        >See More <i
-          data-lucide="arrow-right"
-          style="width: 10px; height: 10px;"></i></a
-      >
+      {projects.map((project) => (
+        <a href={`/portfolio/project/${project.id}`} class="item nav-link">
+          <span class="item-title"><i data-lucide="folder-code" /> {project.data.title}</span>
+          <span class="item-meta">{project.data.tech}</span>
+        </a>
+      ))}
     </div>
   </section>
 
@@ -394,50 +375,7 @@ const blogPosts = allPosts
 
   <section class="animate">
     <span class="section-label" data-t="connect_label">[11] Connect</span>
-    <!-- ============================================================
-         CONTACT FORM — Powered by Formspree
-         HOW TO ACTIVATE:
-         1. Go to https://formspree.io and create a free account
-         2. Click "New Form" and name it (e.g. "Portfolio Contact")
-         3. Copy your form ID (looks like: xpzgkwvb)
-         4. Replace YOUR_FORM_ID below with your actual ID
-         That's it — Formspree handles the email delivery for free.
-         ============================================================ -->
-    <form id="contact-form" class="minimal-form" data-formspree-id="mgodjnpp">
-      <div class="form-group">
-        <input
-          type="text"
-          name="name"
-          id="name"
-          placeholder="Name"
-          data-t="name_placeholder"
-          required
-        />
-      </div>
-      <div class="form-group">
-        <input
-          type="email"
-          name="email"
-          id="email"
-          placeholder="Email"
-          data-t="email_placeholder"
-          required
-        />
-      </div>
-      <div class="form-group">
-        <textarea
-          name="message"
-          id="message"
-          placeholder="Message..."
-          data-t="message_placeholder"
-          rows="3"
-          required></textarea>
-      </div>
-      <button type="submit" class="submit-btn">
-        <span data-t="send">Send</span>
-        <i data-lucide="arrow-right"></i>
-      </button>
-    </form>
+    <ContactForm />
   </section>
 
   <section class="animate" id="network-visualizer">
